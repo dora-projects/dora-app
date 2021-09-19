@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "postinstall": "husky install",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "lint": "eslint --cache --fix"
+    "lint": "eslint --cache --fix",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.4.1",
@@ -35,11 +37,6 @@
     "react-scripts": "4.0.3",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "^4.4.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [
