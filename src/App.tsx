@@ -1,17 +1,42 @@
-import React from "react";
+import * as React from "react";
+import { ErrorBoundary } from "@/lib/ErrorBoundary";
+import { BrowserRouter } from "react-router-dom";
+import { Notifications } from "@/components/Notifications/Notifications";
+import { AppRoutes } from "@/routes";
 
-function App() {
+const ErrorFallback = () => {
   return (
-    <div className="App">
-      <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
-        <div className="flex-shrink-0"></div>
-        <div>
-          <div className="text-xl font-medium text-black">ChitChat</div>
-          <p className="text-gray-500">You have a new message!</p>
-        </div>
-      </div>
+    <div className="text-red-500 w-screen h-screen flex flex-col justify-center items-center" role="alert">
+      <h2 className="text-lg">糟糕, 发生了未知错误 :( </h2>
+      <button
+        className="flex justify-center items-center border border-gray-300 disabled:opacity-70 disabled:cursor-not-allowed rounded-md shadow-sm font-medium focus:outline-none"
+        onClick={() => window.location.assign(window.location.origin)}
+      >
+        <span className="mx-2">刷新</span>
+      </button>
     </div>
   );
-}
+};
 
-export default App;
+type AppProviderProps = {
+  children: React.ReactNode;
+};
+
+const AppProvider = ({ children }: AppProviderProps) => {
+  return (
+    <React.Suspense fallback={<h1>loading</h1>}>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>
+        <Notifications />
+        <BrowserRouter>{children}</BrowserRouter>
+      </ErrorBoundary>
+    </React.Suspense>
+  );
+};
+
+export default function App() {
+  return (
+    <AppProvider>
+      <AppRoutes />
+    </AppProvider>
+  );
+}

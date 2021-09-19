@@ -1,5 +1,13 @@
-import React from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
 
-const Auth = () => <div />;
+import { Login } from "./routes/Login";
+import { Register } from "./routes/Register";
 
-export default Auth;
+export const AuthRoutes = () => {
+  return (
+    <Routes>
+      <Route path="login" element={<Login />} />
+      <Route path="register" element={<Register />} />
+    </Routes>
+  );
+};
