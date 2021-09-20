@@ -25,7 +25,7 @@ type AppProviderProps = {
 
 const AppProvider = ({ children }: AppProviderProps) => {
   return (
-    <React.Suspense fallback={<FullLoading loading title={"加载页面..."} />}>
+    <React.Suspense fallback={<FullLoading loading />}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Notifications />
         <BrowserRouter>{children}</BrowserRouter>

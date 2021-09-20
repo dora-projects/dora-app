@@ -1,11 +1,11 @@
 import * as React from "react";
 
 import ProLayout, { PageContainer } from "@ant-design/pro-layout";
-import { Avatar } from "antd";
-import { UserOutlined } from "@ant-design/icons";
-import { SmileOutlined, HeartOutlined } from "@ant-design/icons";
+import { AppstoreOutlined, HeartOutlined, SettingOutlined } from "@ant-design/icons";
 
 import complexMenu from "./Menu";
+import RightContent from "./RightContent";
+
 import Logo from "../../assets/logo.svg";
 
 type MainLayoutProps = {
@@ -31,18 +31,13 @@ export const MainLayout = ({ children, title }: MainLayoutProps) => {
           routes: [
             {
               path: "/home",
-              name: "收藏",
-              icon: <SmileOutlined />,
-            },
-            {
-              path: "/home/overview",
-              name: "FaceBook",
-              icon: <HeartOutlined />,
+              name: "应用",
+              icon: <AppstoreOutlined />,
             },
             {
               path: "/home/search",
-              name: "Twitter",
-              icon: <HeartOutlined />,
+              name: "设置",
+              icon: <SettingOutlined />,
             },
           ],
         }}
@@ -57,16 +52,10 @@ export const MainLayout = ({ children, title }: MainLayoutProps) => {
           route={{
             routes: complexMenu,
           }}
-          rightContentRender={() => (
-            <div>
-              <Avatar shape="square" size="small" icon={<UserOutlined />} />
-            </div>
-          )}
+          rightContentRender={() => <RightContent />}
           menuHeaderRender={false}
         >
-          <PageContainer content="欢迎使用">
-            <div>Hello World</div>
-          </PageContainer>
+          {children}
         </ProLayout>
       </ProLayout>
     </div>

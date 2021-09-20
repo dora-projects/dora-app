@@ -1,0 +1,54 @@
+@import "~antd/es/style/themes/default.less";
+
+@pro-header-hover-bg: rgba(0, 0, 0, 0.025);
+
+.container > * {
+  background-color: @popover-bg;
+  border-radius: 4px;
+  box-shadow: @shadow-1-down;
+}
+
+.menu {
+  :global(.anticon) {
+    margin-right: 8px;
+  }
+  //:global(.ant-dropdown-menu-item) {
+  //}
+}
+
+.right {
+  display: flex;
+  float: right;
+  height: 48px;
+  margin-left: auto;
+  overflow: hidden;
+  .action {
+    display: flex;
+    align-items: center;
+    height: 48px;
+    padding: 0 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    > span {
+      vertical-align: middle;
+    }
+    &:hover {
+      background: @pro-header-hover-bg;
+    }
+    &:global(.opened) {
+      background: @pro-header-hover-bg;
+    }
+  }
+  .search {
+    padding: 0 12px;
+    &:hover {
+      background: transparent;
+    }
+  }
+  .account {
+    .avatar {
+      margin-right: 8px;
+      vertical-align: top;
+    }
+  }
+}
