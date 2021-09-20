@@ -8,7 +8,7 @@ export const useAuth = () => {
     setTimeout(() => {
       setLoading(false);
       setUser({ user: { id: 1212 } });
-    }, 2000);
+    }, 300);
   }, []);
 
   return { loading, user };

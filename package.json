@@ -11,6 +11,7 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@ant-design/pro-layout": "^6.25.7",
     "@tailwindcss/typography": "^0.4.1",
     "antd": "^4.16.13",
     "axios": "^0.21.4",
@@ -50,7 +51,7 @@
     "src/**/*.{js,jsx,ts,tsx}": [
       "eslint --cache --fix"
     ],
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,less,md}": [
       "prettier --write"
     ]
   },

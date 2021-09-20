@@ -1,7 +1,8 @@
 import * as React from "react";
 import { ErrorBoundary } from "@/lib/ErrorBoundary";
 import { BrowserRouter } from "react-router-dom";
-import { Notifications } from "@/components/Notifications/Notifications";
+import { Notifications } from "@/components/Notifications";
+import { FullLoading } from "@/components/Loading";
 import { AppRoutes } from "@/routes";
 
 const ErrorFallback = () => {
@@ -24,7 +25,7 @@ type AppProviderProps = {
 
 const AppProvider = ({ children }: AppProviderProps) => {
   return (
-    <React.Suspense fallback={<h1>loading</h1>}>
+    <React.Suspense fallback={<FullLoading loading title={"加载页面..."} />}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Notifications />
         <BrowserRouter>{children}</BrowserRouter>
