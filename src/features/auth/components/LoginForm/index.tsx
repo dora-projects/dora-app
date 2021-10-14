@@ -1,5 +1,5 @@
 import { LoginForm, ProFormText, ProFormCaptcha, ProFormCheckbox } from "@ant-design/pro-form";
-import { UserOutlined, MobileOutlined, LockOutlined } from "@ant-design/icons";
+import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { message, Tabs } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
@@ -54,7 +54,7 @@ const AccountPassword = () => (
       name="username"
       fieldProps={{
         size: "large",
-        prefix: <UserOutlined className={"prefixIcon"} />,
+        prefix: <MailOutlined className={"prefixIcon"} />,
       }}
       placeholder={"请输入邮箱"}
       rules={[
@@ -86,10 +86,10 @@ const EmailCode = () => (
     <ProFormText
       fieldProps={{
         size: "large",
-        prefix: <MobileOutlined className={"prefixIcon"} />,
+        prefix: <MailOutlined className={"prefixIcon"} />,
       }}
       name="email"
-      placeholder={"邮箱验证码"}
+      placeholder={"请输入邮箱"}
       rules={[
         {
           required: true,
