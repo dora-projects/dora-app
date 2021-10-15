@@ -9,7 +9,7 @@ import { useQueryLoginUser } from "@/hooks";
 
 const { Dashboard } = lazyImport(() => import("@/features/misc"), "Dashboard");
 
-const ProtectedRoot = () => {
+const ProtectedWrap = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { loading, user } = useQueryLoginUser();
@@ -33,7 +33,7 @@ const ProtectedRoot = () => {
 export const protectedRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <ProtectedRoot />,
+    element: <ProtectedWrap />,
     children: [
       { path: "dashboard", element: <Dashboard /> },
       { path: "*", element: <Navigate to="/dashboard" /> },

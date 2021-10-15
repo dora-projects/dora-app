@@ -6,7 +6,7 @@ import { AppstoreOutlined, HeartOutlined, SettingOutlined } from "@ant-design/ic
 import complexMenu from "./Menu";
 import RightContent from "./RightContent";
 
-import Logo from "../../assets/logo.svg";
+import Logo from "../../assets/logo.png";
 
 type MainLayoutProps = {
   children: React.ReactNode;

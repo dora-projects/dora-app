@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { axios } from "@/lib/axios";
 
 export const getLoginUserInfo = () => {
-  return axios.get("/auth/me");
+  return axios.get("/api/auth/me");
 };
 
 export const useQueryUserInfo = () => {

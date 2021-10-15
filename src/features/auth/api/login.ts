@@ -7,7 +7,7 @@ export type LoginCredentialsDTO = {
 };
 
 export const loginWithEmailAndPassword = (data: LoginCredentialsDTO) => {
-  return axios.post("/auth/login", data);
+  return axios.post("/api/auth/login", data);
 };
 
 export const useLogin = () => {
