@@ -1,6 +1,10 @@
 import * as React from "react";
-import { ErrorBoundary } from "@/lib/ErrorBoundary";
 import { BrowserRouter } from "react-router-dom";
+import { QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { queryClient } from "@/lib/react-query";
+
+import { ErrorBoundary } from "@/lib/ErrorBoundary";
 import { Notifications } from "@/components/Notifications";
 import { FullLoading } from "@/components/Loading";
 import { AppRoutes } from "@/routes";
@@ -27,8 +31,11 @@ const AppProvider = ({ children }: AppProviderProps) => {
   return (
     <React.Suspense fallback={<FullLoading loading />}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Notifications />
-        <BrowserRouter>{children}</BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          {process.env.NODE_ENV !== "test" && <ReactQueryDevtools />}
+          <Notifications />
+          <BrowserRouter>{children}</BrowserRouter>
+        </QueryClientProvider>
       </ErrorBoundary>
     </React.Suspense>
   );

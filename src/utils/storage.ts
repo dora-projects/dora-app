@@ -1,14 +1,17 @@
-const storagePrefix = "dora_app_";
+import { safeJsonParser } from "@/utils/helper";
+
+const storagePrefix = "dora_app";
 
 const storage = {
   getToken: () => {
-    return JSON.parse(window.localStorage.getItem(`${storagePrefix}token`) as string);
+    const token = window.localStorage.getItem(`${storagePrefix}_token`);
+    return safeJsonParser(token as string);
   },
   setToken: (token: string) => {
-    window.localStorage.setItem(`${storagePrefix}token`, JSON.stringify(token));
+    window.localStorage.setItem(`${storagePrefix}_token`, JSON.stringify(token));
   },
   clearToken: () => {
-    window.localStorage.removeItem(`${storagePrefix}token`);
+    window.localStorage.removeItem(`${storagePrefix}_token`);
   },
 };
 

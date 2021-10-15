@@ -1,17 +1,18 @@
 import * as React from "react";
 import { RouteObject } from "react-router";
+import Unauthorized from "@/components/UnAuthorized";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { MainLayout } from "@/components/Layout";
 import { lazyImport } from "@/utils/lazyImport";
 import { FullLoading } from "@/components/Loading";
-import { useAuth } from "@/hooks";
+import { useQueryLoginUser } from "@/hooks";
 
 const { Dashboard } = lazyImport(() => import("@/features/misc"), "Dashboard");
 
 const ProtectedRoot = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { loading } = useAuth();
+  const { loading, user } = useQueryLoginUser();
 
   React.useEffect(() => {
     if (location.pathname === "/") {
@@ -20,6 +21,7 @@ const ProtectedRoot = () => {
   }, [location.pathname, navigate]);
 
   if (loading) return <FullLoading loading={true} title={"获取登录信息..."} />;
+  if (!user) return <Unauthorized />;
 
   return (
     <MainLayout>

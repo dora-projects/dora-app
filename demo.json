@@ -1,0 +1,13 @@
+{
+  "result": {
+    "id": 5,
+    "username": "nan",
+    "email": "50326921@qq.com",
+    "role": "admin",
+    "isActive": false,
+    "createdAt": "2021-10-15T04:13:02.429Z",
+    "updatedAt": "2021-10-15T04:13:02.429Z"
+  },
+  "iat": 1634300755,
+  "exp": 1634343955
+}
