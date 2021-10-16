@@ -1,4 +1,4 @@
-import { useQueryUserInfo } from "@/api/auth";
+import { useQueryUserInfo } from "@/services/auth";
 import React from "react";
 import { useLoginUserStore } from "@/stores/user";
 

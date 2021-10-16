@@ -1,5 +1,5 @@
 import { Button } from "antd";
-import { ContentLayout } from "@/components/Layout";
+import { ContentLayout } from "@/layout";
 
 export const Dashboard = () => {
   return (

@@ -1,4 +1,4 @@
-import { axios } from "@/lib/axios";
+import { axios } from "@/common/axios";
 import { useMutation } from "react-query";
 
 export type LoginCredentialsDTO = {

@@ -2,12 +2,10 @@ import * as React from "react";
 import { RouteObject } from "react-router";
 import Unauthorized from "@/components/UnAuthorized";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { MainLayout } from "@/components/Layout";
+import { MainLayout } from "@/layout";
 import { lazyImport } from "@/utils/lazyImport";
 import { FullLoading } from "@/components/Loading";
-import { useQueryLoginUser } from "@/hooks";
-
-const { Dashboard } = lazyImport(() => import("@/features/misc"), "Dashboard");
+import { useQueryLoginUser } from "@/common/hooks";
 
 const ProtectedWrap = () => {
   const location = useLocation();
@@ -30,12 +28,16 @@ const ProtectedWrap = () => {
   );
 };
 
+const { Dashboard } = lazyImport(() => import("@/pages/misc"), "Dashboard");
+
 export const protectedRoutes: RouteObject[] = [
   {
     path: "/",
     element: <ProtectedWrap />,
     children: [
       { path: "dashboard", element: <Dashboard /> },
+      { path: "teams", element: <Dashboard /> },
+      { path: "projects", element: <Dashboard /> },
       { path: "*", element: <Navigate to="/dashboard" /> },
     ],
   },

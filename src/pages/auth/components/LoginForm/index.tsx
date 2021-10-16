@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import Logo from "@/assets/logo.png";
-import { useLogin } from "@/features/auth/api/login";
+import { useLogin } from "../../api/login";
 import storage from "@/utils/storage";
 import { useNotificationStore } from "@/stores/notifications";
 

@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { axios } from "@/lib/axios";
+import { axios } from "@/common/axios";
 
 export const getLoginUserInfo = () => {
   return axios.get("/api/auth/me");
