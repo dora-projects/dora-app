@@ -2,10 +2,20 @@ import * as React from "react";
 import { RouteObject } from "react-router";
 import Unauthorized from "@/components/UnAuthorized";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { MainLayout } from "@/layout";
-import { lazyImport } from "@/utils/lazyImport";
+import { MainLayout } from "@/layout/MainLayout";
 import { FullLoading } from "@/components/Loading";
 import { useQueryLoginUser } from "@/common/hooks";
+import { lazyImport } from "@/utils/lazyImport";
+
+import { Console } from "@/pages/console";
+import { Teams } from "@/pages/teams";
+import { Projects } from "@/pages/projects";
+import { Setting } from "@/pages/setting";
+
+// const { Console } = lazyImport(() => import("@/pages/console"), "Console");
+// const { Teams } = lazyImport(() => import("@/pages/teams"), "Teams");
+// const { Projects } = lazyImport(() => import("@/pages/projects"), "Projects");
+// const { Setting } = lazyImport(() => import("@/pages/setting"), "Setting");
 
 const ProtectedWrap = () => {
   const location = useLocation();
@@ -14,7 +24,7 @@ const ProtectedWrap = () => {
 
   React.useEffect(() => {
     if (location.pathname === "/") {
-      navigate("/dashboard", { replace: true });
+      navigate("/console", { replace: true });
     }
   }, [location.pathname, navigate]);
 
@@ -28,17 +38,16 @@ const ProtectedWrap = () => {
   );
 };
 
-const { Dashboard } = lazyImport(() => import("@/pages/misc"), "Dashboard");
-
 export const protectedRoutes: RouteObject[] = [
   {
     path: "/",
     element: <ProtectedWrap />,
     children: [
-      { path: "dashboard", element: <Dashboard /> },
-      { path: "teams", element: <Dashboard /> },
-      { path: "projects", element: <Dashboard /> },
-      { path: "*", element: <Navigate to="/dashboard" /> },
+      { path: "console/*", element: <Console /> },
+      { path: "teams", element: <Teams /> },
+      { path: "projects", element: <Projects /> },
+      { path: "setting", element: <Setting /> },
+      { path: "*", element: <Navigate to="/console" /> },
     ],
   },
 ];

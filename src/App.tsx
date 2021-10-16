@@ -15,7 +15,7 @@ const App = () => {
     <React.Suspense fallback={<FullLoading loading />}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
         <QueryClientProvider client={queryClient}>
-          {!__TEST__ && <ReactQueryDevtools />}
+          {!__TEST__ && <ReactQueryDevtools position={"bottom-right"} />}
           <Notifications />
           <BrowserRouter>
             <AppRoutes />

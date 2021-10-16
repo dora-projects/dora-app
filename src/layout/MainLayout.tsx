@@ -1,62 +1,51 @@
 import * as React from "react";
-
-import ProLayout, { PageContainer } from "@ant-design/pro-layout";
-import { AppstoreOutlined, HeartOutlined, SettingOutlined } from "@ant-design/icons";
-
-import complexMenu from "./Menu";
+import ProLayout from "@ant-design/pro-layout";
+import { AppstoreOutlined, SwapOutlined, SettingOutlined } from "@ant-design/icons";
 import RightContent from "./RightContent";
-
 import Logo from "@/assets/logo.png";
+import { useLocation, useNavigate } from "react-router-dom";
 
-type MainLayoutProps = {
-  children: React.ReactNode;
-  title?: string;
-};
+export const MainLayout: React.FC = ({ children }) => {
+  const navigator = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
 
-export const MainLayout = ({ children, title }: MainLayoutProps) => {
   return (
-    <div
-      style={{
-        height: "100vh",
-      }}
-    >
+    <div style={{ height: "100vh" }}>
       <ProLayout
         logo={Logo}
-        location={{
-          pathname: "/home",
-        }}
+        title={"Dora"}
         collapsedButtonRender={false}
         collapsed
+        disableContentMargin
+        location={{ pathname }}
         route={{
           routes: [
             {
-              path: "/home",
-              name: "应用",
+              path: "/console",
+              name: " 概览",
               icon: <AppstoreOutlined />,
             },
             {
-              path: "/home/search",
-              name: "设置",
+              path: "/teams",
+              name: " 团队",
+              icon: <SwapOutlined />,
+            },
+            {
+              path: "/setting",
+              name: " 设置",
               icon: <SettingOutlined />,
             },
           ],
         }}
-        headerRender={false}
-        disableContentMargin
+        rightContentRender={() => <RightContent />}
+        menuProps={{
+          onClick: (menu: any) => {
+            navigator(menu.key);
+          },
+        }}
       >
-        <ProLayout
-          location={{
-            pathname: "/home/overview",
-          }}
-          navTheme="light"
-          route={{
-            routes: complexMenu,
-          }}
-          rightContentRender={() => <RightContent />}
-          menuHeaderRender={false}
-        >
-          {children}
-        </ProLayout>
+        {children}
       </ProLayout>
     </div>
   );
