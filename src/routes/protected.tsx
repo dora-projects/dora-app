@@ -8,12 +8,10 @@ import { useQueryLoginUser } from "@/common/hooks";
 import { lazyImport } from "@/utils/lazyImport";
 
 import { Console } from "@/pages/console";
-import { Teams } from "@/pages/teams";
 import { Projects } from "@/pages/projects";
 import { Setting } from "@/pages/setting";
 
 // const { Console } = lazyImport(() => import("@/pages/console"), "Console");
-// const { Teams } = lazyImport(() => import("@/pages/teams"), "Teams");
 // const { Projects } = lazyImport(() => import("@/pages/projects"), "Projects");
 // const { Setting } = lazyImport(() => import("@/pages/setting"), "Setting");
 
@@ -44,7 +42,6 @@ export const protectedRoutes: RouteObject[] = [
     element: <ProtectedWrap />,
     children: [
       { path: "console/*", element: <Console /> },
-      { path: "teams", element: <Teams /> },
       { path: "projects", element: <Projects /> },
       { path: "setting", element: <Setting /> },
       { path: "*", element: <Navigate to="/console" /> },

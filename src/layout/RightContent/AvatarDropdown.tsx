@@ -2,9 +2,11 @@ import { Avatar, Menu, Dropdown } from "antd";
 import { useNavigate } from "react-router-dom";
 import { LogoutOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 import styles from "./index.module.less";
+import { useLoginUserStore } from "@/stores/user";
 
 export const AvatarDropdown = () => {
   const navigate = useNavigate();
+  const { userInfo } = useLoginUserStore();
 
   const menu = (
     <Menu
@@ -35,8 +37,16 @@ export const AvatarDropdown = () => {
   return (
     <Dropdown overlay={menu} overlayClassName={styles.container} placement="topRight">
       <span className={`${styles.action} ${styles.account}`}>
-        <Avatar className={styles.avatar} size="small" icon={<UserOutlined />} />
-        <span className={`anticon`}>Nancode</span>
+        <Avatar
+          className={styles.avatar}
+          style={{ backgroundColor: "#f56a00" }}
+          size="small"
+          alt={userInfo?.username}
+          // icon={<UserOutlined />}
+        >
+          {userInfo?.username?.slice(0, 1)?.toLocaleUpperCase()}
+        </Avatar>
+        <span className={`anticon`}>{userInfo?.username}</span>
       </span>
     </Dropdown>
   );

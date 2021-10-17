@@ -27,8 +27,8 @@ export const MainLayout: React.FC = ({ children }) => {
               icon: <AppstoreOutlined />,
             },
             {
-              path: "/teams",
-              name: " 团队",
+              path: "/projects",
+              name: " 项目切换",
               icon: <SwapOutlined />,
             },
             {

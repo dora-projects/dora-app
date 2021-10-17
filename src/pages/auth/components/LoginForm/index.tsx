@@ -1,4 +1,4 @@
-import { LoginForm, ProFormText, ProFormCaptcha, ProFormCheckbox } from "@ant-design/pro-form";
+import { LoginForm, ProFormText, ProFormCaptcha } from "@ant-design/pro-form";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { message, Tabs } from "antd";
 import { useNavigate } from "react-router-dom";

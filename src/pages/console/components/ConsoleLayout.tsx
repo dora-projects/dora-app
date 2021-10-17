@@ -44,6 +44,7 @@ export const OverviewLayout: React.FC = ({ children }) => {
 
   return (
     <ProLayout
+      title={"Dora"}
       siderWidth={150}
       location={{ pathname }}
       navTheme="light"

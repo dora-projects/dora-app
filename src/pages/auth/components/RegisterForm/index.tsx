@@ -3,7 +3,7 @@ import { message, Button } from "antd";
 import ProForm, { ProFormText } from "@ant-design/pro-form";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 
-export default () => {
+const Register = () => {
   return (
     <ProForm
       title="注册"
@@ -55,3 +55,5 @@ export default () => {
     </ProForm>
   );
 };
+
+export default Register;

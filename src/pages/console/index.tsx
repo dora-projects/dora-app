@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { OverviewLayout } from "./components/ConsoleLayout";
 import { Overview } from "./routes/Overview";
-import { Issues } from "./routes/Issues";
+import Issues from "./routes/Issues";
 import { Performance } from "./routes/Performance";
 import { Releases } from "./routes/Releases";
 import { Alerts } from "./routes/Alerts";
