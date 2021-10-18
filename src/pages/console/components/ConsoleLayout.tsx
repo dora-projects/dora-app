@@ -51,6 +51,7 @@ export const OverviewLayout: React.FC = ({ children }) => {
       route={{
         routes: SubMenu,
       }}
+      fixSiderbar
       menuHeaderRender={false}
       headerRender={false}
       menuProps={{

@@ -27,7 +27,7 @@ const ProtectedWrap = () => {
   }, [location.pathname, navigate]);
 
   if (loading) return <FullLoading loading={true} title={"获取登录信息..."} />;
-  if (!user) return <Unauthorized />;
+  // if (!user) return <Unauthorized />;
 
   return (
     <MainLayout>

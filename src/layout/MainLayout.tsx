@@ -19,17 +19,14 @@ export const MainLayout: React.FC = ({ children }) => {
         collapsed
         disableContentMargin
         location={{ pathname }}
+        fixedHeader
+        fixSiderbar
         route={{
           routes: [
             {
               path: "/console",
               name: " 概览",
               icon: <AppstoreOutlined />,
-            },
-            {
-              path: "/projects",
-              name: " 项目切换",
-              icon: <SwapOutlined />,
             },
             {
               path: "/setting",
