@@ -18,6 +18,10 @@ export const Setting = () => {
           tab: "系统状况",
           key: "system",
         },
+        {
+          tab: "团队设置",
+          key: "team",
+        },
       ]}
       onTabChange={(tab) => {
         setTab(tab);
@@ -31,6 +35,12 @@ export const Setting = () => {
 
       {tab === "system" ? (
         <ProCard title="系统状态" bordered headerBordered>
+          <SystemInfo />
+        </ProCard>
+      ) : null}
+
+      {tab === "team" ? (
+        <ProCard title="团队设置" bordered headerBordered>
           <SystemInfo />
         </ProCard>
       ) : null}

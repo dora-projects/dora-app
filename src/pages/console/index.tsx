@@ -1,6 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import { OverviewLayout } from "./components/ConsoleLayout";
+import ConsoleLayout from "@/layout/ConsoleLayout";
 import { Overview } from "./routes/Overview";
 import Issues from "./routes/Issues";
 import { Performance } from "./routes/Performance";
@@ -9,7 +9,7 @@ import { Alerts } from "./routes/Alerts";
 
 export const Console = () => {
   return (
-    <OverviewLayout>
+    <ConsoleLayout>
       <Routes>
         <Route path="overview" element={<Overview />} />
         <Route path="issues" element={<Issues />} />
@@ -18,6 +18,6 @@ export const Console = () => {
         <Route path="alerts" element={<Alerts />} />
         <Route path="*" element={<Navigate to="overview" />} />
       </Routes>
-    </OverviewLayout>
+    </ConsoleLayout>
   );
 };

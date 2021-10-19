@@ -6,8 +6,11 @@ import {
   DashboardOutlined,
   AlertOutlined,
   FileSyncOutlined,
+  SwapOutlined,
 } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
+import RightContent from "@/components/RightContent";
+import SwitchProject from "@/components/SwitchProject";
 
 const SubMenu = [
   {
@@ -37,7 +40,7 @@ const SubMenu = [
   },
 ];
 
-export const OverviewLayout: React.FC = ({ children }) => {
+const OverviewLayout: React.FC = ({ children }) => {
   const navigator = useNavigate();
   const location = useLocation();
   const { pathname } = location;
@@ -48,12 +51,15 @@ export const OverviewLayout: React.FC = ({ children }) => {
       siderWidth={150}
       location={{ pathname }}
       navTheme="light"
+      fixSiderbar
+      menuHeaderRender={false}
+      menuExtraRender={({ collapsed }) => !collapsed && <SwitchProject />}
+      disableContentMargin
+      contentStyle={{ overflowY: "scroll", overflowX: "hidden" }}
+      rightContentRender={() => <RightContent />}
       route={{
         routes: SubMenu,
       }}
-      fixSiderbar
-      menuHeaderRender={false}
-      headerRender={false}
       menuProps={{
         onClick: (menu: any) => {
           navigator(menu.key);
@@ -64,3 +70,5 @@ export const OverviewLayout: React.FC = ({ children }) => {
     </ProLayout>
   );
 };
+
+export default OverviewLayout;
