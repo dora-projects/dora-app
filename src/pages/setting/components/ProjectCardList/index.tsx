@@ -3,6 +3,7 @@ import { ProjectItem } from "./index.styled";
 import { Col, Row } from "antd";
 import { SwapOutlined } from "@ant-design/icons";
 import IconFont from "@/components/IconFont";
+import { SettingOutlined } from "@ant-design/icons";
 
 const ProjectCardList = () => {
   const projectList = [
@@ -54,11 +55,28 @@ const ProjectCardList = () => {
           return (
             <Col span={12} key={project.name}>
               <ProjectItem>
-                <div className="l1">{project.name}</div>
-                <div className="l2">{project.desc}</div>
-                <div className="icon">
-                  <IconFont name="icon-javascript-blank" style={{ fontSize: "80px", color: "#ccc" }} />
+                <div className="info">
+                  <div className="head">
+                    <div className="name">{project.name}</div>
+                    <div className="desc">{project.desc}</div>
+                  </div>
+                  <div className="foot">
+                    <div className="stat">
+                      <div className="count-item">
+                        <span>total：</span>
+                        <span>231233</span>
+                      </div>
+                      <div className="count-item">
+                        <span>24h count：</span>
+                        <span>46742</span>
+                      </div>
+                    </div>
+                    <div className="setting">
+                      <SettingOutlined />
+                    </div>
+                  </div>
                 </div>
+                <IconFont className={"type-icon"} name="icon-javascript-blank" />
               </ProjectItem>
             </Col>
           );
