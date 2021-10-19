@@ -1,6 +1,8 @@
 import { Button } from "antd";
 import { PageContainer } from "@ant-design/pro-layout";
 
-export const Releases = () => {
+const Releases = () => {
   return <div>Releases</div>;
 };
+
+export default Releases;

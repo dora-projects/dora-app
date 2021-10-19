@@ -1,11 +1,13 @@
+import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import ConsoleLayout from "@/layout/ConsoleLayout";
-import { Overview } from "./routes/Overview";
+import Overview from "./routes/Overview";
 import Issues from "./routes/Issues";
-import { Performance } from "./routes/Performance";
-import { Releases } from "./routes/Releases";
-import { Alerts } from "./routes/Alerts";
+import Performance from "./routes/Performance";
+import Releases from "./routes/Releases";
+import Alerts from "./routes/Alerts";
+import Footer from "@/components/Footer";
 
 export const Console = () => {
   return (
@@ -18,6 +20,7 @@ export const Console = () => {
         <Route path="alerts" element={<Alerts />} />
         <Route path="*" element={<Navigate to="overview" />} />
       </Routes>
+      <Footer />
     </ConsoleLayout>
   );
 };

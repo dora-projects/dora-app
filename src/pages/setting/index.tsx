@@ -1,0 +1,44 @@
+import React from "react";
+import { PageContainer } from "@ant-design/pro-layout";
+import UserInfoSetting from "./routes/UserInfoSetting";
+import SystemInfo from "./routes/SystemInfo";
+import Projects from "./routes/Projects";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import Footer from "@/components/Footer";
+
+export const Setting = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  return (
+    <PageContainer
+      title="设置管理"
+      tabActiveKey={location.pathname}
+      tabList={[
+        {
+          tab: "账号信息",
+          key: "/setting/userinfo",
+        },
+        {
+          tab: "系统状况",
+          key: "/setting/system",
+        },
+        {
+          tab: "项目管理",
+          key: "/setting/project",
+        },
+      ]}
+      onTabChange={(tab) => {
+        navigate(tab);
+      }}
+    >
+      <Routes>
+        <Route path="userinfo" element={<UserInfoSetting />} />
+        <Route path="system" element={<SystemInfo />} />
+        <Route path="project" element={<Projects />} />
+        <Route path="*" element={<Navigate to="userinfo" />} />
+      </Routes>
+      <Footer />
+    </PageContainer>
+  );
+};
