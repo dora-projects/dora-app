@@ -1,62 +1,30 @@
 import React from "react";
 import { ProjectItem } from "./index.styled";
 import { Col, Row } from "antd";
-import { SwapOutlined } from "@ant-design/icons";
 import IconFont from "@/components/IconFont";
-import { SettingOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, SettingOutlined } from "@ant-design/icons";
 
-const ProjectCardList = () => {
-  const projectList = [
-    {
-      name: "ddddd",
-      desc: "ddddddddd",
-    },
-    {
-      name: "dd23 东add东add东add东add",
-      desc: "212",
-    },
-    {
-      name: "dd23 东add东add东add东add",
-      desc: "212",
-    },
-    {
-      name: "dd23 东add东add东add东add",
-      desc: "212",
-    },
-    {
-      name: "dd23 东add东add东add东add",
-      desc: "212",
-    },
-    {
-      name: "dd23 东add东add东add东add",
-      desc: "212",
-    },
-    {
-      name: "dd23 东add东add东add东add",
-      desc: "212",
-    },
-    {
-      name: "dd23 东add东add东add东add",
-      desc: "212",
-    },
-    {
-      name: "dd23 东add东add东add东add",
-      desc: "212",
-    },
-    {
-      name: "dd23 东add东add东add东add",
-      desc: "212",
-    },
-  ];
+interface Props {
+  projects: any[];
+  onClickSetting: (project: any) => void;
+}
+
+const ProjectCardList = (props: Props) => {
   return (
     <div className="">
       <Row gutter={[24, 24]}>
-        {projectList.map((project) => {
+        {props.projects.map((project) => {
           return (
-            <Col span={12} key={project.name}>
+            <Col sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }} key={project.id}>
               <ProjectItem>
                 <div className="info">
-                  <div className="head">
+                  <div
+                    className="head"
+                    onClick={() => {
+                      console.log(project);
+                      props.onClickSetting(project);
+                    }}
+                  >
                     <div className="name">{project.name}</div>
                     <div className="desc">{project.desc}</div>
                   </div>
@@ -71,8 +39,14 @@ const ProjectCardList = () => {
                         <span>46742</span>
                       </div>
                     </div>
-                    <div className="setting">
-                      <SettingOutlined />
+                    <div
+                      className="setting"
+                      onClick={() => {
+                        console.log(project);
+                        // props.onClickSetting(project);
+                      }}
+                    >
+                      <ArrowRightOutlined style={{ fontSize: "16px", color: "#666" }} />
                     </div>
                   </div>
                 </div>

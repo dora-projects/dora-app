@@ -27,8 +27,6 @@ export const SwitchBtn = styled.div`
 
 export const TeamProjectSwitchPanel = styled.div`
   .list-panel {
-    padding: 20px 0;
-
     .project-item {
       position: relative;
       cursor: pointer;
@@ -36,18 +34,20 @@ export const TeamProjectSwitchPanel = styled.div`
       border: 1px solid #ccc;
       border-radius: 4px;
 
-      &:hover {
-        box-shadow: 0 3px 6px 4px rgb(0 82 217 / 11%);
+      //&:hover {
+      //  box-shadow: 0 3px 6px 4px rgb(0 82 217 / 11%);
+      //}
 
-        .icon {
-          opacity: 0.5;
-        }
+      &:hover {
+        text-decoration: underline;
+        box-shadow: 0 3px 6px 4px rgb(0 82 217 / 5%);
       }
 
       .icon {
-        opacity: 0;
+        opacity: 0.5;
+
         position: absolute;
-        right: 20px;
+        right: 10px;
         top: 50%;
         transform: translateY(-50%);
       }
@@ -57,7 +57,7 @@ export const TeamProjectSwitchPanel = styled.div`
       }
 
       .l2 {
-        font-size: 14px;
+        font-size: 12px;
         color: #666;
       }
     }

@@ -1,12 +1,12 @@
 import * as React from "react";
-import { SwapOutlined, DownOutlined, CaretDownOutlined } from "@ant-design/icons";
+import { SwapOutlined, ArrowRightOutlined, CaretDownOutlined } from "@ant-design/icons";
 import { Divider } from "antd";
 import { Modal, Row, Col, Drawer, Button, Space, Radio } from "antd";
 import { SwitchBtn, TeamProjectSwitchPanel } from "./index.styled";
 import TagCheckGroup from "@/components/TagCheckGroup";
 
 const SwitchProject = () => {
-  const [drawerVisible, setDrawerVisible] = React.useState(false);
+  const [modalVisible, setModalVisible] = React.useState(false);
 
   const projectList = [
     {
@@ -35,7 +35,7 @@ const SwitchProject = () => {
     <>
       <SwitchBtn
         onClick={() => {
-          setDrawerVisible(true);
+          setModalVisible(true);
         }}
       >
         <div className="l1">
@@ -46,30 +46,16 @@ const SwitchProject = () => {
       </SwitchBtn>
       <Divider style={{ margin: "0" }} />
       <Modal
-        visible={drawerVisible}
+        visible={modalVisible}
         title="切换项目"
+        forceRender
         width={800}
         onCancel={() => {
-          setDrawerVisible(false);
+          setModalVisible(false);
         }}
         footer={null}
       >
         <TeamProjectSwitchPanel>
-          <div className="filter-panel">
-            <TagCheckGroup
-              title={"团队"}
-              value={1}
-              options={[
-                {
-                  label: "哈哈哈",
-                  value: 1,
-                },
-              ]}
-              onChange={(v) => {
-                console.log(v);
-              }}
-            />
-          </div>
           <div className="list-panel">
             <Row gutter={[24, 24]}>
               {projectList.map((project) => {
@@ -79,7 +65,7 @@ const SwitchProject = () => {
                       <div className="l1">{project.name}</div>
                       <div className="l2">{project.desc}</div>
                       <div className="icon">
-                        <SwapOutlined />
+                        <ArrowRightOutlined />
                       </div>
                     </div>
                   </Col>

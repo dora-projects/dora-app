@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useControlledValue } from "ahooks";
+import { useControllableValue } from "ahooks";
 import classnames from "classnames";
 
 const CheckGroupStyle = styled.div`
@@ -43,7 +43,7 @@ type Props = {
 };
 
 const TagCheckGroup = (props: Props) => {
-  const [activeValue, setActiveValue] = useControlledValue<number | string>(props, {
+  const [activeValue, setActiveValue] = useControllableValue<number | string>(props, {
     defaultValue: undefined,
   });
 

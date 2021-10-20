@@ -20,12 +20,12 @@ export const Setting = () => {
           key: "/setting/userinfo",
         },
         {
-          tab: "系统状况",
-          key: "/setting/system",
-        },
-        {
           tab: "项目管理",
           key: "/setting/project",
+        },
+        {
+          tab: "系统状况",
+          key: "/setting/system",
         },
       ]}
       onTabChange={(tab) => {
@@ -34,8 +34,8 @@ export const Setting = () => {
     >
       <Routes>
         <Route path="userinfo" element={<UserInfoSetting />} />
-        <Route path="system" element={<SystemInfo />} />
         <Route path="project" element={<Projects />} />
+        <Route path="system" element={<SystemInfo />} />
         <Route path="*" element={<Navigate to="userinfo" />} />
       </Routes>
       <Footer />
