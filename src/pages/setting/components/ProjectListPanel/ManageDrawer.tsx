@@ -1,15 +1,15 @@
 import React from "react";
-import { Form, Input, Select, Button, Drawer, Divider, Radio, Typography } from "antd";
+import { Form, Input, Space, Button, Drawer, Divider, Radio, Typography, Popconfirm } from "antd";
 import { Tabs } from "antd";
 import SdkUsage from "@/components/SdkUsage";
 import Members from "./Members";
-
-const { Title, Paragraph, Text, Link } = Typography;
+import { createProject, updateProject, deleteProject } from "@/services/project";
+import { useRequest } from "ahooks";
 
 const { TabPane } = Tabs;
 
 const layout = {
-  labelCol: { span: 6 },
+  labelCol: { span: 4 },
   wrapperCol: { span: 14 },
 };
 
@@ -26,22 +26,53 @@ const ManageDrawer = (props: Props) => {
 
   const [form] = Form.useForm();
 
+  // restore form
   React.useEffect(() => {
-    if (editItem?.id) {
+    const { id, type, name, detail } = editItem || {};
+    if (id) {
       form.setFieldsValue({
-        name: editItem.name,
+        type,
+        name,
+        detail,
       });
     }
-  }, [editItem?.id, editItem?.name, editItem?.slug, form]);
+  }, [editItem, form]);
 
+  // reset form
   React.useEffect(() => {
     if (!visible) {
       form.resetFields();
     }
   }, [form, visible]);
 
+  const { run: runCreateProject } = useRequest((d: FuncFirstArgType<typeof createProject>) => createProject(d), {
+    manual: true,
+    onSuccess: () => {
+      props.onOk();
+    },
+  });
+  const { run: runUpdateProject } = useRequest((d: FuncFirstArgType<typeof updateProject>) => updateProject(d), {
+    manual: true,
+    onSuccess: () => {
+      props.onOk();
+    },
+  });
+  const { run: runDeleteProject } = useRequest((d: number) => deleteProject(d), {
+    manual: true,
+    onSuccess: () => {
+      props.onOk();
+    },
+  });
+
   const onFinish = (values: any) => {
-    console.log(values);
+    const id = editItem?.id;
+    const { type, name, detail } = values;
+
+    if (isEdit) {
+      runUpdateProject({ id, detail, type, name });
+    } else {
+      runCreateProject({ detail, type, name });
+    }
   };
 
   return (
@@ -53,24 +84,46 @@ const ManageDrawer = (props: Props) => {
       onClose={() => onClose()}
       footer={null}
     >
-      <Form form={form} {...layout} name="form-team" onFinish={onFinish}>
+      <Form
+        form={form}
+        {...layout}
+        initialValues={{
+          type: "web",
+        }}
+        name="form-team"
+        onFinish={onFinish}
+      >
         <Form.Item name={"type"} label="类型" rules={[{ required: true }]}>
           <Radio.Group>
-            <Radio value={1}>web</Radio>
-            <Radio value={2}>react</Radio>
-            <Radio value={3}>vue</Radio>
+            <Radio value={"web"}>web</Radio>
+            <Radio value={"react"}>react</Radio>
+            <Radio value={"vue"}>vue</Radio>
           </Radio.Group>
         </Form.Item>
         <Form.Item name={"name"} label="项目名字" rules={[{ required: true }]}>
-          <Input />
+          <Input placeholder="请输入项目名字" />
         </Form.Item>
         <Form.Item name={"detail"} label="详细说明">
-          <Input.TextArea />
+          <Input.TextArea placeholder="请输入详细说明" />
         </Form.Item>
-        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
-          <Button type="primary" htmlType="submit">
-            提交
-          </Button>
+        <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
+          <Space>
+            <Button type="primary" htmlType="submit">
+              提交
+            </Button>
+            {isEdit ? (
+              <Popconfirm
+                title="你确定删除该项目吗？"
+                okText="确定"
+                cancelText="取消"
+                onConfirm={() => {
+                  runDeleteProject(editItem?.id);
+                }}
+              >
+                <Button danger>删除</Button>
+              </Popconfirm>
+            ) : null}
+          </Space>
         </Form.Item>
       </Form>
 
@@ -79,7 +132,7 @@ const ManageDrawer = (props: Props) => {
           <Divider />
           <Tabs defaultActiveKey="1">
             <TabPane tab="成员管理" key="1">
-              <Members />
+              <Members projectId={editItem?.id} />
             </TabPane>
             <TabPane tab="安装指引" key="2">
               <SdkUsage />

@@ -30,7 +30,7 @@ export const ProjectItem = styled.div`
         font-size: 16px;
       }
 
-      .desc {
+      .detail {
         font-size: 14px;
         color: #666;
       }

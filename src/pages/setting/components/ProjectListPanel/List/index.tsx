@@ -21,12 +21,11 @@ const ProjectCardList = (props: Props) => {
                   <div
                     className="head"
                     onClick={() => {
-                      console.log(project);
                       props.onClickSetting(project);
                     }}
                   >
                     <div className="name">{project.name}</div>
-                    <div className="desc">{project.desc}</div>
+                    <div className="detail">{project.detail}</div>
                   </div>
                   <div className="foot">
                     <div className="stat">

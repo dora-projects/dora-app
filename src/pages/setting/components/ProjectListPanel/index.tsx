@@ -1,42 +1,24 @@
 import React from "react";
 import ProCard from "@ant-design/pro-card";
 import { Button } from "antd";
+import { useRequest } from "ahooks";
 import { PlusOutlined } from "@ant-design/icons";
 import ProjectCardList from "./List";
 import ManageDrawer from "./ManageDrawer";
-
-const projectList = [
-  {
-    id: 1,
-    name: "ddddd",
-    desc: "ddddddddd",
-  },
-  {
-    id: 2,
-    name: "dd23 东add东add东add东add",
-    desc: "212",
-  },
-  {
-    id: 3,
-    name: "dd23 东add东add东add东add",
-    desc: "212",
-  },
-  {
-    id: 4,
-    name: "dd23 东add东add东add东add",
-    desc: "212",
-  },
-];
+import { getMyProjects } from "@/services/project";
 
 const ProjectListPanel = () => {
   const [drawerVisible, setDrawerVisible] = React.useState(false);
   const [editItem, setEditItem] = React.useState(null);
 
+  const { data, loading, refresh } = useRequest(getMyProjects);
+  const projectList = data?.data || [];
+
   return (
     <>
       <ProCard
         title="项目"
-        bodyStyle={{ padding: "20px" }}
+        bodyStyle={{ padding: "20px", minHeight: "500px" }}
         extra={
           <div>
             <Button icon={<PlusOutlined />} onClick={() => setDrawerVisible(true)}>
@@ -44,6 +26,7 @@ const ProjectListPanel = () => {
             </Button>
           </div>
         }
+        loading={loading}
       >
         <ProjectCardList
           projects={projectList}
@@ -60,6 +43,7 @@ const ProjectListPanel = () => {
         onOk={() => {
           setEditItem(null);
           setDrawerVisible(false);
+          refresh();
         }}
         onClose={() => {
           setEditItem(null);
