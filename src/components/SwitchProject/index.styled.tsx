@@ -26,39 +26,49 @@ export const SwitchBtn = styled.div`
 `;
 
 export const TeamProjectSwitchPanel = styled.div`
+  min-height: 300px;
+
   .list-panel {
     .project-item {
+      height: 80px;
       position: relative;
       cursor: pointer;
-      padding: 10px 15px;
       border: 1px solid #ccc;
       border-radius: 4px;
-
-      //&:hover {
-      //  box-shadow: 0 3px 6px 4px rgb(0 82 217 / 11%);
-      //}
+      display: flex;
+      align-items: center;
 
       &:hover {
         text-decoration: underline;
         box-shadow: 0 3px 6px 4px rgb(0 82 217 / 5%);
+        .icon {
+          opacity: 0.5;
+        }
       }
 
-      .icon {
-        opacity: 0.5;
-
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
+      &.active {
+        border-color: #0052d9;
+        background: rgb(0 82 217 / 5%);
       }
 
-      .l1 {
-        font-size: 16px;
+      .left {
+        flex: 1;
+        padding: 10px 15px;
+
+        .l1 {
+          font-size: 16px;
+        }
+
+        .l2 {
+          font-size: 12px;
+          color: #666;
+        }
       }
 
-      .l2 {
-        font-size: 12px;
-        color: #666;
+      .right {
+        opacity: 0;
+        padding: 10px 15px;
+        flex-shrink: 0;
       }
     }
   }

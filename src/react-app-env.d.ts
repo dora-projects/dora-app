@@ -16,5 +16,3 @@ declare module "*.module.less" {
   const classes: { readonly [key: string]: string };
   export default classes;
 }
-
-type FuncFirstArgType<T extends (...args: any) => any> = Parameters<T>[0];

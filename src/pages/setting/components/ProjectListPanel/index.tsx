@@ -1,6 +1,6 @@
 import React from "react";
 import ProCard from "@ant-design/pro-card";
-import { Button } from "antd";
+import { Button, Empty } from "antd";
 import { useRequest } from "ahooks";
 import { PlusOutlined } from "@ant-design/icons";
 import ProjectCardList from "./List";
@@ -28,13 +28,17 @@ const ProjectListPanel = () => {
         }
         loading={loading}
       >
-        <ProjectCardList
-          projects={projectList}
-          onClickSetting={(p) => {
-            setEditItem(p);
-            setDrawerVisible(true);
-          }}
-        />
+        {projectList && projectList.length > 0 ? (
+          <ProjectCardList
+            projects={projectList}
+            onClickSetting={(p) => {
+              setEditItem(p);
+              setDrawerVisible(true);
+            }}
+          />
+        ) : (
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        )}
       </ProCard>
 
       <ManageDrawer

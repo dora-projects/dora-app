@@ -1,8 +1,7 @@
-import * as React from "react";
+import React, { useEffect } from "react";
 import { RouteObject } from "react-router";
 import Unauthorized from "@/components/UnAuthorized";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { MainLayout } from "@/layout/MainLayout";
 import { FullLoading } from "@/components/Loading";
 import { useQueryLoginUser } from "@/common/hooks";
 import { lazyImport } from "@/utils/lazyImport";
@@ -18,7 +17,7 @@ const ProtectedWrap = () => {
   const navigate = useNavigate();
   const { loading, user } = useQueryLoginUser();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (location.pathname === "/") {
       navigate("/console", { replace: true });
     }
@@ -27,11 +26,7 @@ const ProtectedWrap = () => {
   if (loading) return <FullLoading loading={true} title={"获取登录信息..."} />;
   // if (!user) return <Unauthorized />;
 
-  return (
-    <MainLayout>
-      <Outlet />
-    </MainLayout>
-  );
+  return <Outlet />;
 };
 
 export const protectedRoutes: RouteObject[] = [

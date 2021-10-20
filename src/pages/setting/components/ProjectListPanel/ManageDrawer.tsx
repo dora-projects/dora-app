@@ -45,19 +45,19 @@ const ManageDrawer = (props: Props) => {
     }
   }, [form, visible]);
 
-  const { run: runCreateProject } = useRequest((d: FuncFirstArgType<typeof createProject>) => createProject(d), {
+  const { run: runCreateProject } = useRequest(createProject, {
     manual: true,
     onSuccess: () => {
       props.onOk();
     },
   });
-  const { run: runUpdateProject } = useRequest((d: FuncFirstArgType<typeof updateProject>) => updateProject(d), {
+  const { run: runUpdateProject } = useRequest(updateProject, {
     manual: true,
     onSuccess: () => {
       props.onOk();
     },
   });
-  const { run: runDeleteProject } = useRequest((d: number) => deleteProject(d), {
+  const { run: runDeleteProject } = useRequest(deleteProject, {
     manual: true,
     onSuccess: () => {
       props.onOk();

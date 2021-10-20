@@ -4,7 +4,7 @@ import { AppstoreOutlined, SwapOutlined, SettingOutlined } from "@ant-design/ico
 import Logo from "@/assets/logo.png";
 import { useLocation, useNavigate } from "react-router-dom";
 
-export const MainLayout: React.FC = ({ children }) => {
+const MainLayout: React.FC = ({ children }) => {
   const navigator = useNavigate();
   const location = useLocation();
   const { pathname } = location;
@@ -46,3 +46,5 @@ export const MainLayout: React.FC = ({ children }) => {
     </div>
   );
 };
+
+export default MainLayout;

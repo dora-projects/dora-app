@@ -18,7 +18,7 @@ const Members = (props: Props) => {
   });
   const dataSource = data?.data || [];
 
-  const { run: runAddProjectUsers } = useRequest((d: FuncFirstArgType<typeof addProjectUsers>) => addProjectUsers(d), {
+  const { run: runAddProjectUsers } = useRequest(addProjectUsers, {
     manual: true,
     onSuccess() {
       setSelectUsers([]);
@@ -26,15 +26,12 @@ const Members = (props: Props) => {
     },
   });
 
-  const { run: runRemoveProjectUsers } = useRequest(
-    (d: FuncFirstArgType<typeof removeProjectUsers>) => removeProjectUsers(d),
-    {
-      manual: true,
-      onSuccess() {
-        return refresh();
-      },
-    }
-  );
+  const { run: runRemoveProjectUsers } = useRequest(removeProjectUsers, {
+    manual: true,
+    onSuccess() {
+      return refresh();
+    },
+  });
 
   const columns = [
     {
