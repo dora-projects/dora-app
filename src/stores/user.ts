@@ -1,6 +1,5 @@
 import create from "zustand";
 import { devtools } from "zustand/middleware";
-import { getUserDashBoard } from "@/services/user";
 import { getLoginUserInfo } from "@/services/auth";
 
 export type UserInfo = {

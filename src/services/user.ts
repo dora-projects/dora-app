@@ -4,10 +4,10 @@ export const searchUsers = (searchStr: string) => {
   return axios.get("api/search/users", { params: { searchStr } });
 };
 
-export const getUserDashBoard = () => {
-  return axios.get("/api/dashboard");
+export const getUserSetting = () => {
+  return axios.get("api/user/setting");
 };
 
-export const updateUserDashBoard = (projectId: number) => {
-  return axios.post("/api/dashboard", { projectId: projectId });
+export const updateUserSetting = (projectId: number) => {
+  return axios.post("api/user/setting", { projectId: projectId });
 };

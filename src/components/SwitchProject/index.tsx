@@ -4,18 +4,18 @@ import { Divider } from "antd";
 import { Modal, Row, Col, Drawer, Button, Space, Radio } from "antd";
 import { SwitchBtn, TeamProjectSwitchPanel } from "./index.styled";
 import { useRequest } from "ahooks";
-import { useDashboardStore } from "@/stores/dashboard";
-import { updateUserDashBoard } from "@/services/user";
+import { useSettingStore } from "@/stores/setting";
+import { updateUserSetting } from "@/services/user";
 import { useProjectsStore } from "@/stores/projects";
 
 const SwitchProject = () => {
   const [modalVisible, setModalVisible] = React.useState(false);
   const { loading: loading1, fetchProjects, projects } = useProjectsStore();
-  const { loading: loading2, fetchDashboard, project: dashboardProject } = useDashboardStore();
+  const { loading: loading2, fetchSetting, project: showProject } = useSettingStore();
 
   React.useEffect(() => {
-    fetchDashboard();
-  }, [fetchDashboard]);
+    fetchSetting();
+  }, [fetchSetting]);
 
   React.useEffect(() => {
     if (modalVisible) {
@@ -24,10 +24,10 @@ const SwitchProject = () => {
   }, [fetchProjects, modalVisible]);
 
   // 切换
-  const { run: updateDashboard } = useRequest(updateUserDashBoard, {
+  const { run: updateDashboard } = useRequest(updateUserSetting, {
     manual: true,
     onSuccess: () => {
-      fetchDashboard();
+      fetchSetting();
       setModalVisible(false);
     },
   });
@@ -40,10 +40,10 @@ const SwitchProject = () => {
         }}
       >
         <div className="l1">
-          <span>{dashboardProject?.name}</span>
+          <span>{showProject?.name}</span>
           <CaretDownOutlined />
         </div>
-        <div className="l2">{dashboardProject?.type}</div>
+        <div className="l2">{showProject?.type}</div>
       </SwitchBtn>
 
       <Divider style={{ margin: "0" }} />
@@ -65,7 +65,7 @@ const SwitchProject = () => {
                 return (
                   <Col span={12} key={project.id}>
                     <div
-                      className={`project-item ${project.id === dashboardProject?.id ? "active" : ""}`}
+                      className={`project-item ${project.id === showProject?.id ? "active" : ""}`}
                       onClick={() => {
                         updateDashboard(project.id);
                       }}

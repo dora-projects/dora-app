@@ -1,8 +1,8 @@
 import create from "zustand";
 import { devtools } from "zustand/middleware";
-import { getUserDashBoard } from "@/services/user";
+import { getUserSetting } from "@/services/user";
 
-type DashboardProject = {
+type SettingProject = {
   project: {
     id: number;
     name: string;
@@ -10,18 +10,18 @@ type DashboardProject = {
     apiKey: string;
   } | null;
   loading: boolean;
-  fetchDashboard: () => void;
+  fetchSetting: () => void;
 };
 
-export const useDashboardStore = create<DashboardProject>(
+export const useSettingStore = create<SettingProject>(
   devtools((set) => ({
     project: null,
     loading: true,
-    fetchDashboard: async () => {
+    fetchSetting: async () => {
       try {
         set(() => ({ loading: true }));
-        const response = await getUserDashBoard();
-        set({ project: response?.data, loading: false });
+        const response = await getUserSetting();
+        set({ project: response?.data?.project, loading: false });
       } catch (e) {
         set({ project: null, loading: false });
       }
