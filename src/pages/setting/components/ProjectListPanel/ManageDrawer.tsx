@@ -103,8 +103,8 @@ const ManageDrawer = (props: Props) => {
         <Form.Item name={"name"} label="项目名字" rules={[{ required: true }]}>
           <Input placeholder="请输入项目名字" />
         </Form.Item>
-        <Form.Item name={"detail"} label="详细说明">
-          <Input.TextArea placeholder="请输入详细说明" />
+        <Form.Item name={"detail"} label="描述">
+          <Input.TextArea placeholder="请输入描述" />
         </Form.Item>
         <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 4 }}>
           <Space>

@@ -3,6 +3,14 @@ import Axios, { AxiosRequestConfig } from "axios";
 import { API_URL } from "@/config";
 import storage from "@/utils/storage";
 import { useNotificationStore } from "@/stores/notifications";
+import { debounce } from "lodash-es";
+
+const debounceAddNotification = debounce((message) => {
+  useNotificationStore.getState().addNotification({
+    type: "error",
+    title: message,
+  });
+}, 300);
 
 function authRequestInterceptor(config: AxiosRequestConfig) {
   const token = storage.getToken();
@@ -23,12 +31,9 @@ axios.interceptors.response.use(
     return response;
   },
   (error) => {
-    const message = error.response?.data?.message || error.message;
+    const message = error.response?.data?.error?.message || error.message;
 
-    useNotificationStore.getState().addNotification({
-      type: "error",
-      title: message,
-    });
+    debounceAddNotification(message);
 
     return Promise.reject(error);
   }

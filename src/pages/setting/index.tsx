@@ -8,7 +8,7 @@ import SystemInfo from "./routes/SystemInfo";
 import Projects from "./routes/Projects";
 import Footer from "@/components/Footer";
 
-export const Setting = () => {
+const Setting = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -46,3 +46,5 @@ export const Setting = () => {
     </OuterLayout>
   );
 };
+
+export default Setting;

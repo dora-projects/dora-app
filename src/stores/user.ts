@@ -1,5 +1,7 @@
 import create from "zustand";
 import { devtools } from "zustand/middleware";
+import { getUserDashBoard } from "@/services/user";
+import { getLoginUserInfo } from "@/services/auth";
 
 export type UserInfo = {
   id: number;
@@ -11,18 +13,22 @@ export type UserInfo = {
 
 type UserInfoStore = {
   userInfo: UserInfo | null;
-  setUserInfo: (info: UserInfo) => void;
-  clearUserInfo: () => void;
+  loading: boolean;
+  fetchUserInfo: () => void;
 };
 
 export const useLoginUserStore = create<UserInfoStore>(
   devtools((set) => ({
     userInfo: null,
-    setUserInfo: (info) => {
-      set((state) => ({ userInfo: info }));
-    },
-    clearUserInfo: () => {
-      set((state) => ({ userInfo: null }));
+    loading: true,
+    fetchUserInfo: async () => {
+      try {
+        set({ loading: true });
+        const response = await getLoginUserInfo();
+        set({ userInfo: response?.data?.result, loading: false });
+      } catch (e) {
+        set({ userInfo: null, loading: false });
+      }
     },
   }))
 );

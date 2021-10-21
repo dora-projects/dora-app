@@ -6,13 +6,13 @@ import { PlusOutlined } from "@ant-design/icons";
 import ProjectCardList from "./List";
 import ManageDrawer from "./ManageDrawer";
 import { getMyProjects } from "@/services/project";
+import { useProjectsStore } from "@/stores/projects";
 
 const ProjectListPanel = () => {
   const [drawerVisible, setDrawerVisible] = React.useState(false);
   const [editItem, setEditItem] = React.useState(null);
 
-  const { data, loading, refresh } = useRequest(getMyProjects);
-  const projectList = data?.data || [];
+  const { loading, fetchProjects, projects } = useProjectsStore();
 
   return (
     <>
@@ -28,9 +28,9 @@ const ProjectListPanel = () => {
         }
         loading={loading}
       >
-        {projectList && projectList.length > 0 ? (
+        {projects && projects.length > 0 ? (
           <ProjectCardList
-            projects={projectList}
+            projects={projects}
             onClickSetting={(p) => {
               setEditItem(p);
               setDrawerVisible(true);
@@ -47,7 +47,7 @@ const ProjectListPanel = () => {
         onOk={() => {
           setEditItem(null);
           setDrawerVisible(false);
-          refresh();
+          fetchProjects();
         }}
         onClose={() => {
           setEditItem(null);

@@ -3,19 +3,25 @@ import { RouteObject } from "react-router";
 import Unauthorized from "@/components/UnAuthorized";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { FullLoading } from "@/components/Loading";
-import { useQueryLoginUser } from "@/common/hooks";
-import { lazyImport } from "@/utils/lazyImport";
 
-import { Console } from "@/pages/console";
-import { Setting } from "@/pages/setting";
-
-// const { Console } = lazyImport(() => import("@/pages/console"), "Console");
-// const { Setting } = lazyImport(() => import("@/pages/setting"), "Setting");
+import CreateFPForm from "@/pages/createFirstProject";
+import Console from "@/pages/console";
+import Setting from "@/pages/setting";
+import Invite from "@/pages/invite";
+import { useLoginUserStore } from "@/stores/user";
+import { useProjectsStore } from "@/stores/projects";
 
 const ProtectedWrap = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { loading, user } = useQueryLoginUser();
+
+  const { loading: loadingUser, fetchUserInfo, userInfo } = useLoginUserStore();
+  const { loading: loadingProjects, fetchProjects, projects } = useProjectsStore();
+
+  useEffect(() => {
+    fetchUserInfo();
+    fetchProjects();
+  }, [fetchUserInfo, fetchProjects]);
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -23,8 +29,14 @@ const ProtectedWrap = () => {
     }
   }, [location.pathname, navigate]);
 
-  if (loading) return <FullLoading loading={true} title={"获取登录信息..."} />;
-  // if (!user) return <Unauthorized />;
+  // 检查用户信息
+  if (loadingUser) return <FullLoading loading={true} title={"获取登录信息..."} />;
+  if (!userInfo) return <Unauthorized />;
+
+  // 检查项目
+  if (!loadingProjects && (!projects || projects?.length === 0) && location.pathname !== "/create-first-project") {
+    return <Navigate to="/create-first-project" />;
+  }
 
   return <Outlet />;
 };
@@ -36,6 +48,8 @@ export const protectedRoutes: RouteObject[] = [
     children: [
       { path: "console/*", element: <Console /> },
       { path: "setting/*", element: <Setting /> },
+      { path: "create-first-project", element: <CreateFPForm /> },
+      { path: "invite/:token", element: <Invite /> },
       { path: "*", element: <Navigate to="/console" /> },
     ],
   },

@@ -28,5 +28,5 @@ export const Notifications = () => {
     });
   }, [dismissNotification, notifications]);
 
-  return <Toaster position="bottom-right" />;
+  return <Toaster position="top-center" />;
 };

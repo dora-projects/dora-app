@@ -9,20 +9,21 @@ type DashboardProject = {
     type: string;
     apiKey: string;
   } | null;
-  isEmpty: boolean;
-  fetch: () => void;
+  loading: boolean;
+  fetchDashboard: () => void;
 };
 
 export const useDashboardStore = create<DashboardProject>(
   devtools((set) => ({
     project: null,
-    isEmpty: false,
-    fetch: async () => {
-      const response = await getUserDashBoard();
-      if (response?.data?.project) {
-        set({ isEmpty: false, project: response.data.project });
-      } else {
-        set({ isEmpty: true });
+    loading: true,
+    fetchDashboard: async () => {
+      try {
+        set(() => ({ loading: true }));
+        const response = await getUserDashBoard();
+        set({ project: response?.data, loading: false });
+      } catch (e) {
+        set({ project: null, loading: false });
       }
     },
   }))

@@ -13,11 +13,12 @@ const UnAuthorized = () => {
   const [countdown, setTargetDate] = useCountDown({ onEnd: goLoginPage });
 
   React.useEffect(() => {
-    setTargetDate(Date.now() + 10000);
+    setTargetDate(Date.now() + 5000);
   }, [setTargetDate]);
 
   return (
     <Result
+      style={{ marginTop: "50px" }}
       status="403"
       title="您没有登陆"
       subTitle={`${Math.round(countdown / 1000)} 秒后跳转登录页面`}

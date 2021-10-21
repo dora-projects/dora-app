@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LogoutOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 import styles from "./index.module.less";
 import { useLoginUserStore } from "@/stores/user";
+import storage from "@/utils/storage";
 
 export const AvatarDropdown = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export const AvatarDropdown = () => {
       onClick={(e) => {
         const { key } = e;
         if (key === "logout") {
+          storage.clearToken();
           navigate("/auth/login");
         }
       }}

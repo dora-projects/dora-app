@@ -4,34 +4,33 @@ import { Divider } from "antd";
 import { Modal, Row, Col, Drawer, Button, Space, Radio } from "antd";
 import { SwitchBtn, TeamProjectSwitchPanel } from "./index.styled";
 import { useRequest } from "ahooks";
-import { getMyProjects } from "@/services/project";
 import { useDashboardStore } from "@/stores/dashboard";
 import { updateUserDashBoard } from "@/services/user";
+import { useProjectsStore } from "@/stores/projects";
 
 const SwitchProject = () => {
   const [modalVisible, setModalVisible] = React.useState(false);
+  const { loading: loading1, fetchProjects, projects } = useProjectsStore();
+  const { loading: loading2, fetchDashboard, project: dashboardProject } = useDashboardStore();
 
-  const { activeProject, fetch } = useDashboardStore((s) => ({
-    activeProject: s.project,
-    fetch: s.fetch,
-  }));
-
-  const { run: updateDashboard } = useRequest(updateUserDashBoard, {
-    manual: true,
-    onSuccess: () => {
-      fetch();
-      setModalVisible(false);
-    },
-  });
-
-  const { data, run: getProjects } = useRequest(getMyProjects, { manual: true });
-  const projectList = data?.data || [];
+  React.useEffect(() => {
+    fetchDashboard();
+  }, [fetchDashboard]);
 
   React.useEffect(() => {
     if (modalVisible) {
-      getProjects();
+      fetchProjects();
     }
-  }, [getProjects, modalVisible]);
+  }, [fetchProjects, modalVisible]);
+
+  // 切换
+  const { run: updateDashboard } = useRequest(updateUserDashBoard, {
+    manual: true,
+    onSuccess: () => {
+      fetchDashboard();
+      setModalVisible(false);
+    },
+  });
 
   return (
     <>
@@ -41,10 +40,10 @@ const SwitchProject = () => {
         }}
       >
         <div className="l1">
-          <span>{activeProject?.name}</span>
+          <span>{dashboardProject?.name}</span>
           <CaretDownOutlined />
         </div>
-        <div className="l2">{activeProject?.type}</div>
+        <div className="l2">{dashboardProject?.type}</div>
       </SwitchBtn>
 
       <Divider style={{ margin: "0" }} />
@@ -62,11 +61,11 @@ const SwitchProject = () => {
         <TeamProjectSwitchPanel>
           <div className="list-panel">
             <Row gutter={[24, 24]}>
-              {projectList.map((project: any) => {
+              {projects?.map((project: any) => {
                 return (
                   <Col span={12} key={project.id}>
                     <div
-                      className={`project-item ${project.id === activeProject?.id ? "active" : ""}`}
+                      className={`project-item ${project.id === dashboardProject?.id ? "active" : ""}`}
                       onClick={() => {
                         updateDashboard(project.id);
                       }}

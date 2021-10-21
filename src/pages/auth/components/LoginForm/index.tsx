@@ -1,83 +1,8 @@
-import { LoginForm, ProFormText, ProFormCaptcha } from "@ant-design/pro-form";
+import { LoginForm, ProFormText, ProFormCaptcha, ProFormCheckbox } from "@ant-design/pro-form";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import { message, Tabs } from "antd";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { message, Tabs, Button } from "antd";
 
-import Logo from "@/assets/logo.png";
-import { useLogin } from "../../api/login";
-import storage from "@/utils/storage";
-import { useNotificationStore } from "@/stores/notifications";
-
-type LoginType = "email" | "code";
-
-export default function Login() {
-  const [loginType, setLoginType] = useState<LoginType>("email");
-  const notificationsStore = useNotificationStore();
-  const navigate = useNavigate();
-
-  const login = useLogin();
-
-  return (
-    <div style={{ backgroundColor: "white", paddingTop: "30px" }}>
-      <LoginForm
-        logo={Logo}
-        title="Dora"
-        subTitle="前端监控系统"
-        onFinish={async (values) => {
-          const { email, password } = values;
-          login.mutate(
-            { email, password },
-            {
-              onSuccess(res) {
-                const token = res?.data?.token;
-                if (token) {
-                  storage.setToken(token);
-                  notificationsStore.addNotification({
-                    type: "success",
-                    title: "欢迎回来",
-                  });
-                  navigate("/dashboard");
-                }
-              },
-            }
-          );
-        }}
-      >
-        <Tabs activeKey={loginType} onChange={(activeKey) => setLoginType(activeKey as LoginType)}>
-          <Tabs.TabPane key={"email"} tab={"密码登录"} />
-          <Tabs.TabPane key={"code"} tab={"验证码登录"} disabled />
-        </Tabs>
-
-        {loginType === "email" && <AccountPassword />}
-        {loginType === "code" && <EmailCode />}
-
-        {/*<div*/}
-        {/*  style={{*/}
-        {/*    display: "flex",*/}
-        {/*    justifyContent: "space-between",*/}
-        {/*    marginBottom: 24,*/}
-        {/*  }}*/}
-        {/*>*/}
-        {/*<ProFormCheckbox noStyle name="autoLogin">*/}
-        {/*  自动登录*/}
-        {/*</ProFormCheckbox>*/}
-        {/*<span>*/}
-        {/*  <a*/}
-        {/*    onClick={() => {*/}
-        {/*      navigate("/auth/register");*/}
-        {/*    }}*/}
-        {/*  >*/}
-        {/*    去注册*/}
-        {/*  </a>*/}
-        {/*</span>*/}
-        {/*</div>*/}
-      </LoginForm>
-    </div>
-  );
-}
-
-const AccountPassword = () => (
+export const AccountPassword = () => (
   <>
     <ProFormText
       name="email"
@@ -110,7 +35,7 @@ const AccountPassword = () => (
   </>
 );
 
-const EmailCode = () => (
+export const EmailCode = () => (
   <>
     <ProFormText
       fieldProps={{
