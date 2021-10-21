@@ -11,3 +11,7 @@ export const getUserSetting = () => {
 export const updateUserSetting = (projectId: number) => {
   return axios.post("api/user/setting", { projectId: projectId });
 };
+
+export const getUsers = () => {
+  return axios.get("api/users");
+};
