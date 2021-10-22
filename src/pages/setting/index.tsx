@@ -1,6 +1,6 @@
 import React from "react";
 import { PageContainer } from "@ant-design/pro-layout";
-import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import OuterLayout from "@/layout/OuterLayout";
 import UserInfo from "./routes/UserInfo";
@@ -8,8 +8,9 @@ import SystemInfo from "./routes/SystemInfo";
 import Projects from "./routes/Projects";
 import UserManage from "./routes/UserManage";
 import Footer from "@/components/Footer";
+import { NoMatch } from "@/components/NoMatch";
 
-const Setting = () => {
+const SettingLayout = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -40,16 +41,25 @@ const Setting = () => {
           navigate(tab);
         }}
       >
-        <Routes>
-          <Route path="userinfo" element={<UserInfo />} />
-          <Route path="project" element={<Projects />} />
-          <Route path="system" element={<SystemInfo />} />
-          <Route path="users" element={<UserManage />} />
-          <Route path="*" element={<Navigate to="userinfo" />} />
-        </Routes>
+        <Outlet />
         <Footer />
       </PageContainer>
     </OuterLayout>
+  );
+};
+
+const Setting = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<SettingLayout />}>
+        <Route index element={<Navigate to="userinfo" />} />
+        <Route path="userinfo" element={<UserInfo />} />
+        <Route path="project" element={<Projects />} />
+        <Route path="system" element={<SystemInfo />} />
+        <Route path="users" element={<UserManage />} />
+        <Route path="*" element={<NoMatch />} />
+      </Route>
+    </Routes>
   );
 };
 

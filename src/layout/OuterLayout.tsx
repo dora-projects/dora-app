@@ -35,6 +35,9 @@ const MainLayout: React.FC = ({ children }) => {
           ],
         }}
         headerRender={false}
+        onMenuHeaderClick={() => {
+          window.location.href = "/";
+        }}
         menuProps={{
           onClick: (menu: any) => {
             navigator(menu.key);

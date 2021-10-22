@@ -10,10 +10,10 @@ import Setting from "@/pages/setting";
 import Invite from "@/pages/invite";
 import { useLoginUserStore } from "@/stores/user";
 import { useProjectsStore } from "@/stores/projects";
+import { NoMatch } from "@/components/NoMatch";
 
 const ProtectedWrap = () => {
   const location = useLocation();
-  const navigate = useNavigate();
 
   const { loading: loadingUser, fetchUserInfo, userInfo } = useLoginUserStore();
   const { loading: loadingProjects, fetchProjects, projects } = useProjectsStore();
@@ -22,12 +22,6 @@ const ProtectedWrap = () => {
     fetchUserInfo();
     fetchProjects();
   }, [fetchUserInfo, fetchProjects]);
-
-  useEffect(() => {
-    if (location.pathname === "/") {
-      navigate("/console", { replace: true });
-    }
-  }, [location.pathname, navigate]);
 
   // 检查用户信息
   if (loadingUser) return <FullLoading loading={true} title={"获取登录信息..."} />;
@@ -46,11 +40,12 @@ export const protectedRoutes: RouteObject[] = [
     path: "/",
     element: <ProtectedWrap />,
     children: [
+      { index: true, element: <Navigate to={"/console"} /> },
       { path: "console/*", element: <Console /> },
       { path: "setting/*", element: <Setting /> },
       { path: "create-first-project", element: <CreateFPForm /> },
       { path: "invite/:token", element: <Invite /> },
-      { path: "*", element: <Navigate to="/console" /> },
+      { path: "*", element: <NoMatch /> },
     ],
   },
 ];
