@@ -7,7 +7,7 @@ type SettingProject = {
     id: number;
     name: string;
     type: string;
-    apiKey: string;
+    appKey: string;
   } | null;
   loading: boolean;
   fetchSetting: () => void;
