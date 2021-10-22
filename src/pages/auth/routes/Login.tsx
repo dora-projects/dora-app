@@ -26,7 +26,7 @@ export const Login = () => {
           type: "success",
           title: "欢迎回来",
         });
-        navigate("/dashboard");
+        navigate("/");
       }
     },
   });

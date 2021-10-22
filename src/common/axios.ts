@@ -5,12 +5,18 @@ import storage from "@/utils/storage";
 import { useNotificationStore } from "@/stores/notifications";
 import { debounce } from "lodash-es";
 
-const debounceAddNotification = debounce((message) => {
-  useNotificationStore.getState().addNotification({
-    type: "error",
-    title: message,
-  });
-}, 300);
+const debounceAddNotification = debounce(
+  (message) => {
+    useNotificationStore.getState().addNotification({
+      type: "error",
+      title: message,
+    });
+  },
+  100,
+  {
+    leading: true,
+  }
+);
 
 function authRequestInterceptor(config: AxiosRequestConfig) {
   const token = storage.getToken();

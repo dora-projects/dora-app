@@ -12,7 +12,7 @@ export const CreateFPForm = () => {
 
   React.useEffect(() => {
     if (projects && projects.length > 0) {
-      navigate("/console");
+      navigate("/");
     }
   }, [navigate, projects]);
 
