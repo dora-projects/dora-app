@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Menu } from "antd";
 import ProLayout from "@ant-design/pro-layout";
 import {
   PieChartOutlined,
@@ -6,8 +7,8 @@ import {
   DashboardOutlined,
   AlertOutlined,
   FileSyncOutlined,
-  SwapOutlined,
 } from "@ant-design/icons";
+import { AppstoreOutlined, SwapOutlined, SettingOutlined } from "@ant-design/icons";
 import { useLocation, useNavigate } from "react-router-dom";
 import RightContent from "@/components/RightContent";
 import SwitchProject from "@/components/SwitchProject";
@@ -40,7 +41,7 @@ const SubMenu = [
   },
 ];
 
-const OverviewLayout: React.FC = ({ children }) => {
+const ConsoleLayout: React.FC = ({ children }) => {
   const navigator = useNavigate();
   const location = useLocation();
   const { pathname } = location;
@@ -51,12 +52,18 @@ const OverviewLayout: React.FC = ({ children }) => {
       siderWidth={150}
       location={{ pathname }}
       navTheme="light"
+      layout={"side"}
+      headerTheme={"light"}
       fixSiderbar
+      fixedHeader
+      headerRender={false}
       menuHeaderRender={false}
       menuExtraRender={({ collapsed }) => !collapsed && <SwitchProject />}
       disableContentMargin
       contentStyle={{ overflowY: "scroll", overflowX: "hidden" }}
-      rightContentRender={() => <RightContent />}
+      onMenuHeaderClick={() => {
+        window.location.href = "/";
+      }}
       route={{
         routes: SubMenu,
       }}
@@ -71,4 +78,4 @@ const OverviewLayout: React.FC = ({ children }) => {
   );
 };
 
-export default OverviewLayout;
+export default ConsoleLayout;

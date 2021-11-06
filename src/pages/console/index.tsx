@@ -1,35 +1,33 @@
 import React, { useEffect } from "react";
 import { Navigate, Route, Routes, Outlet, useLocation, useNavigate } from "react-router-dom";
 
-import OuterLayout from "@/layout/OuterLayout";
-import InnerLayout from "@/layout/InnerLayout";
-
+import MainLayout from "@/layout/MainLayout";
+import ConsoleLayout from "@/layout/ConsoleLayout";
 import Overview from "./routes/Overview";
 import Issues from "./routes/Issues";
 import Performance from "./routes/Performance";
 import Releases from "./routes/Releases";
 import Alerts from "./routes/Alerts";
-import SdkGuide from "./components/SdkGuide";
 import Footer from "@/components/Footer";
 import { NoMatch } from "@/components/NoMatch";
 
-const ConsoleLayout: React.FC = (props) => {
+const Container: React.FC = (props) => {
   return (
-    <OuterLayout>
-      <InnerLayout>
+    <MainLayout>
+      <ConsoleLayout>
         {/*<SdkGuide>*/}
         <Outlet />
         <Footer />
         {/*</SdkGuide>*/}
-      </InnerLayout>
-    </OuterLayout>
+      </ConsoleLayout>
+    </MainLayout>
   );
 };
 
 const Console = () => {
   return (
     <Routes>
-      <Route path="/" element={<ConsoleLayout />}>
+      <Route path="/" element={<Container />}>
         <Route index element={<Navigate to={"overview"} />} />
         <Route path="overview" element={<Overview />} />
         <Route path="issues" element={<Issues />} />

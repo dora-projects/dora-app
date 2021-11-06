@@ -1,8 +1,9 @@
 import React from "react";
 import ProjectListPanel from "../components/ProjectListPanel";
 
-const Projects = () => {
+const List = () => {
+  console.log("--------------------------------");
   return <ProjectListPanel />;
 };
 
-export default Projects;
+export default List;

@@ -1,16 +1,19 @@
 import React, { useEffect } from "react";
 import { RouteObject } from "react-router";
-import Unauthorized from "@/components/UnAuthorized";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { useLoginUserStore } from "@/stores/user";
+import { useProjectsStore } from "@/stores/projects";
+
+import Unauthorized from "@/components/UnAuthorized";
 import { FullLoading } from "@/components/Loading";
 
 import CreateFPForm from "@/pages/createFirstProject";
 import Console from "@/pages/console";
 import Setting from "@/pages/setting";
 import Invite from "@/pages/invite";
-import { useLoginUserStore } from "@/stores/user";
-import { useProjectsStore } from "@/stores/projects";
+
 import { NoMatch } from "@/components/NoMatch";
+import Projects from "@/pages/projects";
 
 const ProtectedWrap = () => {
   const location = useLocation();
@@ -42,6 +45,7 @@ export const protectedRoutes: RouteObject[] = [
     children: [
       { index: true, element: <Navigate to={"/console"} /> },
       { path: "console/*", element: <Console /> },
+      { path: "projects/*", element: <Projects /> },
       { path: "setting/*", element: <Setting /> },
       { path: "create-first-project", element: <CreateFPForm /> },
       { path: "invite/:token", element: <Invite /> },
