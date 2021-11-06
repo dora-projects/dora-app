@@ -1,18 +1,41 @@
 import styled from "styled-components";
 
-export const ProjectItem = styled.div<{ active: boolean }>`
+export const ProjectItem = styled.div`
   height: 130px;
   position: relative;
   padding: 10px 15px;
   border-radius: 4px;
 
-  border: ${(props) => (props.active ? "1px solid rgba(0,82,217,0.24)" : "1px solid #e3e3e3")};
-  box-shadow: ${(props) => (props.active ? "0 3px 6px 4px rgba(0,82,217,0.1)" : "none")};
-  // background-color: ${(props) => (props.active ? "rgba(0,82,217,0.24)" : "none")};
+  border: 1px solid #e3e3e3;
+  box-shadow: none;
 
-  //&:hover {
-  //  box-shadow: 0 3px 6px 4px rgb(0 82 217 / 11%);
-  //}
+  &.active {
+    border: 1px solid rgba(0, 82, 217, 0.24);
+    box-shadow: 0 3px 6px 4px rgba(0, 82, 217, 0.2);
+
+    &:before {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      border: 17px solid #0052d9;
+      border-top-color: transparent;
+      border-left-color: transparent;
+    }
+
+    &:after {
+      content: "";
+      width: 5px;
+      height: 12px;
+      position: absolute;
+      right: 6px;
+      bottom: 6px;
+      border: 2px solid #fff;
+      border-top-color: transparent;
+      border-left-color: transparent;
+      transform: rotate(45deg);
+    }
+  }
 
   .info {
     position: relative;
