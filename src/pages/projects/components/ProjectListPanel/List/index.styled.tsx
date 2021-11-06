@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
-export const ProjectItem = styled.div`
+export const ProjectItem = styled.div<{ active: boolean }>`
   height: 130px;
   position: relative;
   padding: 10px 15px;
-  border: 1px solid #e3e3e3;
   border-radius: 4px;
+
+  border: ${(props) => (props.active ? "1px solid rgba(0,82,217,0.24)" : "1px solid #e3e3e3")};
+  box-shadow: ${(props) => (props.active ? "0 3px 6px 4px rgba(0,82,217,0.1)" : "none")};
+  // background-color: ${(props) => (props.active ? "rgba(0,82,217,0.24)" : "none")};
 
   //&:hover {
   //  box-shadow: 0 3px 6px 4px rgb(0 82 217 / 11%);

@@ -38,7 +38,7 @@ const MainLayout: React.FC = ({ children }) => {
           },
           {
             path: "/console",
-            name: " 概览",
+            name: " 监控",
             icon: <AreaChartOutlined />,
           },
           {
