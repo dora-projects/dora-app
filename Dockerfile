@@ -2,9 +2,9 @@ FROM node:14-alpine as builder
 WORKDIR /app
 
 COPY package.json ./
-RUN yarn
+RUN npm i
 COPY . .
-RUN yarn build
+RUN npm run build
 
 # nginx
 FROM nginx:1.21.1 AS final
