@@ -1,33 +1,33 @@
 import { axios } from "@/common/axios";
 
 export const createProject = (data: { name: string; detail: string; type: string }) => {
-  return axios.put("/api/project", data);
+  return axios.put("/manager/project", data);
 };
 
 export const updateProject = (data: { id: string; name: string; detail: string; type: string }) => {
-  return axios.post("/api/project", data);
+  return axios.post("/manager/project", data);
 };
 
 export const getProject = (params: { appKey?: string; id?: string }) => {
-  return axios.get("/api/project", { params });
+  return axios.get("/manager/project", { params });
 };
 
 export const deleteProject = (id: number) => {
-  return axios.delete(`/api/project/${id}`);
+  return axios.delete(`/manager/project/${id}`);
 };
 
 export const getMyProjects = () => {
-  return axios.get("/api/my/projects");
+  return axios.get("/manager/my/projects");
 };
 
 export const getProjectUsers = (params: { projectId?: number }) => {
-  return axios.get("/api/project/users", { params });
+  return axios.get("/manager/project/users", { params });
 };
 
 export const addProjectUsers = (data: { projectId: number; userIds: number[] }) => {
-  return axios.post("/api/project/addUsers", data);
+  return axios.post("/manager/project/addUsers", data);
 };
 
 export const removeProjectUsers = (data: { projectId: number; userIds: number[] }) => {
-  return axios.post("/api/project/removeUsers", data);
+  return axios.post("/manager/project/removeUsers", data);
 };

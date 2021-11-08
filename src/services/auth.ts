@@ -1,13 +1,13 @@
 import { axios } from "@/common/axios";
 
 export const getLoginUserInfo = () => {
-  return axios.get("/api/auth/me");
+  return axios.get("/manager/auth/me");
 };
 
 export const loginWithEmailAndPassword = (data: { email: string; password: string }) => {
-  return axios.post("/api/auth/login", data);
+  return axios.post("/manager/auth/login", data);
 };
 
 export const registerUser = (data: { username: string; email: string; password: string }) => {
-  return axios.post("/api/auth/register", data);
+  return axios.post("/manager/auth/register", data);
 };
