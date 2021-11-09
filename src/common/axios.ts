@@ -39,7 +39,9 @@ axios.interceptors.response.use(
   (error) => {
     const message = error.response?.data?.error?.message || error.message;
 
-    debounceAddNotification(message);
+    if (message !== "未登录") {
+      debounceAddNotification(message);
+    }
 
     return Promise.reject(error);
   }
