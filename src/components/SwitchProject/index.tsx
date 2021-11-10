@@ -7,6 +7,7 @@ import { useRequest } from "ahooks";
 import { useSettingStore } from "@/stores/setting";
 import { updateUserSetting } from "@/services/user";
 import { useProjectsStore } from "@/stores/projects";
+import storage from "@/utils/storage";
 
 const SwitchProject = () => {
   const navigate = useNavigate();
@@ -37,7 +38,7 @@ const SwitchProject = () => {
     <>
       <SwitchBtn
         onClick={() => {
-          // setModalVisible(true);
+          storage.setBackUrl(window.location.pathname);
           navigate("/projects");
         }}
       >

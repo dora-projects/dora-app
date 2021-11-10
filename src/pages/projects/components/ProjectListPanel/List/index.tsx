@@ -7,6 +7,7 @@ import { useRequest } from "ahooks";
 import { updateUserSetting } from "@/services/user";
 import { useSettingStore } from "@/stores/setting";
 import { useNavigate } from "react-router-dom";
+import storage from "@/utils/storage";
 
 interface Props {
   projects: any[];
@@ -28,7 +29,10 @@ const ProjectCardList = (props: Props) => {
     manual: true,
     onSuccess: () => {
       fetchSetting();
-      navigate("/console/overview");
+
+      // 跳转至原来的 url
+      const url = storage.getBackUrl();
+      navigate(url || "/console/overview");
     },
   });
 

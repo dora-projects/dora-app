@@ -16,3 +16,17 @@ declare module "*.module.less" {
   const classes: { readonly [key: string]: string };
   export default classes;
 }
+
+declare interface IPaginationMeta extends ObjectLiteral {
+  itemCount: number;
+  totalItems?: number;
+  itemsPerPage: number;
+  totalPages?: number;
+  currentPage: number;
+}
+
+declare class ListPages<PaginationObject, T extends ObjectLiteral = IPaginationMeta> {
+  readonly items: PaginationObject[];
+  readonly meta: T;
+  constructor(items: PaginationObject[], meta: T);
+}
