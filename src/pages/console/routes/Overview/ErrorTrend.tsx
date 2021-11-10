@@ -25,6 +25,7 @@ const ErrorTrend = () => {
 
   const { data: trendData } = useRequest(() => queryByEql({ eql: queryErrorTrend(appKey!, from, to, 10) }), {
     ready: !!appKey,
+    refreshDeps: [appKey],
   });
 
   const buckets = trendData?.data?.aggregations?.trend?.buckets;

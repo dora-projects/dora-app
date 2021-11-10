@@ -13,7 +13,9 @@ const Overview = () => {
   const appKey = useSettingStore((state) => state.project?.appKey);
   const { data } = useRequest(() => queryByEql({ eql: queryErrorCount(appKey) }), {
     ready: !!appKey,
+    refreshDeps: [appKey],
   });
+
   const errorCount = data?.data?.aggregations?.count?.value || 0;
   const todayStr = dayjs().format("YYYY年M月D日");
 
