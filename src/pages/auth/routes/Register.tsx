@@ -67,25 +67,42 @@ export const Register = () => {
       >
         <ProFormText
           name={["register", "username"]}
-          fieldProps={{ size: "large", prefix: <UserOutlined className={"prefixIcon"} /> }}
+          fieldProps={{
+            size: "large",
+            // https://stackoverflow.com/questions/15738259/disabling-chrome-autofill
+            autoComplete: "new-password",
+            prefix: <UserOutlined className={"prefixIcon"} />,
+          }}
           placeholder={"用户名"}
           rules={[{ required: true, message: "请输入用户名!" }]}
         />
         <ProFormText
           name={["register", "email"]}
-          fieldProps={{ size: "large", prefix: <MailOutlined className={"prefixIcon"} /> }}
+          fieldProps={{
+            size: "large",
+            autoComplete: "new-password",
+            prefix: <MailOutlined className={"prefixIcon"} />,
+          }}
           placeholder={"邮箱"}
           rules={[{ required: true, message: "请输入邮箱!" }]}
         />
         <ProFormText.Password
           name={["register", "password"]}
-          fieldProps={{ size: "large", prefix: <LockOutlined className={"prefixIcon"} /> }}
+          fieldProps={{
+            size: "large",
+            autoComplete: "new-password",
+            prefix: <LockOutlined className={"prefixIcon"} />,
+          }}
           placeholder={"密码"}
           rules={[{ required: true, message: "请输入密码！" }]}
         />
         <ProFormText.Password
           name={["register", "repeatPassword"]}
-          fieldProps={{ size: "large", prefix: <LockOutlined className={"prefixIcon"} /> }}
+          fieldProps={{
+            size: "large",
+            autoComplete: "new-password",
+            prefix: <LockOutlined className={"prefixIcon"} />,
+          }}
           placeholder={"重复密码"}
           rules={[
             {

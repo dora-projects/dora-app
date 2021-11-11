@@ -37,6 +37,13 @@ export const Login = () => {
         logo={Logo}
         title="Dora"
         subTitle="前端监控系统"
+        initialValues={{
+          autoLogin: true,
+        }}
+        onValuesChange={(v, all) => {
+          if (all.autoLogin) {
+          }
+        }}
         onFinish={async (values) => {
           const { email, password } = values;
           login({ email, password });
@@ -58,7 +65,7 @@ export const Login = () => {
           }}
         >
           <ProFormCheckbox noStyle name="autoLogin">
-            自动登录
+            记住我
           </ProFormCheckbox>
           <span>
             新用户？
