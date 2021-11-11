@@ -1,9 +1,9 @@
+import React from "react";
 import { Table, Avatar, Button, Space } from "antd";
 import { Popconfirm, message, Select } from "antd";
 import { useRequest } from "ahooks";
 import { addProjectUsers, removeProjectUsers, getProjectUsers } from "@/services/project";
-import UserSelect from "./UserSelect";
-import React from "react";
+import UserSelect from "@/components/UserSelect";
 
 interface Props {
   projectId: number;

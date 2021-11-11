@@ -1,13 +1,13 @@
 import React from "react";
-import { Select, Avatar, Spin } from "antd";
+import { Select, Avatar, Spin, Space } from "antd";
 import { useRequest, useControllableValue } from "ahooks";
 import { searchUsers } from "@/services/user";
 
 const { Option } = Select;
 
 interface Props {
-  value: any;
-  onChange: (v: any) => void;
+  value?: any;
+  onChange?: (v: any) => void;
 }
 
 const UserSelect = (props: Props) => {
@@ -18,24 +18,26 @@ const UserSelect = (props: Props) => {
     run: searchUser,
     loading,
   } = useRequest((d: string) => searchUsers(d), {
-    manual: true,
     throttleInterval: 300,
   });
 
   const userList = userRes?.data;
-  console.log(userList);
 
   return (
     <Select
       style={{ width: "300px" }}
       mode="multiple"
       value={value}
-      filterOption={false}
       notFoundContent={loading ? <Spin size="small" /> : null}
-      placeholder="请选择待添加的成员"
-      onSearch={(txt) => {
-        return searchUser(txt);
+      placeholder="搜索成员"
+      filterOption={(v, option) => {
+        const label = option?.label as string;
+        return label.indexOf(v) > -1;
       }}
+      // filterOption={false}
+      // onSearch={(txt) => {
+      //   return searchUser(txt);
+      // }}
       onChange={(e) => {
         setValue(e);
       }}
@@ -43,8 +45,11 @@ const UserSelect = (props: Props) => {
       {Array.isArray(userList) &&
         userList.map((user: any) => {
           return (
-            <Option key={user.id} label={user.username} value={user.id}>
-              <Avatar size="small">{user?.username?.slice(0, 1)}</Avatar> <b>{user.username}</b>（{user.email}）
+            <Option key={user.id} label={user.username + user.email} value={user.id}>
+              <Space>
+                <Avatar size={18}>{user?.username?.slice(0, 1)}</Avatar>
+                <b>{user.username}</b>({user.email})
+              </Space>
             </Option>
           );
         })}

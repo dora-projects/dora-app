@@ -5,6 +5,7 @@ import ThresholdInput, { ThresholdValue } from "./ThresholdInput";
 import { useRequest } from "ahooks";
 import { createAlertRule, deleteAlertRule, updateAlertRule } from "@/services/alert";
 import { useSettingStore } from "@/stores/setting";
+import UserSelect from "@/components/UserSelect";
 
 const checkThreshold = (_: any, value: ThresholdValue) => {
   if (!value) {
@@ -41,7 +42,7 @@ const AlertsForm = (props: Props) => {
   // 表单恢复
   React.useEffect(() => {
     if (!props.editItem) return;
-    const { name, filter, silence, thresholdsTime, thresholdsOperator, thresholdsQuota } = props.editItem;
+    const { name, filter, silence, contacts, thresholdsTime, thresholdsOperator, thresholdsQuota } = props.editItem;
 
     let timeUnit;
     let time;
@@ -54,11 +55,13 @@ const AlertsForm = (props: Props) => {
       timeUnit = "minute";
       time = thresholdsTime / 60;
     }
+    const userIds = contacts.map((contact: any) => contact.user.id);
 
     form.setFieldsValue({
       name,
       filter,
       silence,
+      userIds,
       threshold: {
         timeUnit,
         time,
@@ -69,7 +72,7 @@ const AlertsForm = (props: Props) => {
   }, [props.editItem, form]);
 
   const onSubmit = (data: any) => {
-    const { projectId, name, filter, silence, thresholdsTime, thresholdsOperator, thresholdsQuota } = data;
+    const { projectId, name, filter, silence, userIds, thresholdsTime, thresholdsOperator, thresholdsQuota } = data;
 
     if (props.editItem) {
       update({
@@ -78,6 +81,7 @@ const AlertsForm = (props: Props) => {
         name,
         filter,
         silence,
+        userIds,
         thresholdsTime,
         thresholdsOperator,
         thresholdsQuota,
@@ -94,6 +98,7 @@ const AlertsForm = (props: Props) => {
         name,
         filter,
         silence,
+        userIds,
         thresholdsTime,
         thresholdsOperator,
         thresholdsQuota,
@@ -111,8 +116,7 @@ const AlertsForm = (props: Props) => {
     <div style={{ maxWidth: "500px" }}>
       <Form
         form={form}
-        size="small"
-        className=""
+        // size="small"
         initialValues={{
           filter: [{}],
         }}
@@ -120,7 +124,9 @@ const AlertsForm = (props: Props) => {
         wrapperCol={{ span: 16 }}
         layout="horizontal"
         onFinish={(values) => {
-          const { name, filter, threshold, silence } = values || {};
+          console.log(values);
+
+          const { name, filter, threshold, silence, userIds } = values || {};
           const { time, timeUnit, operator, quota } = threshold || {};
           const second = timeUnit === "minute" ? time * 60 : time;
 
@@ -129,6 +135,7 @@ const AlertsForm = (props: Props) => {
             name,
             filter,
             silence,
+            userIds,
             thresholdsTime: second,
             thresholdsOperator: operator,
             thresholdsQuota: quota,
@@ -192,6 +199,10 @@ const AlertsForm = (props: Props) => {
 
         <Form.Item label="静默 (分钟)" name="silence" rules={[{ required: true, message: "请选择时间" }]}>
           <InputNumber placeholder="时间" />
+        </Form.Item>
+
+        <Form.Item label="告警联系人" required name="userIds" rules={[{ required: true, message: "请选择时间" }]}>
+          <UserSelect />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>

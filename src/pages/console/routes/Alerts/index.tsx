@@ -1,9 +1,9 @@
 import React from "react";
-import { Table, Button, Divider, message, Tooltip, Switch, Space, Popconfirm } from "antd";
+import { Table, Button, Divider, Avatar, Tooltip, Switch, Space, Popconfirm } from "antd";
 import ProCard from "@ant-design/pro-card";
-import { InfoCircleOutlined } from "@ant-design/icons";
+import { UserOutlined, AntDesignOutlined } from "@ant-design/icons";
 import { useRequest } from "ahooks";
-import { createAlertRule, getAlertList, deleteAlertRule, toggleAlertRule } from "@/services/alert";
+import { getAlertList, deleteAlertRule, toggleAlertRule } from "@/services/alert";
 import { useSettingStore } from "@/stores/setting";
 import AlertForm from "./AlertForm";
 import { humanTime } from "@/utils/helper";
@@ -77,6 +77,24 @@ const Alerts = () => {
       dataIndex: "silence",
     },
     {
+      title: "联系人",
+      dataIndex: "contacts",
+      render(contacts: any, row: any) {
+        return (
+          <Avatar.Group maxCount={contacts?.length} maxStyle={{ color: "#f56a00", backgroundColor: "#fde3cf" }}>
+            {contacts.map((contact: any) => {
+              const { user } = contact || {};
+              return (
+                <Tooltip key={contact.id} title={`${user?.username} (${user?.email})`} placement="top">
+                  <Avatar style={{ backgroundColor: "#f56a00" }}>{user?.username?.slice(0, 1)}</Avatar>
+                </Tooltip>
+              );
+            })}
+          </Avatar.Group>
+        );
+      },
+    },
+    {
       title: "操作",
       dataIndex: "id",
       render: (t: any, row: any) => {
@@ -113,7 +131,7 @@ const Alerts = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <ProCard title="告警规则" bordered headerBordered style={{ maxWidth: "1000px" }}>
+      <ProCard title="告警规则" bordered headerBordered>
         <AlertForm
           editItem={editItem}
           onSuccess={() => {

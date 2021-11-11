@@ -11,6 +11,7 @@ export const createAlertRule = (data: {
     key: string;
     value: string;
   }[];
+  userIds: number[];
   thresholdsTime: number;
   thresholdsOperator: string;
   thresholdsQuota: number;
@@ -27,6 +28,7 @@ export const updateAlertRule = (data: {
     key: string;
     value: string;
   }[];
+  userIds: number[];
   thresholdsTime: number;
   thresholdsOperator: string;
   thresholdsQuota: number;
