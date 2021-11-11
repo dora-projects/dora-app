@@ -39,7 +39,7 @@ const Alerts = () => {
             checked={t}
             onChange={(checked) => {
               toggle({ ruleId: row.id, open: checked }).then((e) => {
-                if (e.data?.affected === 1) {
+                if (e.data?.success) {
                   refresh();
                 }
               });
@@ -113,7 +113,7 @@ const Alerts = () => {
               title={"确认删除吗？"}
               onConfirm={() => {
                 return deleteRule(t).then((e) => {
-                  if (e.status === 200) {
+                  if (e.data?.success) {
                     return refresh();
                   }
                 });
@@ -138,9 +138,12 @@ const Alerts = () => {
             setEditItem(null);
             refresh();
           }}
+          onCancel={() => {
+            setEditItem(null);
+          }}
         />
         <Divider />
-        <Table loading={listLoading} rowKey="id" dataSource={list} columns={columns} />
+        <Table loading={listLoading} rowKey="id" dataSource={list} columns={columns} pagination={false} />
       </ProCard>
     </div>
   );

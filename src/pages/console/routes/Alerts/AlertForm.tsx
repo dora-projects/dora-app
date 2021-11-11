@@ -30,6 +30,7 @@ const checkThreshold = (_: any, value: ThresholdValue) => {
 interface Props {
   editItem: any;
   onSuccess: () => void;
+  onCancel: () => void;
 }
 
 const AlertsForm = (props: Props) => {
@@ -86,7 +87,7 @@ const AlertsForm = (props: Props) => {
         thresholdsOperator,
         thresholdsQuota,
       }).then((e) => {
-        if (e.data?.affected === 1) {
+        if (e.data?.success) {
           message.success("更新成功");
           props.onSuccess();
           form.resetFields();
@@ -103,7 +104,7 @@ const AlertsForm = (props: Props) => {
         thresholdsOperator,
         thresholdsQuota,
       }).then((e) => {
-        if (e.status === 200) {
+        if (e.data?.success) {
           message.success("创建成功");
           props.onSuccess();
           form.resetFields();
@@ -210,9 +211,20 @@ const AlertsForm = (props: Props) => {
             <Button htmlType="submit" type="primary" loading={false}>
               {props.editItem ? "编辑" : "添加"}
             </Button>
-            <Button htmlType="reset" loading={false}>
-              重置
-            </Button>
+
+            {props.editItem ? (
+              <Button
+                onClick={() => {
+                  props.onCancel();
+                }}
+              >
+                取消
+              </Button>
+            ) : (
+              <Button htmlType="reset" loading={false}>
+                重置
+              </Button>
+            )}
           </Space>
         </Form.Item>
       </Form>
