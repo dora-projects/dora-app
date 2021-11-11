@@ -37,7 +37,7 @@ export const ProjectItem = styled.div`
     }
   }
 
-  .info {
+  .item-panel {
     position: relative;
     z-index: 10;
     height: 100%;
@@ -48,12 +48,18 @@ export const ProjectItem = styled.div`
     .head {
       cursor: pointer;
 
-      &:hover {
-        text-decoration: underline;
+      .label {
+        font-size: 12px;
+        color: #666;
       }
 
       .name {
         font-size: 16px;
+        color: #0052d9;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
 
       .detail {
@@ -62,7 +68,7 @@ export const ProjectItem = styled.div`
       }
     }
 
-    .foot {
+    .body {
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -71,6 +77,7 @@ export const ProjectItem = styled.div`
         display: flex;
 
         .count-item {
+          font-size: 12px;
           margin-right: 10px;
 
           span:first-child {
@@ -82,19 +89,37 @@ export const ProjectItem = styled.div`
           }
         }
       }
+    }
 
-      .setting {
-        cursor: pointer;
-        display: flex;
-        padding: 5px;
-      }
+    .foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      font-size: 12px;
+    }
+  }
+
+  .setting-icon {
+    cursor: pointer;
+    padding: 5px;
+
+    z-index: 100;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    color: #eaeaea;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
     }
   }
 
   .type-icon {
     position: absolute;
-    right: 0;
-    top: 0;
+    right: 10px;
+    bottom: 10px;
     color: #eaeaea;
     font-size: 80px;
   }

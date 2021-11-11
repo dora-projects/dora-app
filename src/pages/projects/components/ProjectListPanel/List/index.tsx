@@ -6,7 +6,7 @@ import { ArrowRightOutlined, SettingOutlined } from "@ant-design/icons";
 import { useRequest } from "ahooks";
 import { updateUserSetting } from "@/services/user";
 import { useSettingStore } from "@/stores/setting";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import storage from "@/utils/storage";
 
 interface Props {
@@ -42,28 +42,37 @@ const ProjectCardList = (props: Props) => {
         return (
           <Col sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }} key={project.id}>
             <ProjectItem className={project.id === showProject?.id ? "active" : ""}>
-              <div className="info">
+              <div className="item-panel">
                 <div className="head" onClick={() => updateDashboard(project.id)}>
-                  <div className="name">{project.name}</div>
-                  <div className="detail">{project.detail}</div>
+                  <div>
+                    <span className="label">项目名：</span>
+                    <span className="name">{project.name}</span>
+                  </div>
+                  <div>
+                    <span className="label">描述：</span>
+                    <span className="detail">{project.detail}</span>
+                  </div>
                 </div>
-                <div className="foot">
+                <div className="body">
                   <div className="stat">
                     <div className="count-item">
-                      <span>total：</span>
+                      <span>事件数：</span>
                       <span>231233</span>
                     </div>
                     <div className="count-item">
-                      <span>24h count：</span>
+                      <span>24h：</span>
                       <span>46742</span>
                     </div>
                   </div>
-                  <div className="setting" onClick={() => props.onClickSetting(project)}>
-                    <SettingOutlined style={{ fontSize: "16px", color: "#666" }} />
-                  </div>
+                </div>
+                <div className="foot">
+                  <Link to={`${project.appKey}/sdk`}>接入指南</Link>
                 </div>
               </div>
-              <IconFont className={"type-icon"} name="icon-javascript-blank" />
+              <div className="setting-icon" onClick={() => props.onClickSetting(project)}>
+                <SettingOutlined style={{ fontSize: "20px", color: "#666" }} />
+              </div>
+              <IconFont className="type-icon" name="icon-javascript-blank" />
             </ProjectItem>
           </Col>
         );

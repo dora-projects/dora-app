@@ -4,6 +4,7 @@ import { Navigate, Outlet, Route, Routes, useLocation, useNavigate } from "react
 import List from "./routes/List";
 import { PageContainer } from "@ant-design/pro-layout";
 import Footer from "@/components/Footer";
+import SdkUsage from "./routes/SdkUsage";
 
 const ProjectsLayout = () => {
   const navigate = useNavigate();
@@ -24,6 +25,7 @@ const Projects = () => {
     <Routes>
       <Route element={<ProjectsLayout />}>
         <Route index element={<List />} />
+        <Route path={"/:appKey/sdk"} element={<SdkUsage />} />
       </Route>
     </Routes>
   );

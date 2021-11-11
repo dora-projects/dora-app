@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Input, Space, Button, Drawer, Divider, Radio, Typography, Popconfirm } from "antd";
 import { Tabs } from "antd";
-import SdkUsage from "@/components/SdkUsage";
 import Members from "./Members";
 import { createProject, updateProject, deleteProject } from "@/services/project";
 import { useRequest } from "ahooks";
@@ -133,9 +132,6 @@ const ManageDrawer = (props: Props) => {
           <Tabs defaultActiveKey="1">
             <TabPane tab="成员管理" key="1">
               <Members projectId={editItem?.id} />
-            </TabPane>
-            <TabPane tab="安装指引" key="2">
-              <SdkUsage />
             </TabPane>
           </Tabs>
         </>

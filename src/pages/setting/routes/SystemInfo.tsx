@@ -5,10 +5,17 @@ import { getEsStatus, getQueueCount } from "@/services/system";
 import React from "react";
 
 const QueueStats = () => {
-  const { data: QueueData, refresh, loading } = useRequest(getQueueCount);
+  const {
+    data: QueueData,
+    refresh,
+    loading,
+  } = useRequest(getQueueCount, {
+    pollingInterval: 1000,
+  });
   return (
     <>
       <Button
+        loading={loading}
         onClick={() => {
           refresh();
         }}
@@ -16,19 +23,20 @@ const QueueStats = () => {
         刷新 Queue
       </Button>
       <Divider />
-      <Spin spinning={loading}>
-        <code style={{ whiteSpace: "pre-wrap" }}> {JSON.stringify(QueueData?.data, null, 2)}</code>
-      </Spin>
+      <code style={{ whiteSpace: "pre-wrap" }}> {JSON.stringify(QueueData?.data, null, 2)}</code>
     </>
   );
 };
 
 const EsStats = () => {
-  const { data, refresh, loading } = useRequest(getEsStatus);
+  const { data, refresh, loading } = useRequest(getEsStatus, {
+    pollingInterval: 1000,
+  });
 
   return (
     <>
       <Button
+        loading={loading}
         onClick={() => {
           refresh();
         }}
@@ -36,9 +44,7 @@ const EsStats = () => {
         刷新 ES
       </Button>
       <Divider />
-      <Spin spinning={loading}>
-        <code style={{ whiteSpace: "pre-wrap" }}> {JSON.stringify(data?.data, null, 2)}</code>
-      </Spin>
+      <code style={{ whiteSpace: "pre-wrap" }}> {JSON.stringify(data?.data, null, 2)}</code>
     </>
   );
 };
