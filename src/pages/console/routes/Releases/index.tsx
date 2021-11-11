@@ -1,8 +1,14 @@
 import { Button } from "antd";
-import { PageContainer } from "@ant-design/pro-layout";
+import ProCard from "@ant-design/pro-card";
 
 const Releases = () => {
-  return <div>Releases</div>;
+  return (
+    <div style={{ padding: "20px" }}>
+      <ProCard title="版本" bordered headerBordered>
+        <div>Card content</div>
+      </ProCard>
+    </div>
+  );
 };
 
 export default Releases;

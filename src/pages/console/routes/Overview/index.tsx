@@ -5,7 +5,7 @@ import { queryByEql } from "@/services/analysis";
 import { queryErrorCount } from "@/eql";
 import { useSettingStore } from "@/stores/setting";
 import ErrorTrend from "@/pages/console/routes/Overview/ErrorTrend";
-import dayjs from "dayjs";
+import { dateNowWithWeek } from "@/utils/date";
 
 const { Statistic } = StatisticCard;
 
@@ -17,12 +17,18 @@ const Overview = () => {
   });
 
   const errorCount = data?.data?.aggregations?.count?.value || 0;
-  const todayStr = dayjs().format("YYYY年M月D日");
+  const dateNow = dateNowWithWeek();
 
   const responsive = false;
   return (
     <div style={{ padding: "20px" }}>
-      <ProCard title="数据概览" extra={todayStr} split={responsive ? "horizontal" : "vertical"} headerBordered bordered>
+      <ProCard
+        title="数据概览"
+        extra={`${dateNow}`}
+        split={responsive ? "horizontal" : "vertical"}
+        headerBordered
+        bordered
+      >
         <ProCard split="horizontal">
           <ProCard split="horizontal">
             <ProCard split="vertical">

@@ -3,7 +3,7 @@ import { Empty, Spin, Pagination, Card } from "antd";
 import { useRequest } from "ahooks";
 import { getIssues } from "@/services/issue";
 import { IssuesList } from "./styled";
-import { formNow } from "@/utils/public";
+import { formNow } from "@/utils/date";
 import { useSettingStore } from "@/stores/setting";
 
 const Issues = () => {
@@ -31,7 +31,7 @@ const Issues = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Card title="错误列表">
+      <Card title="异常列表">
         <Spin spinning={loading}>
           {empty ? (
             empty
