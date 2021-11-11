@@ -1,8 +1,131 @@
-import { Button } from "antd";
-import { PageContainer } from "@ant-design/pro-layout";
+import React from "react";
+import { Table, Button, Divider, message, Tooltip, Switch, Space, Popconfirm } from "antd";
+import ProCard from "@ant-design/pro-card";
+import { InfoCircleOutlined } from "@ant-design/icons";
+import { useRequest } from "ahooks";
+import { createAlertRule, getAlertList, deleteAlertRule, toggleAlertRule } from "@/services/alert";
+import { useSettingStore } from "@/stores/setting";
+import AlertForm from "./AlertForm";
+import { humanTime } from "@/utils/helper";
 
 const Alerts = () => {
-  return <div>Alerts.tsx</div>;
+  const [editItem, setEditItem] = React.useState(null);
+  const projectId = useSettingStore((state) => state.project?.id);
+
+  const {
+    data,
+    refresh,
+    loading: listLoading,
+  } = useRequest(() => getAlertList(projectId!), {
+    ready: !!projectId,
+  });
+
+  const { run: deleteRule } = useRequest(deleteAlertRule, {
+    manual: true,
+  });
+  const { run: toggle, loading: toggleLoading } = useRequest(toggleAlertRule, {
+    manual: true,
+  });
+
+  const list = data?.data || [];
+  const columns = [
+    {
+      title: "是否开启",
+      dataIndex: "open",
+      render(t: any, row: any) {
+        return (
+          <Switch
+            loading={toggleLoading}
+            checked={t}
+            onChange={(checked) => {
+              toggle({ ruleId: row.id, open: checked }).then((e) => {
+                if (e.data?.affected === 1) {
+                  refresh();
+                }
+              });
+            }}
+          />
+        );
+      },
+    },
+    {
+      title: "规则名字",
+      dataIndex: "name",
+    },
+    {
+      title: "筛选",
+      dataIndex: "filter",
+      width: 300,
+      render: (t: any) => {
+        return (
+          <Tooltip title={<pre style={{ fontSize: "12px" }}>{JSON.stringify(t, null, 2)}</pre>}>
+            <span style={{ fontSize: "12px" }}>{JSON.stringify(t)}</span>
+          </Tooltip>
+        );
+      },
+    },
+    {
+      title: "条件",
+      dataIndex: "id",
+      render(_: any, row: any) {
+        const { thresholdsTime, thresholdsOperator, thresholdsQuota } = row;
+        return `${humanTime(thresholdsTime)}内 ${thresholdsOperator} ${thresholdsQuota} 次`;
+      },
+    },
+    {
+      title: "静默 (分钟)",
+      dataIndex: "silence",
+    },
+    {
+      title: "操作",
+      dataIndex: "id",
+      render: (t: any, row: any) => {
+        return (
+          <Space>
+            <Button
+              size={"small"}
+              type="primary"
+              onClick={() => {
+                setEditItem(row);
+              }}
+            >
+              编辑
+            </Button>
+            <Popconfirm
+              title={"确认删除吗？"}
+              onConfirm={() => {
+                return deleteRule(t).then((e) => {
+                  if (e.status === 200) {
+                    return refresh();
+                  }
+                });
+              }}
+            >
+              <Button size={"small"} type="text" danger>
+                删除
+              </Button>
+            </Popconfirm>
+          </Space>
+        );
+      },
+    },
+  ];
+
+  return (
+    <div style={{ padding: "20px" }}>
+      <ProCard title="告警规则" bordered headerBordered style={{ maxWidth: "1000px" }}>
+        <AlertForm
+          editItem={editItem}
+          onSuccess={() => {
+            setEditItem(null);
+            refresh();
+          }}
+        />
+        <Divider />
+        <Table loading={listLoading} rowKey="id" dataSource={list} columns={columns} />
+      </ProCard>
+    </div>
+  );
 };
 
 export default Alerts;
