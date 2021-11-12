@@ -3,9 +3,9 @@ import { useRequest } from "ahooks";
 import { StatisticCard } from "@ant-design/pro-card";
 import { queryByEql } from "@/services/analysis";
 import EChartsForReact from "@/components/EChartsForReact";
-import { useSettingStore } from "@/stores/setting";
 import { queryErrorCount, queryErrorTrend } from "@/eql";
 import dayjs from "dayjs";
+import { useParams } from "react-router-dom";
 
 export const getAxisData = (list: any[], key: string) => {
   if (!Array.isArray(list)) return [];
@@ -18,7 +18,8 @@ export const getTsAxisData = (list: any[], key: string) => {
 };
 
 const ErrorTrend = () => {
-  const appKey = useSettingStore((state) => state.project?.appKey);
+  const params = useParams();
+  const appKey = params.appKey;
 
   const from = dayjs().startOf("date").valueOf();
   const to = dayjs().valueOf();

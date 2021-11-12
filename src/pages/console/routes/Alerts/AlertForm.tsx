@@ -4,8 +4,9 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import ThresholdInput, { ThresholdValue } from "./ThresholdInput";
 import { useRequest } from "ahooks";
 import { createAlertRule, deleteAlertRule, updateAlertRule } from "@/services/alert";
-import { useSettingStore } from "@/stores/setting";
 import UserSelect from "@/components/UserSelect";
+import { useParams } from "react-router-dom";
+import { useConsoleProjectInfo } from "@/pages/console/store/project";
 
 const checkThreshold = (_: any, value: ThresholdValue) => {
   if (!value) {
@@ -34,8 +35,9 @@ interface Props {
 }
 
 const AlertsForm = (props: Props) => {
+  const projectId = useConsoleProjectInfo((state) => state.project?.id);
+
   const [form] = Form.useForm();
-  const projectId = useSettingStore((state) => state.project?.id);
 
   const { run: create } = useRequest(createAlertRule, { manual: true });
   const { run: update } = useRequest(updateAlertRule, { manual: true });

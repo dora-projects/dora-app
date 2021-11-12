@@ -3,11 +3,7 @@ import { ProjectItem } from "./index.styled";
 import { Col, Row } from "antd";
 import IconFont from "@/components/IconFont";
 import { ArrowRightOutlined, SettingOutlined } from "@ant-design/icons";
-import { useRequest } from "ahooks";
-import { updateUserSetting } from "@/services/user";
-import { useSettingStore } from "@/stores/setting";
 import { Link, useNavigate } from "react-router-dom";
-import storage from "@/utils/storage";
 
 interface Props {
   projects: any[];
@@ -17,33 +13,22 @@ interface Props {
 const ProjectCardList = (props: Props) => {
   const navigate = useNavigate();
 
-  const { loading, fetchSetting, project: showProject } = useSettingStore();
-  console.log(showProject);
-
-  React.useEffect(() => {
-    fetchSetting();
-  }, [fetchSetting]);
-
-  // 切换
-  const { run: updateDashboard } = useRequest(updateUserSetting, {
-    manual: true,
-    onSuccess: () => {
-      fetchSetting();
-
-      // 跳转至原来的 url
-      const url = storage.getBackUrl();
-      navigate(url || "/console/overview");
-    },
-  });
-
   return (
     <Row gutter={[24, 24]}>
       {props.projects.map((project) => {
         return (
           <Col sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }} key={project.id}>
-            <ProjectItem className={project.id === showProject?.id ? "active" : ""}>
+            <ProjectItem
+            // className={project.id === showProject?.id ? "active" : ""}
+            >
               <div className="item-panel">
-                <div className="head" onClick={() => updateDashboard(project.id)}>
+                <div
+                  className="head"
+                  onClick={() => {
+                    // const url = storage.getBackUrl();
+                    navigate(`/console/${project.appKey}/overview`);
+                  }}
+                >
                   <div>
                     <span className="label">项目名：</span>
                     <span className="name">{project.name}</span>

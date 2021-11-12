@@ -4,29 +4,37 @@ import { LogoutOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons
 import styles from "./index.module.less";
 import { useLoginUserStore } from "@/stores/user";
 import storage from "@/utils/storage";
+import { useProjectsStore } from "@/stores/projects";
 
 export const AvatarDropdown = () => {
   const navigate = useNavigate();
-  const { userInfo } = useLoginUserStore();
+  const { userInfo, clearUserInfo } = useLoginUserStore();
+  const { clearProjects } = useProjectsStore();
+
+  const loginOut = () => {
+    clearProjects();
+    clearUserInfo();
+
+    storage.clearToken();
+    navigate("/auth/login");
+  };
 
   const menu = (
     <Menu
       className={styles.menu}
       onClick={(e) => {
         const { key } = e;
-        if (key === "logout") {
-          storage.clearToken();
-          navigate("/auth/login");
+
+        if (key === "center") {
+          navigate("/setting/userinfo");
         }
+
+        if (key === "logout") loginOut();
       }}
     >
       <Menu.Item key="center">
         <UserOutlined />
         个人中心
-      </Menu.Item>
-      <Menu.Item key="settings">
-        <SettingOutlined />
-        个人设置
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item key="logout">

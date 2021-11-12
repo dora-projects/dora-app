@@ -37,11 +37,6 @@ const MainLayout: React.FC = ({ children }) => {
             icon: <AppstoreOutlined />,
           },
           {
-            path: "/console",
-            name: " 监控",
-            icon: <AreaChartOutlined />,
-          },
-          {
             path: "/setting",
             name: " 设置",
             icon: <SettingOutlined />,

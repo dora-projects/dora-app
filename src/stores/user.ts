@@ -14,6 +14,7 @@ type UserInfoStore = {
   userInfo: UserInfo | null;
   loading: boolean;
   fetchUserInfo: () => void;
+  clearUserInfo: () => void;
 };
 
 export const useLoginUserStore = create<UserInfoStore>(
@@ -28,6 +29,9 @@ export const useLoginUserStore = create<UserInfoStore>(
       } catch (e) {
         set({ userInfo: null, loading: false });
       }
+    },
+    clearUserInfo: () => {
+      set({ userInfo: null, loading: true });
     },
   }))
 );

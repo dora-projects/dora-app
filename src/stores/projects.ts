@@ -12,14 +12,15 @@ export type Project = {
 type ProjectStore = {
   projects: Project[] | null;
   loading: boolean;
-  fetchProjects: () => void;
+  fetchMyProjects: () => void;
+  clearProjects: () => void;
 };
 
 export const useProjectsStore = create<ProjectStore>(
   devtools((set) => ({
     projects: null,
     loading: true,
-    fetchProjects: async () => {
+    fetchMyProjects: async () => {
       try {
         set({ loading: true });
         const response = await getMyProjects();
@@ -27,6 +28,9 @@ export const useProjectsStore = create<ProjectStore>(
       } catch (e) {
         set({ projects: null, loading: false });
       }
+    },
+    clearProjects: () => {
+      set({ projects: null, loading: true });
     },
   }))
 );

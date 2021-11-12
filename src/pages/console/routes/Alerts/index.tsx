@@ -1,16 +1,15 @@
 import React from "react";
 import { Table, Button, Divider, Avatar, Tooltip, Switch, Space, Popconfirm } from "antd";
 import ProCard from "@ant-design/pro-card";
-import { UserOutlined, AntDesignOutlined } from "@ant-design/icons";
 import { useRequest } from "ahooks";
 import { getAlertList, deleteAlertRule, toggleAlertRule } from "@/services/alert";
-import { useSettingStore } from "@/stores/setting";
 import AlertForm from "./AlertForm";
 import { humanTime } from "@/utils/helper";
+import { useConsoleProjectInfo } from "@/pages/console/store/project";
 
 const Alerts = () => {
   const [editItem, setEditItem] = React.useState(null);
-  const projectId = useSettingStore((state) => state.project?.id);
+  const projectId = useConsoleProjectInfo((state) => state.project?.id);
 
   const {
     data,

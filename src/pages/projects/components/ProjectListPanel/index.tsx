@@ -12,7 +12,7 @@ const ProjectListPanel = () => {
   const [drawerVisible, setDrawerVisible] = React.useState(false);
   const [editItem, setEditItem] = React.useState(null);
 
-  const { loading, fetchProjects, projects } = useProjectsStore();
+  const { loading, fetchMyProjects, projects } = useProjectsStore();
 
   return (
     <>
@@ -47,7 +47,7 @@ const ProjectListPanel = () => {
         onOk={() => {
           setEditItem(null);
           setDrawerVisible(false);
-          fetchProjects();
+          fetchMyProjects();
         }}
         onClose={() => {
           setEditItem(null);

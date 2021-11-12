@@ -1,5 +1,4 @@
 export const queryErrorCount = (appKey?: string) => {
-  console.log("--------------------------------");
   return {
     size: 0,
     query: {

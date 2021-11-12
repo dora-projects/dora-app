@@ -4,10 +4,11 @@ import { useRequest } from "ahooks";
 import { getIssues } from "@/services/issue";
 import { IssuesList } from "./styled";
 import { formNow } from "@/utils/date";
-import { useSettingStore } from "@/stores/setting";
+import { useParams } from "react-router-dom";
 
 const Issues = () => {
-  const appKey = useSettingStore((state) => state.project?.appKey);
+  const params = useParams();
+  const appKey = params.appKey;
 
   const [pagination, setPagination] = React.useState({
     page: 1,

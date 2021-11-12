@@ -3,14 +3,16 @@ import { useRequest } from "ahooks";
 import ProCard, { StatisticCard } from "@ant-design/pro-card";
 import { queryByEql } from "@/services/analysis";
 import { queryErrorCount } from "@/eql";
-import { useSettingStore } from "@/stores/setting";
 import ErrorTrend from "@/pages/console/routes/Overview/ErrorTrend";
 import { dateNowWithWeek } from "@/utils/date";
+import { useParams } from "react-router-dom";
 
 const { Statistic } = StatisticCard;
 
 const Overview = () => {
-  const appKey = useSettingStore((state) => state.project?.appKey);
+  const params = useParams();
+  const appKey = params.appKey;
+
   const { data } = useRequest(() => queryByEql({ eql: queryErrorCount(appKey) }), {
     ready: !!appKey,
     refreshDeps: [appKey],

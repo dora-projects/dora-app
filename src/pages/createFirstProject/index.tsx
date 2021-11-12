@@ -8,7 +8,7 @@ import { useProjectsStore } from "@/stores/projects";
 
 export const CreateFPForm = () => {
   const navigate = useNavigate();
-  const { fetchProjects, projects } = useProjectsStore();
+  const { fetchMyProjects, projects } = useProjectsStore();
 
   React.useEffect(() => {
     if (projects && projects.length > 0) {
@@ -21,7 +21,7 @@ export const CreateFPForm = () => {
     onSuccess: async (res) => {
       if (res.status === 200) {
         message.success("创建成功！");
-        fetchProjects();
+        fetchMyProjects();
       }
     },
   });

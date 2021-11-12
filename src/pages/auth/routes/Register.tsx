@@ -23,7 +23,7 @@ export const Register = () => {
           type: "success",
           title: "欢迎使用",
         });
-        navigate("/");
+        navigate("/projects");
       }
     },
   });

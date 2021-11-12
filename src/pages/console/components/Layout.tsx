@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Menu } from "antd";
 import ProLayout from "@ant-design/pro-layout";
 import {
   PieChartOutlined,
@@ -8,43 +7,44 @@ import {
   AlertOutlined,
   FileSyncOutlined,
 } from "@ant-design/icons";
-import { AppstoreOutlined, SwapOutlined, SettingOutlined } from "@ant-design/icons";
-import { useLocation, useNavigate } from "react-router-dom";
-import RightContent from "@/components/RightContent";
-import SwitchProject from "@/components/SwitchProject";
-
-const SubMenu = [
-  {
-    path: "/console/overview",
-    name: " 大盘",
-    icon: <PieChartOutlined />,
-  },
-  {
-    path: "/console/issues",
-    name: " 异常列表",
-    icon: <ProfileOutlined />,
-  },
-  {
-    path: "/console/performance",
-    name: " 性能数据",
-    icon: <DashboardOutlined />,
-  },
-  {
-    path: "/console/releases",
-    name: " 版本",
-    icon: <FileSyncOutlined />,
-  },
-  {
-    path: "/console/alerts",
-    name: " 告警",
-    icon: <AlertOutlined />,
-  },
-];
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import SwitchProject from "./SwitchProject";
 
 const ConsoleLayout: React.FC = ({ children }) => {
   const navigator = useNavigate();
   const location = useLocation();
   const { pathname } = location;
+
+  const params = useParams();
+  const appKey = params.appKey;
+
+  const SubMenu = [
+    {
+      path: `/console/${appKey}/overview`,
+      name: " 大盘",
+      icon: <PieChartOutlined />,
+    },
+    {
+      path: `/console/${appKey}/issues`,
+      name: " 异常列表",
+      icon: <ProfileOutlined />,
+    },
+    {
+      path: `/console/${appKey}/performance`,
+      name: " 性能数据",
+      icon: <DashboardOutlined />,
+    },
+    {
+      path: `/console/${appKey}/releases`,
+      name: " 版本",
+      icon: <FileSyncOutlined />,
+    },
+    {
+      path: `/console/${appKey}/alerts`,
+      name: " 告警",
+      icon: <AlertOutlined />,
+    },
+  ];
 
   return (
     <ProLayout

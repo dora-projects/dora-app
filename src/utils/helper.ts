@@ -16,3 +16,8 @@ export const humanTime = (n: number) => {
   }
   return `${n / 60 / 60}小时`;
 };
+
+export const sleep = (ms: number) =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve(null), ms);
+  });
