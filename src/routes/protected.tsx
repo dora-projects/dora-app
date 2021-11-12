@@ -3,10 +3,7 @@ import { RouteObject } from "react-router";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useLoginUserStore } from "@/stores/user";
 import { useProjectsStore } from "@/stores/projects";
-
-import Unauthorized from "@/components/UnAuthorized";
 import { FullLoading } from "@/components/Loading";
-
 import CreateFPForm from "@/pages/createFirstProject";
 import Console from "@/pages/console";
 import Setting from "@/pages/setting";
@@ -28,7 +25,9 @@ const ProtectedWrap = () => {
 
   // 检查用户信息
   if (loadingUser) return <FullLoading loading={true} title={"获取登录信息..."} />;
-  if (!userInfo) return <Unauthorized />;
+  if (!userInfo) {
+    return <Navigate to="/auth/login" />;
+  }
 
   // 检查项目
   if (!loadingProjects && (!projects || projects?.length === 0) && location.pathname !== "/create-first-project") {

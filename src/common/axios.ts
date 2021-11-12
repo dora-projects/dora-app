@@ -18,6 +18,16 @@ const debounceAddNotification = debounce(
   }
 );
 
+const debounceGoLogin = debounce(
+  () => {
+    window.location.href = "/auth/login";
+  },
+  180,
+  {
+    leading: false,
+  }
+);
+
 function authRequestInterceptor(config: AxiosRequestConfig) {
   const token = storage.getToken();
   if (token) {
@@ -39,6 +49,11 @@ axios.interceptors.response.use(
   (error) => {
     const status = error.response?.status;
     const message = error.response?.data?.error?.message || error.message;
+
+    // 未登录跳转
+    if (status === 401) {
+      debounceGoLogin();
+    }
 
     // 未登录错误 不提示
     if (status !== 401) {

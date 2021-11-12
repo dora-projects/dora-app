@@ -1,6 +1,7 @@
 import create from "zustand";
 import { devtools } from "zustand/middleware";
 import { getProject } from "@/services/project";
+import { sleep } from "@/utils/helper";
 
 export type Project = {
   id: number;
@@ -25,7 +26,8 @@ export const useConsoleProjectInfo = create<ProjectStore>(
     fetchProject: async (appKey: string) => {
       try {
         set({ loading: true });
-        // await sleep(300);
+        // 慢一点
+        await sleep(120);
         const response = await getProject({ appKey });
         set({ project: response?.data, loading: false });
       } catch (e: any) {
