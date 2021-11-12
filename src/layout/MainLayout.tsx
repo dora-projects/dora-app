@@ -22,7 +22,7 @@ const MainLayout: React.FC = ({ children }) => {
       contentStyle={{ height: "calc(100vh - 48px)" }}
       rightContentRender={() => <RightContent />}
       onMenuHeaderClick={() => {
-        window.location.href = "/";
+        navigator("/");
       }}
       menuProps={{
         onClick: (menu: any) => {
