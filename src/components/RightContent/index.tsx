@@ -11,7 +11,7 @@ const GlobalHeaderRight: React.FC = () => {
       <span
         className={styles.action}
         onClick={() => {
-          window.open("https://doras.space");
+          window.open("https://nancode.gitee.io/dora/");
         }}
       >
         <QuestionCircleOutlined />

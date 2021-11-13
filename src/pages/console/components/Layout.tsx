@@ -21,12 +21,12 @@ const ConsoleLayout: React.FC = ({ children }) => {
   const SubMenu = [
     {
       path: `/console/${appKey}/overview`,
-      name: " 大盘",
+      name: " 概览",
       icon: <PieChartOutlined />,
     },
     {
       path: `/console/${appKey}/issues`,
-      name: " 异常列表",
+      name: " 错误异常",
       icon: <ProfileOutlined />,
     },
     {

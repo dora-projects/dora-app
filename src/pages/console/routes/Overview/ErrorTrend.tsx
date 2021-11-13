@@ -3,7 +3,7 @@ import { useRequest } from "ahooks";
 import { StatisticCard } from "@ant-design/pro-card";
 import { queryByEql } from "@/services/analysis";
 import EChartsForReact from "@/components/EChartsForReact";
-import { queryErrorCount, queryErrorTrend } from "@/eql";
+// import { queryErrorCount, queryErrorTrend } from "@/eql";
 import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 
@@ -24,10 +24,11 @@ const ErrorTrend = () => {
   const from = dayjs().startOf("date").valueOf();
   const to = dayjs().valueOf();
 
-  const { data: trendData } = useRequest(() => queryByEql({ eql: queryErrorTrend(appKey!, from, to, 10) }), {
-    ready: !!appKey,
-    refreshDeps: [appKey],
-  });
+  // const { data: trendData } = useRequest(() => queryByEql({ eql: queryErrorTrend(appKey!, from, to, 10) }), {
+  //   ready: !!appKey,
+  //   refreshDeps: [appKey],
+  // });
+  const trendData: any = null;
 
   const buckets = trendData?.data?.aggregations?.trend?.buckets;
   const xAxisData = getTsAxisData(buckets, "key");

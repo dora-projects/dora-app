@@ -5,6 +5,7 @@ import MainLayout from "@/layout/MainLayout";
 import ConsoleLayout from "./components/Layout";
 import Overview from "./routes/Overview";
 import Issues from "./routes/Issues";
+import IssueDetail from "./routes/Issues/Detail";
 import Performance from "./routes/Performance";
 import Releases from "./routes/Releases";
 import Alerts from "./routes/Alerts";
@@ -54,6 +55,7 @@ const Console = () => {
         <Route index element={<Navigate to={`${appKey}/overview`} />} />
         <Route path=":appKey/overview" element={<Overview />} />
         <Route path=":appKey/issues" element={<Issues />} />
+        <Route path=":appKey/issues/:fingerprint" element={<IssueDetail />} />
         <Route path=":appKey/performance" element={<Performance />} />
         <Route path=":appKey/releases" element={<Releases />} />
         <Route path=":appKey/alerts" element={<Alerts />} />

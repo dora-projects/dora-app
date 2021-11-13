@@ -5,6 +5,7 @@ import { sleep } from "@/utils/helper";
 
 export type Project = {
   id: number;
+  appKey: string;
   name: string;
   type: string;
   detail: string;

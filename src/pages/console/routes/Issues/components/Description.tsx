@@ -1,0 +1,26 @@
+import React from "react";
+import { Descriptions } from "antd";
+
+interface Props {
+  ip: string;
+  url: string;
+  uaParsed: any;
+}
+
+const Description = (props: Props) => {
+  const { browser, engine, os } = props.uaParsed || {};
+
+  return (
+    <div style={{ backgroundColor: "#fff", padding: "20px" }}>
+      <Descriptions title="" bordered>
+        <Descriptions.Item label="os">{`${os?.name} ${os?.version}`}</Descriptions.Item>
+        <Descriptions.Item label="browser">{`${browser?.name} ${browser?.major} ${browser?.version}`}</Descriptions.Item>
+        <Descriptions.Item label="engine">{`${engine?.name} ${engine?.version}`}</Descriptions.Item>
+        <Descriptions.Item label="ip">{props.ip}</Descriptions.Item>
+        <Descriptions.Item label="url">{props.url}</Descriptions.Item>
+      </Descriptions>
+    </div>
+  );
+};
+
+export default Description;

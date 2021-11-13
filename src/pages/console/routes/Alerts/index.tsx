@@ -6,6 +6,7 @@ import { getAlertList, deleteAlertRule, toggleAlertRule } from "@/services/alert
 import AlertForm from "./AlertForm";
 import { humanTime } from "@/utils/helper";
 import { useConsoleProjectInfo } from "@/pages/console/store/project";
+import FilterBar from "@/pages/console/components/FilterBar";
 
 const Alerts = () => {
   const [editItem, setEditItem] = React.useState(null);
@@ -130,6 +131,7 @@ const Alerts = () => {
 
   return (
     <div style={{ padding: "20px" }}>
+      <FilterBar />
       <ProCard title="告警规则" bordered headerBordered>
         <AlertForm
           editItem={editItem}

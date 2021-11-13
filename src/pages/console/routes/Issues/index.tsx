@@ -3,10 +3,12 @@ import { Empty, Spin, Pagination, Card } from "antd";
 import { useRequest } from "ahooks";
 import { getIssues } from "@/services/issue";
 import { IssuesList } from "./styled";
+import FilterBar from "../../components/FilterBar";
 import { formNow } from "@/utils/date";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Issues = () => {
+  const navigate = useNavigate();
   const params = useParams();
   const appKey = params.appKey;
 
@@ -32,7 +34,8 @@ const Issues = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <Card title="异常列表">
+      <FilterBar />
+      <Card style={{}}>
         <Spin spinning={loading}>
           {empty ? (
             empty
@@ -40,7 +43,13 @@ const Issues = () => {
             <IssuesList>
               {list?.map((item) => {
                 return (
-                  <div className="issue-item" key={item.id}>
+                  <div
+                    className="issue-item"
+                    key={item.id}
+                    onClick={() => {
+                      navigate(`/console/${item.appKey}/issues/${item.fingerprint}`);
+                    }}
+                  >
                     <div className="content">
                       <div className="type">{item.type}</div>
                       <div className="value">{item.value}</div>

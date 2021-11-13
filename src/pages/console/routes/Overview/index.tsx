@@ -1,11 +1,9 @@
-import { Button, Divider } from "antd";
-import { useRequest } from "ahooks";
+import React from "react";
 import ProCard, { StatisticCard } from "@ant-design/pro-card";
-import { queryByEql } from "@/services/analysis";
-import { queryErrorCount } from "@/eql";
 import ErrorTrend from "@/pages/console/routes/Overview/ErrorTrend";
 import { dateNowWithWeek } from "@/utils/date";
 import { useParams } from "react-router-dom";
+import FilterBar from "@/pages/console/components/FilterBar";
 
 const { Statistic } = StatisticCard;
 
@@ -13,10 +11,11 @@ const Overview = () => {
   const params = useParams();
   const appKey = params.appKey;
 
-  const { data } = useRequest(() => queryByEql({ eql: queryErrorCount(appKey) }), {
-    ready: !!appKey,
-    refreshDeps: [appKey],
-  });
+  // const { data } = useRequest(() => queryByEql({ eql: errorCount(appKey) }), {
+  //   ready: !!appKey,
+  //   refreshDeps: [appKey],
+  // });
+  const data: any = null;
 
   const errorCount = data?.data?.aggregations?.count?.value || 0;
   const dateNow = dateNowWithWeek();
@@ -24,6 +23,7 @@ const Overview = () => {
   const responsive = false;
   return (
     <div style={{ padding: "20px" }}>
+      <FilterBar />
       <ProCard
         title="数据概览"
         extra={`${dateNow}`}
@@ -46,22 +46,6 @@ const Overview = () => {
                   title: "错误",
                   value: errorCount,
                   description: <Statistic title="较昨天" value="8.04%" trend="down" />,
-                }}
-              />
-            </ProCard>
-            <ProCard split="vertical">
-              <StatisticCard
-                statistic={{
-                  title: "xx",
-                  value: "12/56",
-                  suffix: "个",
-                }}
-              />
-              <StatisticCard
-                statistic={{
-                  title: "xxxx",
-                  value: "134",
-                  suffix: "个",
                 }}
               />
             </ProCard>
