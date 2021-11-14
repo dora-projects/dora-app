@@ -25,7 +25,7 @@ export const useLoginUserStore = create<UserInfoStore>(
       try {
         set({ loading: true });
         const response = await getLoginUserInfo();
-        set({ userInfo: response?.data?.result, loading: false });
+        set({ userInfo: response?.data, loading: false });
       } catch (e) {
         set({ userInfo: null, loading: false });
       }
