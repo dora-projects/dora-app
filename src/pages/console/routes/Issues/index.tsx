@@ -28,7 +28,7 @@ const Issues = () => {
         limit: pagination.pageSize,
         release: value?.release,
         environment: value?.environment,
-        form: value?.from!,
+        from: value?.from!,
         to: value?.to!,
       }),
     {

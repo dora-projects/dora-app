@@ -1,7 +1,7 @@
 interface TrendRangeParams {
   from: number;
   to: number;
-  interval: number;
+  interval: string;
 }
 
 interface RangeParams {

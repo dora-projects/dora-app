@@ -58,7 +58,7 @@ const FilterBar = () => {
         let to = range && range?.[1]?.valueOf();
 
         // tag 优先级更高
-        const { tag } = allValues;
+        const { tag } = val;
         if (tag) {
           const item = timeList.find((t) => t.value === tag);
           const [tagFrom, tagTo] = item?.range() || [];

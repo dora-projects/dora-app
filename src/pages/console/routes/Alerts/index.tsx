@@ -77,6 +77,13 @@ const Alerts = () => {
       dataIndex: "silence",
     },
     {
+      title: "告警次数",
+      dataIndex: "logs",
+      render(t: any, row: any) {
+        return t?.length || 0;
+      },
+    },
+    {
       title: "联系人",
       dataIndex: "contacts",
       render(contacts: any, row: any) {

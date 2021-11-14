@@ -45,6 +45,10 @@ export const deleteAlertRule = (ruleId: number) => {
   return axios.delete("/manager/alert/rule", { params: { ruleId } });
 };
 
+export const getAlertLogs = (p: { projectId: number; from: number; to: number }) => {
+  return axios.get("/manager/alert/logs", { params: p });
+};
+
 export const getAlertContact = (id: number) => {
   return axios.get("/manager/alert/contact", { params: { id } });
 };

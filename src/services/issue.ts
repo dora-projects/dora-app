@@ -20,7 +20,7 @@ export const getIssues = (params: {
   limit?: number;
   release?: string;
   environment?: string;
-  form: number;
+  from: number;
   to: number;
 }): Promise<{
   data: ListPages<IssuesItem>;

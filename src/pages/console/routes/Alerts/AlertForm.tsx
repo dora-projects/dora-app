@@ -151,7 +151,7 @@ const AlertsForm = (props: Props) => {
         <Form.Item label="规则名字" name="name" rules={[{ required: true, message: "请输入规则名字" }]}>
           <Input placeholder="规则名字" />
         </Form.Item>
-        <Form.Item label="筛选条件" required>
+        <Form.Item label="事件筛选" required>
           <Form.List name="filter">
             {(fields, { add, remove }) => (
               <>
@@ -196,7 +196,7 @@ const AlertsForm = (props: Props) => {
         </Form.Item>
 
         {/* 多少时间内 大约/小于 等于 多少*/}
-        <Form.Item label="条件" required name="threshold" rules={[{ validator: checkThreshold }]}>
+        <Form.Item label="触发条件" required name="threshold" rules={[{ validator: checkThreshold }]}>
           <ThresholdInput />
         </Form.Item>
 

@@ -10,6 +10,11 @@ interface timeTag {
 
 export const timeList: timeTag[] = [
   {
+    label: "昨天",
+    value: "yesterday",
+    range: () => [moment().add(-1, "day").startOf("day"), moment().add(-1, "day").endOf("day")],
+  },
+  {
     label: "1小时",
     value: "last_one_hour",
     range: () => [moment().add(-1, "hour"), moment()],
@@ -24,11 +29,7 @@ export const timeList: timeTag[] = [
     value: "today",
     range: getTodayRange,
   },
-  {
-    label: "昨天",
-    value: "yesterday",
-    range: () => [moment().add(-1, "day").startOf("day"), moment().add(-1, "day").endOf("day")],
-  },
+
   {
     label: "最近3天",
     value: "3d",

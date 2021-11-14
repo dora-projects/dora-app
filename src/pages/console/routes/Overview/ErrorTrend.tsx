@@ -6,6 +6,8 @@ import EChartsForReact from "@/components/EChartsForReact";
 // import { queryErrorCount, queryErrorTrend } from "@/eql";
 import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
+import { useFilterStore } from "@/pages/console/store/filterBar";
+import { errorTrend } from "@/eql";
 
 export const getAxisData = (list: any[], key: string) => {
   if (!Array.isArray(list)) return [];
@@ -20,18 +22,26 @@ export const getTsAxisData = (list: any[], key: string) => {
 const ErrorTrend = () => {
   const params = useParams();
   const appKey = params.appKey;
+  const { value: filterValue } = useFilterStore();
+  const { data: trendData, run } = useRequest((args) => queryByEql({ eql: errorTrend(args) }), {
+    manual: true,
+  });
 
-  const from = dayjs().startOf("date").valueOf();
-  const to = dayjs().valueOf();
-
-  // const { data: trendData } = useRequest(() => queryByEql({ eql: queryErrorTrend(appKey!, from, to, 10) }), {
-  //   ready: !!appKey,
-  //   refreshDeps: [appKey],
-  // });
-  const trendData: any = null;
+  React.useEffect(() => {
+    if (filterValue) {
+      run({
+        appKey,
+        environment: filterValue.environment,
+        release: filterValue.release,
+        from: filterValue.from,
+        to: filterValue.to,
+        interval: "10m",
+      }).then((r) => {});
+    }
+  }, [run, filterValue, appKey]);
 
   const buckets = trendData?.data?.aggregations?.trend?.buckets;
-  const xAxisData = getTsAxisData(buckets, "key");
+  const xAxisData = getAxisData(buckets, "key_as_string");
   const yAxisData = getAxisData(buckets, "doc_count");
 
   return (
