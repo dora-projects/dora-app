@@ -18,6 +18,10 @@ export const getIssues = (params: {
   appKey: string;
   page?: number;
   limit?: number;
+  release?: string;
+  environment?: string;
+  form: number;
+  to: number;
 }): Promise<{
   data: ListPages<IssuesItem>;
 }> => {

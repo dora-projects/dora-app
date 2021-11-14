@@ -6,21 +6,33 @@ import { IssuesList } from "./styled";
 import FilterBar from "../../components/FilterBar";
 import { formNow } from "@/utils/date";
 import { useParams, useNavigate } from "react-router-dom";
+import { useFilterStore } from "@/pages/console/store/filterBar";
+import useUrlState from "@/common/useUrlState";
 
 const Issues = () => {
   const navigate = useNavigate();
   const params = useParams();
   const appKey = params.appKey;
+  const { value } = useFilterStore();
 
-  const [pagination, setPagination] = React.useState({
+  const [pagination, setPagination] = useUrlState({
     page: 1,
     pageSize: 10,
   });
 
   const { data, run, loading } = useRequest(
-    () => getIssues({ appKey: appKey!, page: pagination.page, limit: pagination.pageSize }),
+    () =>
+      getIssues({
+        appKey: appKey!,
+        page: pagination.page,
+        limit: pagination.pageSize,
+        release: value?.release,
+        environment: value?.environment,
+        form: value?.from!,
+        to: value?.to!,
+      }),
     {
-      refreshDeps: [pagination, appKey],
+      refreshDeps: [pagination, appKey, value],
     }
   );
 

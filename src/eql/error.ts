@@ -96,6 +96,10 @@ export const errorTrend = (params: TrendRangeParams & CommonParams) => {
 export const errorLogs = (params: RangeParams & CommonParams & { fingerprint?: string }) => {
   let filter = [{ match: { appKey: params.appKey } }, { match: { type: "error" } }] as any;
 
+  if (params.fingerprint) {
+    filter.push({ match: { fingerprint: params.fingerprint } });
+  }
+
   if (params.release) {
     filter.push({ match: { release: params.release } });
   }
