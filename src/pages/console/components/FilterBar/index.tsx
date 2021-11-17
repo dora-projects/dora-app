@@ -8,7 +8,7 @@ import TagInput from "@/pages/console/components/FilterBar/TagInput";
 import { useRequest } from "ahooks";
 import { environmentList, releaseList } from "@/eql";
 import { useConsoleProjectInfo } from "@/pages/console/store/project";
-import { queryByEql } from "@/services/analysis";
+import { queryByEql, queryFiledOptions } from "@/services/analysis";
 
 const { RangePicker } = DatePicker;
 
@@ -25,17 +25,27 @@ const FilterBar = () => {
     form.setFieldsValue({ environment, release, range });
   }, [form, value]);
 
-  const { data: releaseData } = useRequest(() => queryByEql({ eql: releaseList(appKey!) }));
+  const { data: releaseData } = useRequest(() =>
+    queryFiledOptions({
+      field: "release",
+      appKey: appKey!,
+    })
+  );
 
   const releaseOptions = React.useMemo(() => {
-    const releaseBuckets = releaseData?.data?.aggregations?.release?.buckets || [];
+    const releaseBuckets = releaseData?.data || [];
     return releaseBuckets.map((b: any) => ({ label: b.key, value: b.key }));
   }, [releaseData]);
 
-  const { data: environmentData } = useRequest(() => queryByEql({ eql: environmentList(appKey!) }));
+  const { data: environmentData } = useRequest(() =>
+    queryFiledOptions({
+      field: "environment",
+      appKey: appKey!,
+    })
+  );
 
   const environmentOptions = React.useMemo(() => {
-    const environmentBuckets = environmentData?.data?.aggregations?.environment?.buckets || [];
+    const environmentBuckets = environmentData?.data || [];
     return environmentBuckets.map((b: any) => ({ label: b.key, value: b.key }));
   }, [environmentData]);
 
