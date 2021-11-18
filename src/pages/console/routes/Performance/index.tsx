@@ -1,54 +1,20 @@
 import React from "react";
-import ProCard from "@ant-design/pro-card";
 import FilterBar from "@/pages/console/components/FilterBar";
-import { useRequest } from "ahooks";
-import { queryWebVitalsPercentiles, queryWebVitalsRange, queryWebVitalsHistogram } from "@/services/analysis";
-import { useFilterStore } from "@/pages/console/store/filterBar";
-import { useParams } from "react-router-dom";
+import PerfSummary from "./PerfSummary";
+import { useRange, useP75, useHistogram } from "./hooks";
 
 const Performance = () => {
-  const params = useParams();
-  const { appKey } = params;
-  const { value: filterValue } = useFilterStore();
-
-  const { data: rangData } = useRequest(() =>
-    queryWebVitalsRange({
-      appKey,
-      environment: filterValue?.environment,
-      release: filterValue?.release,
-      from: filterValue?.from,
-      to: filterValue?.to,
-    })
-  );
-
-  const { data: percentilesData } = useRequest(() =>
-    queryWebVitalsPercentiles({
-      appKey,
-      environment: filterValue?.environment,
-      release: filterValue?.release,
-      from: filterValue?.from,
-      to: filterValue?.to,
-    })
-  );
-
-  const { data: histogramData } = useRequest(() =>
-    queryWebVitalsHistogram({
-      appKey,
-      environment: filterValue?.environment,
-      release: filterValue?.release,
-      from: filterValue?.from,
-      to: filterValue?.to,
-    })
-  );
-
-  console.log(rangData, percentilesData, histogramData);
-
+  const p75 = useP75();
+  const range = useRange();
+  const histogram = useHistogram();
   return (
     <div style={{ padding: "20px" }}>
       <FilterBar />
-      <ProCard title="性能监控" bordered headerBordered>
-        <div>Card content</div>
-      </ProCard>
+      <PerfSummary title="First Paint (FP)" p75={p75.fp} ratios={range.fp} histogram={histogram.fp} />
+      <PerfSummary title="First Contentful Paint (FCP)" p75={p75.fcp} ratios={range.fcp} histogram={histogram.fcp} />
+      <PerfSummary title="Largest Contentful Paint (LCP)" p75={p75.lcp} ratios={range.lcp} histogram={histogram.lcp} />
+      <PerfSummary title="First Input Delay (FID)" p75={p75.fid} ratios={range.fid} histogram={histogram.fid} />
+      <PerfSummary title="Cumulative Layout Shift (CLS)" p75={p75.cls} ratios={range.cls} histogram={histogram.cls} />
     </div>
   );
 };

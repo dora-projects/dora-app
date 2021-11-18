@@ -21,3 +21,12 @@ export const sleep = (ms: number) =>
   new Promise((resolve) => {
     setTimeout(() => resolve(null), ms);
   });
+
+export const formatterPercent = (r: number) => {
+  return (r * 100).toFixed(2);
+};
+
+export const msFormat = (r: number, decimals?: number) => {
+  if (!r) return 0;
+  return r.toFixed(decimals !== undefined ? decimals : 2);
+};
