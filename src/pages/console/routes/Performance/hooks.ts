@@ -25,16 +25,21 @@ export const useRange = () => {
   const { appKey } = params;
   const { value: filterValue } = useFilterStore();
 
-  const { data: rangData } = useRequest(() =>
-    queryWebVitalsRange({
-      appKey,
-      environment: filterValue?.environment,
-      release: filterValue?.release,
-      from: filterValue?.from,
-      to: filterValue?.to,
-    })
+  const { data: rangData, loading } = useRequest(
+    () =>
+      queryWebVitalsRange({
+        appKey,
+        environment: filterValue?.environment,
+        release: filterValue?.release,
+        from: filterValue?.from,
+        to: filterValue?.to,
+      }),
+    {
+      refreshDeps: [appKey, filterValue],
+    }
   );
-  return React.useMemo(() => {
+
+  const result = React.useMemo(() => {
     return {
       fp: getRatio(rangData?.data?.fp?.buckets),
       fcp: getRatio(rangData?.data?.fcp?.buckets),
@@ -43,6 +48,8 @@ export const useRange = () => {
       cls: getRatio(rangData?.data?.cls?.buckets),
     };
   }, [rangData]);
+
+  return { data: result, loading };
 };
 
 export const useP75 = () => {
@@ -50,16 +57,21 @@ export const useP75 = () => {
   const { appKey } = params;
   const { value: filterValue } = useFilterStore();
 
-  const { data: percentilesData } = useRequest(() =>
-    queryWebVitalsPercentiles({
-      appKey,
-      environment: filterValue?.environment,
-      release: filterValue?.release,
-      from: filterValue?.from,
-      to: filterValue?.to,
-    })
+  const { data: percentilesData, loading } = useRequest(
+    () =>
+      queryWebVitalsPercentiles({
+        appKey,
+        environment: filterValue?.environment,
+        release: filterValue?.release,
+        from: filterValue?.from,
+        to: filterValue?.to,
+      }),
+    {
+      refreshDeps: [appKey, filterValue],
+    }
   );
-  return React.useMemo(() => {
+
+  const result = React.useMemo(() => {
     return {
       fp: percentilesData?.data?.fp?.values?.["75.0"],
       fcp: percentilesData?.data?.fcp?.values?.["75.0"],
@@ -68,6 +80,8 @@ export const useP75 = () => {
       cls: percentilesData?.data?.cls?.values?.["75.0"],
     };
   }, [percentilesData]);
+
+  return { data: result, loading };
 };
 
 export const useHistogram = () => {
@@ -75,16 +89,21 @@ export const useHistogram = () => {
   const { appKey } = params;
   const { value: filterValue } = useFilterStore();
 
-  const { data: histogramData } = useRequest(() =>
-    queryWebVitalsHistogram({
-      appKey,
-      environment: filterValue?.environment,
-      release: filterValue?.release,
-      from: filterValue?.from,
-      to: filterValue?.to,
-    })
+  const { data: histogramData, loading } = useRequest(
+    () =>
+      queryWebVitalsHistogram({
+        appKey,
+        environment: filterValue?.environment,
+        release: filterValue?.release,
+        from: filterValue?.from,
+        to: filterValue?.to,
+      }),
+    {
+      refreshDeps: [appKey, filterValue],
+    }
   );
-  return React.useMemo(() => {
+
+  const result = React.useMemo(() => {
     return {
       fp: colourData(histogramData?.data?.fp?.buckets, FP_FCP_EVALUATE),
       fcp: colourData(histogramData?.data?.fcp?.buckets, FP_FCP_EVALUATE),
@@ -93,4 +112,6 @@ export const useHistogram = () => {
       cls: colourData(histogramData?.data?.cls?.buckets, CLS_EVALUATE),
     };
   }, [histogramData]);
+
+  return { data: result, loading };
 };

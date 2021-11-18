@@ -20,9 +20,9 @@ const FilterBar = () => {
 
   // 表单恢复
   React.useEffect(() => {
-    const { from, to, environment, release } = value || {};
+    const { from, to, environment, release, tag } = value || {};
     const range = from && to ? [moment(from), moment(to)] : null;
-    form.setFieldsValue({ environment, release, range });
+    form.setFieldsValue({ environment, release, range, tag });
   }, [form, value]);
 
   const { data: releaseData } = useRequest(() =>
@@ -52,9 +52,6 @@ const FilterBar = () => {
   return (
     <Form
       form={form}
-      initialValues={{
-        tag: "today",
-      }}
       onValuesChange={(val, allValues) => {
         // 调整时间 置空tag
         if (val.hasOwnProperty("range")) {
@@ -77,6 +74,7 @@ const FilterBar = () => {
         }
 
         setFilters({
+          tag,
           environment: allValues.environment,
           release: allValues.release,
           from,

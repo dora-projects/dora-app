@@ -1,5 +1,6 @@
 import React, { PureComponent, RefObject } from "react";
 import { bind, clear } from "size-sensor";
+import debounce from "lodash-es/debounce";
 import { pick } from "./helper/pick";
 import { isFunction } from "./helper/is-function";
 import { isString } from "./helper/is-string";
@@ -127,6 +128,15 @@ export default class EChartsReactCore extends PureComponent<EChartsReactProps> {
         }
       });
     }
+
+    const debounceResize = debounce(() => {
+      try {
+        echartsInstance.resize();
+      } catch (e) {
+        console.warn(e);
+      }
+    }, 300);
+    window.addEventListener("resize", debounceResize);
   }
 
   // bind the events

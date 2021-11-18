@@ -11,11 +11,11 @@ const Percentage = styled.div<{
   width: 100%;
   overflow: hidden;
   position: relative;
-  background: #fff;
   display: grid;
   grid-template-columns: ${(props) => `${props.good.ratio}fr ${props.meh.ratio}fr ${props.bad.ratio}fr`};
   margin-bottom: 8px;
   border-radius: 2px;
+  background: #f0f0f0;
 
   .good {
     background-color: ${(props) => `${props.good.color}`};
@@ -41,7 +41,7 @@ const PercentageBar = (props: Props) => {
   return (
     <Percentage
       good={{ color: EVALUATE_COLOR.Good, ratio: good }}
-      meh={{ color: EVALUATE_COLOR.Me, ratio: meh }}
+      meh={{ color: EVALUATE_COLOR.Meh, ratio: meh }}
       bad={{ color: EVALUATE_COLOR.Bad, ratio: bad }}
     >
       <div className="good" />

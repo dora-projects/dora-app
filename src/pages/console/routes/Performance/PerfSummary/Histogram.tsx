@@ -9,7 +9,7 @@ const Histogram = (props: { data: any[] }) => {
   return (
     <EChartsForReact
       style={{
-        height: 260,
+        height: 150,
       }}
       option={{
         title: {
@@ -17,10 +17,10 @@ const Histogram = (props: { data: any[] }) => {
         },
         color: colorsPlate,
         grid: {
-          left: 30,
-          right: 20,
+          left: 40,
+          right: 40,
           top: 20,
-          bottom: 30,
+          bottom: 20,
         },
         tooltip: {
           trigger: "axis",

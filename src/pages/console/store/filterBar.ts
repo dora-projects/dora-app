@@ -3,6 +3,7 @@ import { devtools } from "zustand/middleware";
 import moment from "moment";
 
 export type Filter = {
+  tag: string;
   release?: string;
   environment?: string;
   from: number;
@@ -18,6 +19,7 @@ type FilterStore = {
 export const useFilterStore = create<FilterStore>(
   devtools((set) => ({
     value: {
+      tag: "today",
       from: moment().startOf("day").valueOf(),
       to: moment().valueOf(),
     },
