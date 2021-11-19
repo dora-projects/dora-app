@@ -31,3 +31,7 @@ export const queryWebVitalsPercentiles = (params: RangeParams & CommonParams) =>
 export const queryWebVitalsHistogram = (params: RangeParams & CommonParams) => {
   return axios.get("/manager/analysis/web_vitals/histogram", { params });
 };
+
+export const queryReleaseList = (params: RangeParams & CommonParams) => {
+  return axios.get("/manager/analysis/release/list", { params });
+};
