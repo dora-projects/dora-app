@@ -1,7 +1,15 @@
 import { axios } from "@/common/axios";
 
-export const queryByEql = (data: { eql: Record<string, any> }) => {
-  return axios.post("/manager/analysis/eql", data);
+export const queryLogs = (params: RangeParams & CommonParams) => {
+  return axios.get("/manager/analysis/logs", { params });
+};
+
+export const queryCount = (params: RangeParams & CommonParams) => {
+  return axios.get("/manager/analysis/event/count", { params });
+};
+
+export const queryTrend = (params: TrendRangeParams & CommonParams) => {
+  return axios.get("/manager/analysis/event/trend", { params });
 };
 
 export const queryEventFiledCountList = (params: { field: string } & RangeParams & CommonParams) => {

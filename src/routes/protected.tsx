@@ -24,7 +24,7 @@ const ProtectedWrap = () => {
   }, [fetchUserInfo, fetchMyProjects]);
 
   // 检查用户信息
-  if (loadingUser) return <FullLoading loading={true} title={"获取登录信息..."} />;
+  if (loadingUser) return <FullLoading loading={true} title={"获取用户信息..."} />;
   if (!userInfo) {
     return <Navigate to="/auth/login" />;
   }

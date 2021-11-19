@@ -1,13 +1,11 @@
 import React from "react";
 import { useRequest } from "ahooks";
 import { StatisticCard } from "@ant-design/pro-card";
-import { queryByEql } from "@/services/analysis";
 import EChartsForReact from "@/components/EChartsForReact";
-// import { queryErrorCount, queryErrorTrend } from "@/eql";
 import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
 import { useFilterStore } from "@/pages/console/store/filterBar";
-import { errorTrend } from "@/eql";
+import { queryTrend } from "@/services/analysis";
 
 export const getAxisData = (list: any[], key: string) => {
   if (!Array.isArray(list)) return [];
@@ -23,7 +21,7 @@ const ErrorTrend = () => {
   const params = useParams();
   const appKey = params.appKey;
   const { value: filterValue } = useFilterStore();
-  const { data: trendData, run } = useRequest((args) => queryByEql({ eql: errorTrend(args) }), {
+  const { data: trendData, run } = useRequest(queryTrend, {
     manual: true,
   });
 
@@ -31,6 +29,7 @@ const ErrorTrend = () => {
     if (filterValue) {
       run({
         appKey,
+        type: "error",
         environment: filterValue.environment,
         release: filterValue.release,
         from: filterValue.from,
@@ -40,7 +39,7 @@ const ErrorTrend = () => {
     }
   }, [run, filterValue, appKey]);
 
-  const buckets = trendData?.data?.aggregations?.trend?.buckets;
+  const buckets = trendData?.data;
   const xAxisData = getAxisData(buckets, "key_as_string");
   const yAxisData = getAxisData(buckets, "doc_count");
 

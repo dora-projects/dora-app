@@ -1,5 +1,9 @@
 import { axios } from "@/common/axios";
 
+export const updateUserInfo = (data: { id: number; username: string; email: string; password: string }) => {
+  return axios.post("/manager/user/update", data);
+};
+
 export const searchUsers = (searchStr: string) => {
   return axios.get("/manager/search/users", { params: { searchStr } });
 };

@@ -35,8 +35,8 @@ export const Register = () => {
         title="Dora"
         subTitle="前端监控系统"
         onFinish={async (values) => {
-          const { username, email, password, repeatPassword } = values?.register || {};
-          doRegisterUser({ username, email, password });
+          const { username, email, password } = values || {};
+          await doRegisterUser({ username, email, password });
         }}
         submitter={{
           render: (props) => {
@@ -66,7 +66,7 @@ export const Register = () => {
         }}
       >
         <ProFormText
-          name={["register", "username"]}
+          name="username"
           fieldProps={{
             size: "large",
             // https://stackoverflow.com/questions/15738259/disabling-chrome-autofill
@@ -77,7 +77,7 @@ export const Register = () => {
           rules={[{ required: true, message: "请输入用户名!" }]}
         />
         <ProFormText
-          name={["register", "email"]}
+          name="email"
           fieldProps={{
             size: "large",
             autoComplete: "new-password",
@@ -87,7 +87,7 @@ export const Register = () => {
           rules={[{ required: true, message: "请输入邮箱!" }]}
         />
         <ProFormText.Password
-          name={["register", "password"]}
+          name="password"
           fieldProps={{
             size: "large",
             autoComplete: "new-password",
@@ -97,7 +97,7 @@ export const Register = () => {
           rules={[{ required: true, message: "请输入密码！" }]}
         />
         <ProFormText.Password
-          name={["register", "repeatPassword"]}
+          name="repeatPassword"
           fieldProps={{
             size: "large",
             autoComplete: "new-password",
@@ -111,7 +111,7 @@ export const Register = () => {
             },
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || getFieldValue("register")?.password === value) {
+                if (!value || getFieldValue("password") === value) {
                   return Promise.resolve();
                 }
                 return Promise.reject(new Error("两次输入的密码不一致"));

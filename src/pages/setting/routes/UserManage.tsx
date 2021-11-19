@@ -33,12 +33,14 @@ const UserManage = () => {
     {
       title: "操作",
       dataIndex: "id",
-      render(id: number) {
+      render(id: number, row: any) {
         return (
           <>
-            <Button type="text" danger>
-              删除
-            </Button>
+            {row.role !== "admin" ? (
+              <Button type="text" danger>
+                删除
+              </Button>
+            ) : null}
           </>
         );
       },

@@ -1,15 +1,14 @@
 import React from "react";
 import { useRequest } from "ahooks";
 import dayjs from "@/utils/date";
-import { errorLogs } from "@/eql";
 import { Card, Switch, Space } from "antd";
 import { Spin, Row, Col, Button, PageHeader, Statistic } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFilterStore } from "@/pages/console/store/filterBar";
-import { queryByEql } from "@/services/analysis";
 import Stacktrace from "./components/Stacktrace";
 import Breadcrumbs from "./components/Breadcrumbs";
 import Description from "./components/Description";
+import { queryLogs } from "@/services/analysis";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -18,7 +17,7 @@ const Detail = () => {
   const { value: filterValue } = useFilterStore();
   const [curIndex, setShowIndex] = React.useState(0);
 
-  const { run, data, loading } = useRequest((args) => queryByEql({ eql: errorLogs(args) }), { manual: true });
+  const { run, data, loading } = useRequest(queryLogs, { manual: true });
 
   React.useEffect(() => {
     if (filterValue) {
@@ -29,11 +28,12 @@ const Detail = () => {
         release: filterValue.release,
         from: filterValue.from,
         to: filterValue.to,
+        size: 999,
       }).then((r) => {});
     }
   }, [run, filterValue, appKey, fingerprint]);
 
-  const hits = data?.data?.hits.hits;
+  const hits = data?.data?.hits;
   const total = hits?.length;
 
   const logContent = React.useMemo(() => {

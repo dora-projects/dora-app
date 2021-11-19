@@ -6,9 +6,8 @@ import { timeList } from "./common";
 import { Bar } from "./styled";
 import TagInput from "@/pages/console/components/FilterBar/TagInput";
 import { useRequest } from "ahooks";
-import { environmentList, releaseList } from "@/eql";
 import { useConsoleProjectInfo } from "@/pages/console/store/project";
-import { queryByEql, queryFiledOptions } from "@/services/analysis";
+import { queryFiledOptions } from "@/services/analysis";
 
 const { RangePicker } = DatePicker;
 

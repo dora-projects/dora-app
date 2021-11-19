@@ -43,7 +43,10 @@ interface RangeParams {
 }
 
 interface CommonParams {
+  size?: number;
   appKey?: string;
+  type?: string;
   release?: string;
   environment?: string;
+  fingerprint?: string;
 }

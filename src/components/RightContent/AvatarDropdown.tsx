@@ -4,19 +4,14 @@ import { LogoutOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons
 import styles from "./index.module.less";
 import { useLoginUserStore } from "@/stores/user";
 import storage from "@/utils/storage";
-import { useProjectsStore } from "@/stores/projects";
 
 export const AvatarDropdown = () => {
   const navigate = useNavigate();
-  const { userInfo, clearUserInfo } = useLoginUserStore();
-  const { clearProjects } = useProjectsStore();
+  const { userInfo } = useLoginUserStore();
 
   const loginOut = () => {
-    clearProjects();
-    clearUserInfo();
-
     storage.clearToken();
-    navigate("/auth/login");
+    window.location.href = "/auth/login";
   };
 
   const menu = (

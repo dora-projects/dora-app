@@ -1,15 +1,17 @@
 import React from "react";
 import { Table, Avatar, Button, Space } from "antd";
-import { Popconfirm, message, Select } from "antd";
+import { Popconfirm, message, Tag } from "antd";
 import { useRequest } from "ahooks";
 import { addProjectUsers, removeProjectUsers, getProjectUsers } from "@/services/project";
 import UserSelect from "@/components/UserSelect";
+import { useLoginUserStore } from "@/stores/user";
 
 interface Props {
   projectId: number;
 }
 
 const Members = (props: Props) => {
+  const { userInfo } = useLoginUserStore();
   const [selectUser, setSelectUsers] = React.useState<number[]>([]);
 
   const { data, loading, refresh } = useRequest(() => getProjectUsers({ projectId: props.projectId }), {
@@ -37,14 +39,31 @@ const Members = (props: Props) => {
     {
       title: "姓名",
       dataIndex: "username",
+      render(username: string, row: any) {
+        if (userInfo?.id === row?.id) {
+          return (
+            <div>
+              {username} <Tag color="#87d068">本账号</Tag>
+            </div>
+          );
+        }
+        return username;
+      },
     },
     {
       title: "邮箱",
       dataIndex: "email",
     },
     {
-      title: "角色",
-      dataIndex: "role",
+      title: "项目角色",
+      dataIndex: "id",
+      render(id: number, row: any) {
+        const { projectRoles } = row;
+        if (projectRoles && projectRoles.length > 0) {
+          return projectRoles[0].projectRole;
+        }
+        return "";
+      },
     },
     {
       title: "操作",
@@ -59,7 +78,7 @@ const Members = (props: Props) => {
               onConfirm={() => {
                 runRemoveProjectUsers({
                   projectId: props.projectId,
-                  userIds: [id],
+                  userId: id,
                 });
               }}
             >

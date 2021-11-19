@@ -28,6 +28,6 @@ export const addProjectUsers = (data: { projectId: number; userIds: number[] }) 
   return axios.post("/manager/project/addUsers", data);
 };
 
-export const removeProjectUsers = (data: { projectId: number; userIds: number[] }) => {
+export const removeProjectUsers = (data: { projectId: number; userId: number }) => {
   return axios.post("/manager/project/removeUsers", data);
 };

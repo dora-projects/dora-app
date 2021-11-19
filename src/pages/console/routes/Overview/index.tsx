@@ -10,12 +10,6 @@ import ErrorTrend from "./ErrorTrend";
 const Overview = () => {
   const params = useParams();
   const appKey = params.appKey;
-
-  // const { data } = useRequest(() => queryByEql({ eql: errorCount(appKey) }), {
-  //   ready: !!appKey,
-  //   refreshDeps: [appKey],
-  // });
-
   const dateNow = dateNowWithWeek();
 
   const responsive = false;
