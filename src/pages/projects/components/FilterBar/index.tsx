@@ -1,12 +1,12 @@
 import React from "react";
 import moment from "moment";
 import { DatePicker, Form, Select } from "antd";
-import { useFilterStore } from "@/pages/console/store/filterBar";
+import { useFilterStore } from "@/pages/projects/store/filterBar";
 import { timeList } from "./common";
 import { Bar } from "./styled";
-import TagInput from "@/pages/console/components/FilterBar/TagInput";
+import TagInput from "@/pages/projects/components/FilterBar/TagInput";
 import { useRequest } from "ahooks";
-import { useConsoleProjectInfo } from "@/pages/console/store/project";
+import { useConsoleProjectInfo } from "@/pages/projects/store/project";
 import { queryFiledOptions } from "@/services/analysis";
 
 const { RangePicker } = DatePicker;

@@ -28,7 +28,7 @@ export const useConsoleProjectInfo = create<ProjectStore>(
       try {
         set({ loading: true });
         // 慢一点
-        await sleep(120);
+        await sleep(220);
         const response = await getProject({ appKey });
         set({ project: response?.data, loading: false });
       } catch (e: any) {

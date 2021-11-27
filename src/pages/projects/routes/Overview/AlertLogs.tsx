@@ -1,9 +1,9 @@
 import React from "react";
 import { useRequest } from "ahooks";
 import { getAlertLogs } from "@/services/alert";
-import { useConsoleProjectInfo } from "@/pages/console/store/project";
+import { useConsoleProjectInfo } from "@/pages/projects/store/project";
 import { formatDate } from "@/utils/date";
-import { useFilterStore } from "@/pages/console/store/filterBar";
+import { useFilterStore } from "@/pages/projects/store/filterBar";
 
 const AlertLogs = () => {
   const { value: filterValue } = useFilterStore();

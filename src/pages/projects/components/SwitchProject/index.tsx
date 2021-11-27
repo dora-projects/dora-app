@@ -3,7 +3,7 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import { Divider } from "antd";
 import { useNavigate } from "react-router-dom";
 import { SwitchBtn } from "./index.styled";
-import { useConsoleProjectInfo } from "@/pages/console/store/project";
+import { useConsoleProjectInfo } from "@/pages/projects/store/project";
 
 const SwitchProject = () => {
   const navigate = useNavigate();

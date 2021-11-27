@@ -5,12 +5,11 @@ import { useLoginUserStore } from "@/stores/user";
 import { useProjectsStore } from "@/stores/projects";
 import { FullLoading } from "@/components/Loading";
 import CreateFPForm from "@/pages/createFirstProject";
-import Console from "@/pages/console";
 import Setting from "@/pages/setting";
 import Invite from "@/pages/invite";
+import Projects from "@/pages/projects";
 
 import { NoMatch } from "@/components/NoMatch";
-import Projects from "@/pages/projects";
 
 const ProtectedWrap = () => {
   const location = useLocation();
@@ -44,7 +43,6 @@ export const protectedRoutes: RouteObject[] = [
     children: [
       { index: true, element: <Navigate to={"/projects"} /> },
       { path: "projects/*", element: <Projects /> },
-      { path: "console/*", element: <Console /> },
       { path: "setting/*", element: <Setting /> },
       { path: "create-first-project", element: <CreateFPForm /> },
       { path: "invite/:token", element: <Invite /> },

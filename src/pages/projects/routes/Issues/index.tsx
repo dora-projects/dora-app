@@ -6,7 +6,7 @@ import { IssuesList } from "./styled";
 import FilterBar from "../../components/FilterBar";
 import { formNow } from "@/utils/date";
 import { useParams, useNavigate } from "react-router-dom";
-import { useFilterStore } from "@/pages/console/store/filterBar";
+import { useFilterStore } from "@/pages/projects/store/filterBar";
 import useUrlState from "@/common/useUrlState";
 
 const Issues = () => {

@@ -1,8 +1,8 @@
 import React from "react";
 import { Spin } from "antd";
-import FilterBar from "@/pages/console/components/FilterBar";
+import FilterBar from "@/pages/projects/components/FilterBar";
 import { useParams } from "react-router-dom";
-import { useFilterStore } from "@/pages/console/store/filterBar";
+import { useFilterStore } from "@/pages/projects/store/filterBar";
 import { useRequest } from "ahooks";
 import { queryReleaseList } from "@/services/analysis";
 import List from "./List";

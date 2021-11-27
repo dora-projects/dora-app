@@ -6,7 +6,7 @@ import { useRequest } from "ahooks";
 import { createAlertRule, deleteAlertRule, updateAlertRule } from "@/services/alert";
 import UserSelect from "@/components/UserSelect";
 import { useParams } from "react-router-dom";
-import { useConsoleProjectInfo } from "@/pages/console/store/project";
+import { useConsoleProjectInfo } from "@/pages/projects/store/project";
 
 const checkThreshold = (_: any, value: ThresholdValue) => {
   if (!value) {

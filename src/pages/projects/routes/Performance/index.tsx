@@ -1,6 +1,6 @@
 import React from "react";
 import { Spin } from "antd";
-import FilterBar from "@/pages/console/components/FilterBar";
+import FilterBar from "@/pages/projects/components/FilterBar";
 import PerfSummary from "./PerfSummary";
 import { useRange, useP75, useHistogram } from "./hooks";
 import { FP_FCP_EVALUATE, FID_EVALUATE, LCP_EVALUATE, CLS_EVALUATE } from "@/utils/chart";

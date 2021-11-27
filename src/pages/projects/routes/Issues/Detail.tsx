@@ -4,7 +4,7 @@ import dayjs from "@/utils/date";
 import { Card, Switch, Space } from "antd";
 import { Spin, Row, Col, Button, PageHeader, Statistic } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFilterStore } from "@/pages/console/store/filterBar";
+import { useFilterStore } from "@/pages/projects/store/filterBar";
 import Stacktrace from "./components/Stacktrace";
 import Breadcrumbs from "./components/Breadcrumbs";
 import Description from "./components/Description";

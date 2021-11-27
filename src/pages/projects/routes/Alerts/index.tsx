@@ -5,7 +5,7 @@ import { useRequest } from "ahooks";
 import { getAlertList, deleteAlertRule, toggleAlertRule } from "@/services/alert";
 import AlertForm from "./AlertForm";
 import { humanTime } from "@/utils/helper";
-import { useConsoleProjectInfo } from "@/pages/console/store/project";
+import { useConsoleProjectInfo } from "@/pages/projects/store/project";
 
 const Alerts = () => {
   const [editItem, setEditItem] = React.useState(null);

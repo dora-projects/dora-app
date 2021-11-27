@@ -10,7 +10,7 @@ import {
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SwitchProject from "./SwitchProject";
 
-const ConsoleLayout: React.FC = ({ children }) => {
+const ConsoleSideMenuLayout: React.FC = ({ children }) => {
   const navigator = useNavigate();
   const location = useLocation();
   const { pathname } = location;
@@ -20,27 +20,27 @@ const ConsoleLayout: React.FC = ({ children }) => {
 
   const SubMenu = [
     {
-      path: `/console/${appKey}/overview`,
+      path: `/projects/${appKey}/console/overview`,
       name: " 概览",
       icon: <PieChartOutlined />,
     },
     {
-      path: `/console/${appKey}/issues`,
+      path: `/projects/${appKey}/console/issues`,
       name: " 错误异常",
       icon: <ProfileOutlined />,
     },
     {
-      path: `/console/${appKey}/performance`,
+      path: `/projects/${appKey}/console/performance`,
       name: " 性能数据",
       icon: <DashboardOutlined />,
     },
     {
-      path: `/console/${appKey}/releases`,
+      path: `/projects/${appKey}/console/releases`,
       name: " 版本",
       icon: <FileSyncOutlined />,
     },
     {
-      path: `/console/${appKey}/alerts`,
+      path: `/projects/${appKey}/console/alerts`,
       name: " 告警",
       icon: <AlertOutlined />,
     },
@@ -78,4 +78,4 @@ const ConsoleLayout: React.FC = ({ children }) => {
   );
 };
 
-export default ConsoleLayout;
+export default ConsoleSideMenuLayout;

@@ -26,7 +26,7 @@ const ProjectCardList = (props: Props) => {
                   className="head"
                   onClick={() => {
                     // const url = storage.getBackUrl();
-                    navigate(`/console/${project.appKey}/overview`);
+                    navigate(`/projects/${project.appKey}/console/overview`);
                   }}
                 >
                   <div>
@@ -51,7 +51,7 @@ const ProjectCardList = (props: Props) => {
                   </div>
                 </div>
                 <div className="foot">
-                  <Link to={`${project.appKey}/sdk`}>接入指南</Link>
+                  <Link to={`/projects/${project.appKey}/sdk`}>接入指南</Link>
                 </div>
               </div>
               <div className="setting-icon" onClick={() => props.onClickSetting(project)}>
