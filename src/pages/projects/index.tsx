@@ -3,7 +3,7 @@ import { PageContainer } from "@ant-design/pro-layout";
 import MainLayout from "@/layout/MainLayout";
 import { Navigate, Outlet, Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useConsoleProjectInfo } from "./store/project";
-import List from "./routes/List";
+import MyProjects from "./routes/MyProjects";
 import SdkUsage from "./routes/SdkUsage";
 import Overview from "./routes/Overview";
 import Issues from "./routes/Issues";
@@ -11,11 +11,14 @@ import IssueDetail from "./routes/Issues/Detail";
 import Performance from "./routes/Performance";
 import Releases from "./routes/Releases";
 import Alerts from "./routes/Alerts";
+import ProjectCreate from "./routes/MyProjects/Create";
+
+import GetProjectInfoFailed from "./components/GetProjectInfoFailed";
+import ConsoleSideMenuLayout from "./components/ConsoleSideMenuLayout";
+
 import { NoMatch } from "@/components/NoMatch";
 import Footer from "@/components/Footer";
 import { FullLoading } from "@/components/Loading";
-import GetProjectInfoFailed from "./components/GetProjectInfoFailed";
-import ConsoleSideMenuLayout from "./components/ConsoleSideMenuLayout";
 
 const CommonLayout = () => {
   return (
@@ -65,8 +68,9 @@ const Projects = () => {
     <Routes>
       <Route element={<CommonLayout />}>
         <Route element={<ProjectsLayout />}>
-          <Route index element={<List />} />
+          <Route index element={<MyProjects />} />
           <Route path=":appKey/sdk" element={<SdkUsage />} />
+          <Route path="create" element={<ProjectCreate />} />
         </Route>
         <Route element={<ConsoleLayout />}>
           <Route path=":appKey/console/overview" element={<Overview />} />

@@ -1,14 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import ProCard from "@ant-design/pro-card";
 import { Button, Empty } from "antd";
-import { useRequest } from "ahooks";
 import { PlusOutlined } from "@ant-design/icons";
 import ProjectCardList from "./List";
 import ManageDrawer from "./ManageDrawer";
-import { getMyProjects } from "@/services/project";
 import { useProjectsStore } from "@/stores/projects";
 
 const ProjectListPanel = () => {
+  const navigate = useNavigate();
   const [drawerVisible, setDrawerVisible] = React.useState(false);
   const [editItem, setEditItem] = React.useState(null);
 
@@ -21,7 +21,12 @@ const ProjectListPanel = () => {
         bodyStyle={{ padding: "20px", minHeight: "500px" }}
         extra={
           <div>
-            <Button icon={<PlusOutlined />} onClick={() => setDrawerVisible(true)}>
+            <Button
+              icon={<PlusOutlined />}
+              onClick={() => {
+                navigate("/projects/create");
+              }}
+            >
               新建项目
             </Button>
           </div>
