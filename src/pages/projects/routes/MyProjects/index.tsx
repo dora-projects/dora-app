@@ -8,7 +8,11 @@ import { useProjectsStore } from "@/stores/projects";
 
 const ProjectListPanel = () => {
   const navigate = useNavigate();
-  const { loading, projects } = useProjectsStore();
+  const { loading, projects, fetchMyProjects } = useProjectsStore();
+
+  React.useEffect(() => {
+    fetchMyProjects().then((r) => {});
+  }, [fetchMyProjects]);
 
   return (
     <ProCard

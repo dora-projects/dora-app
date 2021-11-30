@@ -52,8 +52,11 @@ const FilterBar = () => {
     <Form
       form={form}
       onValuesChange={(val, allValues) => {
+        let tag = allValues.tag;
+
         // 调整时间 置空tag
         if (val.hasOwnProperty("range")) {
+          tag = null;
           form.setFieldsValue({
             tag: null,
           });
@@ -64,9 +67,8 @@ const FilterBar = () => {
         let to = range && range?.[1]?.valueOf();
 
         // tag 优先级更高
-        const { tag } = val;
-        if (tag) {
-          const item = timeList.find((t) => t.value === tag);
+        if (val.tag) {
+          const item = timeList.find((t) => t.value === val.tag);
           const [tagFrom, tagTo] = item?.range() || [];
           from = tagFrom?.valueOf();
           to = tagTo?.valueOf();

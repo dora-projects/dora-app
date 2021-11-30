@@ -24,6 +24,7 @@ const Releases = () => {
       run({
         appKey,
         environment: filterValue.environment,
+        release: filterValue.release,
         from: filterValue.from,
         to: filterValue.to,
         size: 30,
