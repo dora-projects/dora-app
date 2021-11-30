@@ -1,29 +1,29 @@
 import React from "react";
-import { Form, Input, Space, Button, Drawer, Divider, Radio, Typography, Popconfirm } from "antd";
-import { Tabs } from "antd";
-import Members from "./Members";
-import { createProject, updateProject, deleteProject } from "@/services/project";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button, Form, Input, Popconfirm, Radio, Space } from "antd";
 import { useRequest } from "ahooks";
-
-const { TabPane } = Tabs;
+import ProCard from "@ant-design/pro-card";
+import { deleteProject, getProject, updateProject } from "@/services/project";
+import { useNotificationStore } from "@/stores/notifications";
+import { useProjectsStore } from "@/stores/projects";
 
 const layout = {
   labelCol: { span: 4 },
   wrapperCol: { span: 14 },
 };
 
-interface Props {
-  editItem: any;
-  visible: boolean;
-  onOk: () => void;
-  onClose: () => void;
-}
-
-const ManageDrawer = (props: Props) => {
-  const { visible, editItem, onOk, onClose } = props;
-  const isEdit = !!editItem;
-
+const ProjectSetting = () => {
   const [form] = Form.useForm();
+  const params = useParams();
+  const navigate = useNavigate();
+  const notificationsStore = useNotificationStore();
+  const projectsStore = useProjectsStore();
+
+  const { data: info } = useRequest(() => getProject({ appKey: params?.appKey }), {
+    refreshDeps: [params?.appKey],
+    ready: !!params?.appKey,
+  });
+  let editItem: Project = info?.data;
 
   // restore form
   React.useEffect(() => {
@@ -37,29 +37,19 @@ const ManageDrawer = (props: Props) => {
     }
   }, [editItem, form]);
 
-  // reset form
-  React.useEffect(() => {
-    if (!visible) {
-      form.resetFields();
-    }
-  }, [form, visible]);
-
-  const { run: runCreateProject } = useRequest(createProject, {
-    manual: true,
-    onSuccess: () => {
-      props.onOk();
-    },
-  });
   const { run: runUpdateProject } = useRequest(updateProject, {
     manual: true,
     onSuccess: () => {
-      props.onOk();
+      notificationsStore.addNotification({ type: "success", title: "修改成功" });
     },
   });
   const { run: runDeleteProject } = useRequest(deleteProject, {
     manual: true,
     onSuccess: () => {
-      props.onOk();
+      notificationsStore.addNotification({ type: "success", title: "删除成功" });
+      projectsStore.fetchMyProjects().then((r) => {
+        navigate("/setting/projects/");
+      });
     },
   });
 
@@ -67,22 +57,13 @@ const ManageDrawer = (props: Props) => {
     const id = editItem?.id;
     const { type, name, detail } = values;
 
-    if (isEdit) {
+    if (id) {
       runUpdateProject({ id, detail, type, name });
-    } else {
-      runCreateProject({ detail, type, name });
     }
   };
 
   return (
-    <Drawer
-      visible={visible}
-      width={800}
-      title={isEdit ? "编辑项目" : "新增项目"}
-      forceRender
-      onClose={() => onClose()}
-      footer={null}
-    >
+    <ProCard title={`编辑-${editItem?.name}`} headerBordered>
       <Form
         form={form}
         {...layout}
@@ -110,34 +91,21 @@ const ManageDrawer = (props: Props) => {
             <Button type="primary" htmlType="submit">
               提交
             </Button>
-            {isEdit ? (
-              <Popconfirm
-                title="你确定删除该项目吗？"
-                okText="确定"
-                cancelText="取消"
-                onConfirm={() => {
-                  runDeleteProject(editItem?.id);
-                }}
-              >
-                <Button danger>删除</Button>
-              </Popconfirm>
-            ) : null}
+            <Popconfirm
+              title="你确定删除该项目吗？"
+              okText="确定"
+              cancelText="取消"
+              onConfirm={() => {
+                runDeleteProject(editItem?.id);
+              }}
+            >
+              <Button danger>删除</Button>
+            </Popconfirm>
           </Space>
         </Form.Item>
       </Form>
-
-      {isEdit ? (
-        <>
-          <Divider />
-          <Tabs defaultActiveKey="1">
-            <TabPane tab="成员管理" key="1">
-              <Members projectId={editItem?.id} />
-            </TabPane>
-          </Tabs>
-        </>
-      ) : null}
-    </Drawer>
+    </ProCard>
   );
 };
 
-export default ManageDrawer;
+export default ProjectSetting;

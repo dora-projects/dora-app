@@ -1,22 +1,29 @@
 import React from "react";
+import ProCard from "@ant-design/pro-card";
 import { Table, Avatar, Button, Space } from "antd";
 import { Popconfirm, message, Tag } from "antd";
 import { useRequest } from "ahooks";
-import { addProjectUsers, removeProjectUsers, getProjectUsers } from "@/services/project";
+import { addProjectUsers, removeProjectUsers, getProjectUsers, getProject } from "@/services/project";
 import UserSelect from "@/components/UserSelect";
 import { useLoginUserStore } from "@/stores/user";
+import { useParams } from "react-router-dom";
 
-interface Props {
-  projectId: number;
-}
+const ProjectMember = () => {
+  const params = useParams();
 
-const Members = (props: Props) => {
+  const { data: info } = useRequest(() => getProject({ appKey: params?.appKey }), {
+    refreshDeps: [params?.appKey],
+    ready: !!params?.appKey,
+  });
+  const projectInfo: Project = info?.data;
+
   const { userInfo } = useLoginUserStore();
+
   const [selectUser, setSelectUsers] = React.useState<number[]>([]);
 
-  const { data, loading, refresh } = useRequest(() => getProjectUsers({ projectId: props.projectId }), {
-    ready: !!props.projectId,
-    refreshDeps: [props.projectId],
+  const { data, loading, refresh } = useRequest(() => getProjectUsers({ projectId: projectInfo?.id }), {
+    ready: !!projectInfo?.id,
+    refreshDeps: [projectInfo?.id],
   });
   const dataSource = data?.data || [];
 
@@ -77,7 +84,7 @@ const Members = (props: Props) => {
               cancelText="取消"
               onConfirm={() => {
                 runRemoveProjectUsers({
-                  projectId: props.projectId,
+                  projectId: projectInfo?.id,
                   userId: id,
                 });
               }}
@@ -93,7 +100,7 @@ const Members = (props: Props) => {
   ];
 
   return (
-    <div>
+    <ProCard title={`成员-${projectInfo?.name}`} headerBordered>
       <Space size={"middle"} style={{ marginBottom: "20px" }}>
         <UserSelect
           value={selectUser}
@@ -104,15 +111,15 @@ const Members = (props: Props) => {
         <Button
           disabled={selectUser.length <= 0}
           onClick={() => {
-            runAddProjectUsers({ projectId: props.projectId, userIds: selectUser });
+            runAddProjectUsers({ projectId: projectInfo?.id, userIds: selectUser });
           }}
         >
           添加成员
         </Button>
       </Space>
       <Table loading={loading} rowKey={"id"} dataSource={dataSource} columns={columns} />
-    </div>
+    </ProCard>
   );
 };
 
-export default Members;
+export default ProjectMember;

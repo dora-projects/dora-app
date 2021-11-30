@@ -12,7 +12,7 @@ export type Project = {
 type ProjectStore = {
   projects: Project[] | null;
   loading: boolean;
-  fetchMyProjects: () => void;
+  fetchMyProjects: () => Promise<void>;
   clearProjects: () => void;
 };
 

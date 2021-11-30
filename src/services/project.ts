@@ -4,11 +4,11 @@ export const createProject = (data: { name: string; detail: string; type: string
   return axios.put("/manager/project", data);
 };
 
-export const updateProject = (data: { id: string; name: string; detail: string; type: string }) => {
+export const updateProject = (data: { id: number; name: string; detail: string; type: string }) => {
   return axios.post("/manager/project", data);
 };
 
-export const getProject = (params: { appKey?: string; id?: string }) => {
+export const getProject = (params: { appKey?: string; id?: number }) => {
   return axios.get("/manager/project", { params });
 };
 

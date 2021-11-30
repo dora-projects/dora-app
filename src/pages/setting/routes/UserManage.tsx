@@ -48,7 +48,7 @@ const UserManage = () => {
   ];
 
   return (
-    <ProCard>
+    <ProCard title="系统用户" headerBordered>
       <Table loading={false} rowKey={"id"} dataSource={list} columns={columns} />
     </ProCard>
   );

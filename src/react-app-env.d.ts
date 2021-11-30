@@ -50,3 +50,11 @@ interface CommonParams {
   environment?: string;
   fingerprint?: string;
 }
+
+interface Project {
+  id: number;
+  appKey: string;
+  type: string;
+  name: string;
+  detail: string;
+}

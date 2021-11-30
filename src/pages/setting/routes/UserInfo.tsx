@@ -10,7 +10,7 @@ const UserInfo = () => {
   const { run: update, loading } = useRequest(updateUserInfo, { manual: true });
 
   return (
-    <ProCard title="个人信息" loading={loading} bordered headerBordered>
+    <ProCard title="个人信息" loading={loading} headerBordered>
       <ProForm
         initialValues={{
           username: userInfo?.username,

@@ -51,7 +51,7 @@ const EsStats = () => {
 
 const SystemInfo = () => {
   return (
-    <ProCard title="系统状态" bordered headerBordered>
+    <ProCard title="系统状况" headerBordered>
       <Row>
         <Col span={12}>
           <QueueStats />
