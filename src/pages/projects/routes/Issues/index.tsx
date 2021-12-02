@@ -59,7 +59,7 @@ const Issues = () => {
                     className="issue-item"
                     key={item.id}
                     onClick={() => {
-                      navigate(`/console/${item.appKey}/issues/${item.fingerprint}`);
+                      navigate(`/projects/${item.appKey}/console/issues/${item.fingerprint}`);
                     }}
                   >
                     <div className="content">
