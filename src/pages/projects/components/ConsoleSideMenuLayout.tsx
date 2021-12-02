@@ -60,7 +60,6 @@ const ConsoleSideMenuLayout: React.FC = ({ children }) => {
       menuHeaderRender={false}
       menuExtraRender={({ collapsed }) => !collapsed && <SwitchProject />}
       disableContentMargin
-      contentStyle={{ overflowY: "scroll", overflowX: "hidden" }}
       onMenuHeaderClick={() => {
         window.location.href = "/";
       }}
