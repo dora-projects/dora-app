@@ -65,9 +65,9 @@ const ProjectMember = () => {
       title: "项目角色",
       dataIndex: "id",
       render(id: number, row: any) {
-        const { projectRoles } = row;
-        if (projectRoles && projectRoles.length > 0) {
-          return projectRoles[0].projectRole;
+        const { user_projects } = row;
+        if (user_projects && user_projects.length > 0) {
+          return user_projects[0].prole;
         }
         return "";
       },
@@ -75,24 +75,32 @@ const ProjectMember = () => {
     {
       title: "操作",
       dataIndex: "id",
-      render(id: number) {
+      render(id: number, row: any) {
+        let role = "";
+        const { user_projects } = row;
+        if (user_projects && user_projects.length > 0) {
+          role = user_projects[0].prole;
+        }
+
         return (
           <>
-            <Popconfirm
-              title="你确定移除该成员吗？"
-              okText="确定"
-              cancelText="取消"
-              onConfirm={() => {
-                runRemoveProjectUsers({
-                  projectId: projectInfo?.id,
-                  userId: id,
-                });
-              }}
-            >
-              <Button type="text" danger>
-                移除
-              </Button>
-            </Popconfirm>
+            {role !== "owner" ? (
+              <Popconfirm
+                title="你确定移除该成员吗？"
+                okText="确定"
+                cancelText="取消"
+                onConfirm={() => {
+                  runRemoveProjectUsers({
+                    projectId: projectInfo?.id,
+                    userId: id,
+                  });
+                }}
+              >
+                <Button type="text" danger>
+                  移除
+                </Button>
+              </Popconfirm>
+            ) : null}
           </>
         );
       },

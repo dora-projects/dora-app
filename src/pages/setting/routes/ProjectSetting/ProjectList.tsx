@@ -3,6 +3,7 @@ import { Table, Button, Space } from "antd";
 import { useProjectsStore } from "@/stores/projects";
 import { useNavigate } from "react-router-dom";
 import ProCard from "@ant-design/pro-card";
+import { formatDate } from "@/utils/date";
 
 const ProjectList = () => {
   const navigate = useNavigate();
@@ -29,6 +30,9 @@ const ProjectList = () => {
     {
       title: "创建于",
       dataIndex: "createdAt",
+      render(createdAt: any) {
+        return formatDate(createdAt);
+      },
     },
     {
       title: "操作",

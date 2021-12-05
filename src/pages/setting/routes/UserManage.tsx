@@ -4,6 +4,7 @@ import ProCard from "@ant-design/pro-card";
 import { useRequest } from "ahooks";
 import { getUsers } from "@/services/user";
 import dayjs from "dayjs";
+import { formatDate, formNow } from "@/utils/date";
 
 const UserManage = () => {
   const { data } = useRequest(getUsers);
@@ -27,7 +28,14 @@ const UserManage = () => {
       title: "创建时间",
       dataIndex: "createdAt",
       render(t: string) {
-        return dayjs(t).format("YYYY-MM-DD HH:mm:ss");
+        return formatDate(t);
+      },
+    },
+    {
+      title: "最后登录",
+      dataIndex: "lastLoginAt",
+      render(t: string) {
+        return formNow(t);
       },
     },
     {
