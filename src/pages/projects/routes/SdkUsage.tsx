@@ -2,13 +2,15 @@ import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Typography, Button, Divider, Card, Space } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
+import { __DEV__ } from "@/config";
 
 const { Title, Paragraph, Text, Link } = Typography;
 
 const SdkUsage = () => {
   const navigate = useNavigate();
   const params = useParams();
-  console.log(params);
+
+  const host = __DEV__ ? "localhost:8000" : window.location.host;
 
   const code1 = `
 # Using yarn
@@ -24,7 +26,7 @@ import * as Sentry from "@sentry/browser";
 import { Integrations } from "@sentry/tracing";
 
 Sentry.init({
-  dsn: "${window.location.protocol}//${params?.appKey}@${window.location.host}//1",
+  dsn: "${window.location.protocol}//${params?.appKey}@${host}//1",
   integrations: [new Integrations.BrowserTracing()],
   environment: "prod",
   release: "v1.0.0",

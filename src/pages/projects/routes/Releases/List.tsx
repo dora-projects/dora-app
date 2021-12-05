@@ -2,12 +2,21 @@ import React from "react";
 import { ReleaseItem } from "./styled";
 import { formNow } from "@/utils/date";
 import { msFormat } from "@/utils/helper";
+import { Empty } from "antd";
 
 interface Props {
   list: any[];
 }
 
 const List = (props: Props) => {
+  if (!props.list || props.list?.length <= 0) {
+    return (
+      <div style={{ backgroundColor: "#fff", padding: "20px" }}>
+        <Empty image={Empty.PRESENTED_IMAGE_DEFAULT} />
+      </div>
+    );
+  }
+
   return (
     <>
       {props.list?.map((item: any) => {

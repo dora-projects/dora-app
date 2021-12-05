@@ -6,6 +6,7 @@ import FilterBar from "../../components/FilterBar";
 import AlertLogs from "./AlertLogs";
 import ErrorCount from "./ErrorCount";
 import ErrorTrend from "./ErrorTrend";
+import EventTrend from "./EventTrend";
 
 const Overview = () => {
   const params = useParams();
@@ -36,6 +37,7 @@ const Overview = () => {
               <ErrorCount />
             </ProCard>
           </ProCard>
+          <StatisticCard title="事件趋势" chart={<EventTrend />} />
           <StatisticCard title="错误趋势" chart={<ErrorTrend />} />
         </ProCard>
         <StatisticCard
