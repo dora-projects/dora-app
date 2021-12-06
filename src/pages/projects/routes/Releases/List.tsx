@@ -2,7 +2,7 @@ import React from "react";
 import { ReleaseItem } from "./styled";
 import { formNow } from "@/utils/date";
 import { msFormat } from "@/utils/helper";
-import { Empty } from "antd";
+import { Tooltip, Empty } from "antd";
 
 interface Props {
   list: any[];
@@ -23,7 +23,9 @@ const List = (props: Props) => {
         return (
           <ReleaseItem key={item.key}>
             <div className="total">
-              <div className="tag">{item.key}</div>
+              <Tooltip placement="topLeft" title={item.key}>
+                <span className="version">{item.key}</span>
+              </Tooltip>
               <div className="time">
                 <span className="latest">{formNow(item.latest?.value_as_string)} — </span>
                 <span className="earliest">{formNow(item.earliest?.value_as_string)}</span>

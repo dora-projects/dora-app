@@ -17,18 +17,11 @@ declare module "*.module.less" {
   export default classes;
 }
 
-declare interface IPaginationMeta extends ObjectLiteral {
-  itemCount: number;
-  totalItems?: number;
-  itemsPerPage: number;
-  totalPages?: number;
-  currentPage: number;
-}
-
-declare class ListPages<PaginationObject, T extends ObjectLiteral = IPaginationMeta> {
-  readonly items: PaginationObject[];
-  readonly meta: T;
-  constructor(items: PaginationObject[], meta: T);
+declare interface ListPages<T> {
+  items: T[];
+  limit: number;
+  page: number;
+  total: number;
 }
 
 interface TrendRangeParams {

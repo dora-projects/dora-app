@@ -28,7 +28,7 @@ const AlertLogs = () => {
       {list?.map((item: any) => {
         return (
           <div key={item.id} style={{ marginBottom: "10px" }}>
-            {formatDate(item.createdAt)}【{item.rule?.name}】- {item.content}
+            {formatDate(item.createdAt)}【{item.alert_rule?.name}】- {item.content}
           </div>
         );
       })}

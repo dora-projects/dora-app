@@ -17,7 +17,7 @@ const Issues = () => {
 
   const [pagination, setPagination] = useUrlState({
     page: 1,
-    pageSize: 10,
+    limit: 10,
   });
 
   const { data, run, loading } = useRequest(
@@ -25,7 +25,7 @@ const Issues = () => {
       getIssues({
         appKey: appKey!,
         page: pagination.page,
-        limit: pagination.pageSize,
+        limit: pagination.limit,
         release: value?.release,
         environment: value?.environment,
         from: value?.from!,
@@ -37,7 +37,7 @@ const Issues = () => {
   );
 
   const list = data?.data?.items;
-  const total = data?.data?.meta?.totalItems || 0;
+  const total = data?.data?.total || 0;
 
   let empty = null;
   if (!list || list?.length <= 0) {
@@ -81,11 +81,11 @@ const Issues = () => {
                 <Pagination
                   total={total}
                   current={pagination.page}
-                  pageSize={pagination.pageSize}
+                  pageSize={pagination.limit}
                   showSizeChanger
                   pageSizeOptions={["5", "10", "20"]}
                   onChange={(page, pageSize) => {
-                    setPagination({ ...pagination, page, pageSize: pageSize || 10 });
+                    setPagination({ ...pagination, page, limit: pageSize || 10 });
                   }}
                 />
               </div>

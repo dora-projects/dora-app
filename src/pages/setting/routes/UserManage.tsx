@@ -3,13 +3,18 @@ import { Button, Popconfirm, Table } from "antd";
 import ProCard from "@ant-design/pro-card";
 import { useRequest } from "ahooks";
 import { getUsers } from "@/services/user";
-import dayjs from "dayjs";
 import { formatDate, formNow } from "@/utils/date";
+import useUrlState from "@/common/useUrlState";
 
 const UserManage = () => {
   const { data } = useRequest(getUsers);
   const list = data?.data?.items || [];
-  console.log(data);
+  const total = data?.data?.total || 0;
+
+  const [pagination, setPagination] = useUrlState({
+    page: 1,
+    limit: 10,
+  });
 
   const columns = [
     {
@@ -57,7 +62,21 @@ const UserManage = () => {
 
   return (
     <ProCard title="系统用户" headerBordered>
-      <Table loading={false} rowKey={"id"} dataSource={list} columns={columns} />
+      <Table
+        loading={false}
+        rowKey={"id"}
+        dataSource={list}
+        columns={columns}
+        pagination={{
+          total: total,
+          current: pagination.page,
+          pageSize: pagination.limit,
+        }}
+        onChange={(p) => {
+          const { current, pageSize } = p;
+          setPagination({ ...pagination, page: current, limit: pageSize || 10 });
+        }}
+      />
     </ProCard>
   );
 };

@@ -45,7 +45,8 @@ const AlertsForm = (props: Props) => {
   // 表单恢复
   React.useEffect(() => {
     if (!props.editItem) return;
-    const { name, filter, silence, contacts, thresholdsTime, thresholdsOperator, thresholdsQuota } = props.editItem;
+    const { name, filter, silence, alert_contact, thresholdsTime, thresholdsOperator, thresholdsQuota } =
+      props.editItem;
 
     let timeUnit;
     let time;
@@ -58,7 +59,7 @@ const AlertsForm = (props: Props) => {
       timeUnit = "minute";
       time = thresholdsTime / 60;
     }
-    const userIds = contacts.map((contact: any) => contact.user.id);
+    const userIds = alert_contact.map((contact: any) => contact.userId);
 
     form.setFieldsValue({
       name,

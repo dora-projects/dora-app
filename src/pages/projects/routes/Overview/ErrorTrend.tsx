@@ -49,7 +49,7 @@ const ErrorTrend = () => {
         title: {
           show: false,
         },
-        color: ["#3b82fe", "#91cc75", "#fac858", "#ee6666", "#73c0de", "#3ba272", "#fc8452", "#9a60b4", "#ea7ccc"],
+        color: ["#ee6666", "#3b82fe", "#91cc75", "#fac858", "#73c0de", "#3ba272", "#fc8452", "#9a60b4", "#ea7ccc"],
         grid: {
           left: 40,
           right: 40,
@@ -75,6 +75,11 @@ const ErrorTrend = () => {
           {
             data: yAxisData,
             type: "line",
+            areaStyle: {},
+            emphasis: {
+              focus: "series",
+            },
+            stack: "Total",
           },
         ],
       }}

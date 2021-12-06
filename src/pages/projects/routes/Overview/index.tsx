@@ -25,18 +25,6 @@ const Overview = () => {
         bordered
       >
         <ProCard split="horizontal">
-          <ProCard split="horizontal">
-            <ProCard split="vertical">
-              <StatisticCard
-                statistic={{
-                  title: "访问量",
-                  value: 0,
-                  // description: <Statistic title="较昨天" value="8.04%" trend="up" />,
-                }}
-              />
-              <ErrorCount />
-            </ProCard>
-          </ProCard>
           <StatisticCard title="事件趋势" chart={<EventTrend />} />
           <StatisticCard title="错误趋势" chart={<ErrorTrend />} />
         </ProCard>

@@ -14,13 +14,18 @@ export const ReleaseItem = styled.div`
     flex-shrink: 0;
     border-right: 1px solid #ccc;
 
-    .tag {
+    .version {
+      display: block;
       font-size: 20px;
       font-weight: bold;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .time {
       > span {
+        display: inline-block;
         font-size: 12px;
       }
     }

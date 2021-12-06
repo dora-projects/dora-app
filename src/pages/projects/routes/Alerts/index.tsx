@@ -77,18 +77,18 @@ const Alerts = () => {
     },
     {
       title: "告警次数",
-      dataIndex: "logs",
+      dataIndex: "alert_log",
       render(t: any, row: any) {
         return t?.length || 0;
       },
     },
     {
       title: "联系人",
-      dataIndex: "contacts",
+      dataIndex: "alert_contact",
       render(contacts: any, row: any) {
         return (
           <Avatar.Group maxCount={contacts?.length} maxStyle={{ color: "#f56a00", backgroundColor: "#fde3cf" }}>
-            {contacts.map((contact: any) => {
+            {contacts?.map((contact: any) => {
               const { user } = contact || {};
               return (
                 <Tooltip key={contact.id} title={`${user?.username} (${user?.email})`} placement="top">

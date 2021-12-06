@@ -12,7 +12,7 @@ export interface Options {
 const parseConfig = {
   skipNull: false,
   skipEmptyString: false,
-  parseNumbers: false,
+  parseNumbers: true,
   parseBooleans: false,
 };
 
