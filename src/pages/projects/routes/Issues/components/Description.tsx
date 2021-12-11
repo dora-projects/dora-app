@@ -5,6 +5,10 @@ interface Props {
   ip: string;
   url: string;
   uaParsed: any;
+  sdk: {
+    name: string;
+    version: string;
+  };
 }
 
 const Description = (props: Props) => {
@@ -18,6 +22,9 @@ const Description = (props: Props) => {
         <Descriptions.Item label="engine">{`${engine?.name} ${engine?.version}`}</Descriptions.Item>
         <Descriptions.Item label="ip">{props.ip}</Descriptions.Item>
         <Descriptions.Item label="url">{props.url}</Descriptions.Item>
+        <Descriptions.Item label="sdk">
+          {props.sdk?.name} v{props.sdk?.version}
+        </Descriptions.Item>
       </Descriptions>
     </div>
   );

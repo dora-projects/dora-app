@@ -11,6 +11,7 @@ const CodeFrame = styled.div`
       font-size: 16px;
       font-weight: bold;
     }
+
     span:last-child {
       font-size: 16px;
     }
@@ -25,7 +26,15 @@ const CodeFrame = styled.div`
         padding: 0 10px;
         white-space: nowrap;
       }
+
       .s1 {
+      }
+
+      .s2 {
+      }
+
+      .s3 {
+        color: #a1a1a1;
       }
     }
   }
@@ -37,10 +46,10 @@ interface Props {
     type: string;
     stacktrace: {
       frames: {
-        colno: number;
-        filename: string;
-        function: string;
-        lineno: number;
+        url: string;
+        func: string;
+        line: number;
+        column: number;
       }[];
     };
   };
@@ -58,10 +67,12 @@ const Stacktrace = (props: Props) => {
         {stacktrace?.frames &&
           stacktrace?.frames.map((frame) => {
             return (
-              <div key={frame.colno} className="frame">
-                {/*<span className="s s1">{frame.colno}</span>*/}
-                <span className="s s2">{frame.function}</span>
-                <span className="s s3">({frame.filename})</span>
+              <div key={frame.column + frame.func} className="frame">
+                <span className="s s1">({frame.url})</span>
+                <span className="s s2">{frame.func}</span>
+                <span className="s s3">
+                  {frame.line}:{frame.column}
+                </span>
               </div>
             );
           })}

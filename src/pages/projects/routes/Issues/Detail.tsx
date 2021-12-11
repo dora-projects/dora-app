@@ -103,13 +103,18 @@ const Detail = () => {
               </Row>
             </PageHeader>
           </Col>
-          <Col span={12}>
-            <Description uaParsed={logContent?.uaParsed} ip={logContent?.ip} url={logContent?.request?.url} />
-            {logContent?.exception?.values?.map((item: any) => {
+          <Col span={14}>
+            <Description
+              uaParsed={logContent?.uaParsed}
+              ip={logContent?.ip}
+              url={logContent?.request?.url}
+              sdk={logContent?.sdk}
+            />
+            {logContent?.error?.values?.map((item: any) => {
               return <Stacktrace key={item.value} item={item} />;
             })}
           </Col>
-          <Col span={12}>
+          <Col span={10}>
             <Breadcrumbs breadcrumbs={logContent?.breadcrumbs} />
           </Col>
         </Row>
