@@ -16,10 +16,10 @@ const Body = styled.div`
 
 const MainLayout: React.FC = ({ children }) => {
   return (
-    <div>
+    <>
       <Header />
       <Body>{children}</Body>
-    </div>
+    </>
   );
 };
 

@@ -15,7 +15,7 @@ const ProjectCardList = (props: Props) => {
 
   return (
     <Row gutter={[24, 24]}>
-      {props.projects.map((project) => {
+      {props.projects && props.projects.map((project) => {
         return (
           <Col sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 8 }} key={project.id}>
             <ProjectItem
