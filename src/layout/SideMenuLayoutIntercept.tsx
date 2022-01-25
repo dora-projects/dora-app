@@ -10,15 +10,10 @@ const SideMenuLayoutIntercept = () => {
   const params = useParams();
   const appKey = params.appKey;
 
-  const { project, loading, errorMessage, fetchProject, clearProject } = useCurrentProjectInfo();
+  const { project, loading, errorMessage, fetchProject } = useCurrentProjectInfo();
   React.useEffect(() => {
     fetchProject(appKey!);
   }, [appKey, fetchProject]);
-
-  // 重置
-  React.useEffect(() => {
-    return () => clearProject();
-  }, [clearProject]);
 
   // 检查项目信息
   if (loading) return <FullLoading loading={true} title={"获取项目信息..."} />;

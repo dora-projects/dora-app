@@ -7,6 +7,7 @@ type ProjectStore = {
   errorMessage: string;
   loading: boolean;
   fetchProject: (appKey: string) => void;
+  setProject: (projectInfo: Project) => void;
   clearProject: () => void;
 };
 
@@ -21,10 +22,14 @@ export const useCurrentProjectInfo = create<ProjectStore>((set) => ({
       await sleep(220);
       const response = await getProject({ appKey });
       set({ project: response?.data, loading: false });
+      return response;
     } catch (e: any) {
       const errorMessage = e.response?.data?.error?.message || "未找到该项目";
       set({ project: null, errorMessage, loading: false });
     }
+  },
+  setProject: (project: Project) => {
+    set({ project: project, loading: false });
   },
   clearProject: () => {
     set({ project: null, loading: true, errorMessage: "" });

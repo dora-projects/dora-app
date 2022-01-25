@@ -1,10 +1,19 @@
 import React from "react";
 import { Menu } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AppstoreOutlined, AreaChartOutlined, SettingOutlined } from "@ant-design/icons";
+import {
+  AppstoreOutlined,
+  FileProtectOutlined,
+  FundProjectionScreenOutlined,
+  CaretDownOutlined,
+  SettingOutlined,
+  HomeFilled,
+} from "@ant-design/icons";
 import { HeaderStyle } from "./index.styled";
 import Logo from "@/assets/logo.png";
+import Home from "@/assets/home.svg";
 import GlobalHeaderRight from "@/components/RightContent";
+import { useCurrentProjectInfo } from "@/stores";
 
 const menus = [
   {
@@ -15,12 +24,12 @@ const menus = [
   {
     path: "/artifacts",
     name: " 制品",
-    icon: <AppstoreOutlined />,
+    icon: <FileProtectOutlined />,
   },
   {
     path: "/monitor",
     name: " 监控",
-    icon: <AppstoreOutlined />,
+    icon: <FundProjectionScreenOutlined />,
   },
   {
     path: "/setting",
@@ -34,25 +43,38 @@ const Header = () => {
   const location = useLocation();
   const { pathname } = location;
 
-  const menuActiveKeys = menus.map((i) => i.path).filter((p) => pathname.startsWith(p));
+  const { project } = useCurrentProjectInfo();
+
+  const [clickKeys, setClickKeys] = React.useState<string[]>([]);
+  const routerKeys = menus.map((i) => i.path).filter((p) => pathname.startsWith(p));
 
   return (
     <HeaderStyle>
       <div className="header-right-content">
         <div className="logo">
           <a href="/">
-            <img src={Logo} alt="" />
-            <h1>Dora</h1>
+            <img className="logo-img" src={Logo} alt="" />
+            <img className="home-img" src={Home} alt="" />
           </a>
+        </div>
+        <div
+          className="switch"
+          onClick={() => {
+            navigator("/projects");
+          }}
+        >
+          <span className="name">{project?.name}</span>
+          <CaretDownOutlined />
         </div>
       </div>
       <div className="header-center-content">
         <Menu
-          theme="dark"
+          theme="light"
           mode="horizontal"
-          selectedKeys={menuActiveKeys}
+          selectedKeys={clickKeys.length > 0 ? clickKeys : routerKeys}
           onClick={(menu) => {
             const { key } = menu;
+            setClickKeys([key]);
             navigator(key);
           }}
         >
@@ -65,6 +87,7 @@ const Header = () => {
           })}
         </Menu>
       </div>
+
       <div className="header-right-content">
         <GlobalHeaderRight />
       </div>

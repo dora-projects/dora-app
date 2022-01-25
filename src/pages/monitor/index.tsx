@@ -1,5 +1,6 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { useLocation } from "react-router";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 import HeaderLayout from "@/layout/HeaderLayout";
 import SideMenuLayoutIntercept from "@/layout/SideMenuLayoutIntercept";
@@ -12,8 +13,19 @@ import Releases from "./views/Releases";
 import Alerts from "./views/Alerts";
 
 import { NoMatch } from "@/components/NoMatch";
+import { useCurrentProjectInfo } from "@/stores";
 
 const Monitor = () => {
+  let navigate = useNavigate();
+  let location = useLocation();
+  const { project } = useCurrentProjectInfo();
+
+  React.useEffect(() => {
+    if (location.pathname === "/monitor" && project?.appKey) {
+      navigate(`/monitor/${project?.appKey}/overview`, { replace: true });
+    }
+  }, [location.pathname, navigate, project?.appKey]);
+
   return (
     <Routes>
       <Route element={<HeaderLayout />}>

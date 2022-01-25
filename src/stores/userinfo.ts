@@ -12,7 +12,7 @@ export type UserInfo = {
 type UserInfoStore = {
   userInfo: UserInfo | null;
   loading: boolean;
-  fetchUserInfo: () => void;
+  fetchUserInfo: () => Promise<void>;
   clearUserInfo: () => void;
 };
 

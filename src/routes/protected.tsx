@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 import { RouteObject } from "react-router";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useLoginUserStore } from "@/stores";
-import { useMyProjectListStore } from "@/stores";
-import { FullLoading } from "@/components/Loading";
+import { Navigate } from "react-router-dom";
 
 import CreateFPForm from "@/pages/createFirstProject";
 import Artifacts from "@/pages/artifacts";
@@ -12,37 +9,13 @@ import Setting from "@/pages/setting";
 import Invite from "@/pages/invite";
 import Projects from "@/pages/projects";
 
+import ProtectedGuard from "@/layout/ProtectedGuard";
 import { NoMatch } from "@/components/NoMatch";
-
-const ProtectedWrap = () => {
-  const location = useLocation();
-
-  const { loading: loadingUser, fetchUserInfo, userInfo } = useLoginUserStore();
-  const { loading: loadingProjects, fetchMyProjects, projects } = useMyProjectListStore();
-
-  useEffect(() => {
-    fetchUserInfo();
-    fetchMyProjects();
-  }, [fetchUserInfo, fetchMyProjects]);
-
-  // 检查用户信息
-  if (loadingUser) return <FullLoading loading={true} title={"获取用户信息..."} />;
-  if (!userInfo) {
-    return <Navigate to="/auth/login" />;
-  }
-
-  // 检查项目
-  if (!loadingProjects && (!projects || projects?.length === 0) && location.pathname !== "/create-first-project") {
-    return <Navigate to="/create-first-project" />;
-  }
-
-  return <Outlet />;
-};
 
 export const protectedRoutes: RouteObject[] = [
   {
     path: "/",
-    element: <ProtectedWrap />,
+    element: <ProtectedGuard />,
     children: [
       { index: true, element: <Navigate to={"/projects"} /> },
       { path: "create-first-project", element: <CreateFPForm /> },

@@ -4,7 +4,7 @@ import { getMyProjects } from "@/services/project";
 type ProjectListStore = {
   projects: Project[] | null;
   loading: boolean;
-  fetchMyProjects: () => Promise<void>;
+  fetchMyProjects: () => Promise<any>;
   clearProjects: () => void;
 };
 
@@ -16,6 +16,8 @@ export const useMyProjectListStore = create<ProjectListStore>((set) => ({
       set({ loading: true });
       const response = await getMyProjects();
       set({ projects: response?.data, loading: false });
+
+      return response;
     } catch (e) {
       set({ projects: null, loading: false });
     }
