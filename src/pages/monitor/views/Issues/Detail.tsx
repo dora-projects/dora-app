@@ -26,8 +26,9 @@ const Detail = () => {
         fingerprint,
         environment: filterValue.environment,
         release: filterValue.release,
-        from: filterValue.from,
-        to: filterValue.to,
+        type: "error",
+        // from: filterValue.from,
+        // to: filterValue.to,
         size: 999,
       }).then((r) => {});
     }
