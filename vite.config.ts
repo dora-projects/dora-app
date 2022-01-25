@@ -9,17 +9,19 @@ const paletteLess = fs.readFileSync("./src/style/theme.less", "utf8");
 const palette = lessToJs(paletteLess, { resolveVariables: true });
 console.log(palette);
 
-
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    port: 4000,
+  },
   build: {
-    outDir: "build"
+    outDir: "build",
   },
   resolve: {
     alias: [
       { find: /^~/, replacement: "" },
-      { find: "@", replacement: path.resolve(__dirname, "src") }
-    ]
+      { find: "@", replacement: path.resolve(__dirname, "src") },
+    ],
   },
   css: {
     preprocessorOptions: {
@@ -27,9 +29,9 @@ export default defineConfig({
         // 支持内联 JavaScript
         javascriptEnabled: true,
         // 重写 less 变量，定制样式
-        modifyVars: palette
-      }
-    }
+        modifyVars: palette,
+      },
+    },
   },
-  plugins: [react()]
+  plugins: [react()],
 });
