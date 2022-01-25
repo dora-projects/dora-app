@@ -1,6 +1,6 @@
 import React from "react";
 import { useLocation } from "react-router";
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 
 import HeaderLayout from "@/layout/HeaderLayout";
 import SideMenuLayoutIntercept from "@/layout/SideMenuLayoutIntercept";
@@ -16,18 +16,12 @@ import { NoMatch } from "@/components/NoMatch";
 import { useCurrentProjectInfo } from "@/stores";
 
 const Monitor = () => {
-  let navigate = useNavigate();
-  let location = useLocation();
   const { project } = useCurrentProjectInfo();
-
-  React.useEffect(() => {
-    if (location.pathname === "/monitor" && project?.appKey) {
-      navigate(`/monitor/${project?.appKey}/overview`, { replace: true });
-    }
-  }, [location.pathname, navigate, project?.appKey]);
+  if (!project?.appKey) return null;
 
   return (
     <Routes>
+      <Route index element={<Navigate to={`/monitor/${project?.appKey}/overview`} />} />
       <Route element={<HeaderLayout />}>
         <Route element={<SideMenuLayoutIntercept />}>
           <Route path=":appKey/overview" element={<Overview />} />

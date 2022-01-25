@@ -4,7 +4,6 @@ import { dateNowWithWeek } from "@/utils/date";
 import { useParams } from "react-router-dom";
 import FilterBar from "@/components/FilterBar";
 import AlertLogs from "./AlertLogs";
-import ErrorCount from "./ErrorCount";
 import ErrorTrend from "./ErrorTrend";
 import EventTrend from "./EventTrend";
 

@@ -8,6 +8,7 @@ import ConsoleSideMenuLayout from "@/components/ConsoleSideMenuLayout";
 
 const SideMenuLayoutIntercept = () => {
   const params = useParams();
+  console.log(params);
   const appKey = params.appKey;
 
   const { project, loading, errorMessage, fetchProject } = useCurrentProjectInfo();
@@ -16,8 +17,8 @@ const SideMenuLayoutIntercept = () => {
   }, [appKey, fetchProject]);
 
   // 检查项目信息
-  if (loading) return <FullLoading loading={true} title={"获取项目信息..."} />;
-  if (!project) return <GetProjectInfoFailed title={errorMessage} />;
+  // if (loading) return <FullLoading loading={true} title={"获取项目信息..."} />;
+  // if (!project) return <GetProjectInfoFailed title={errorMessage} />;
 
   return (
     <ConsoleSideMenuLayout>
