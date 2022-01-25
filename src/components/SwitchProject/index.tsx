@@ -3,11 +3,11 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import { Divider } from "antd";
 import { useNavigate } from "react-router-dom";
 import { SwitchBtn } from "./index.styled";
-import { useConsoleProjectInfo } from "@/stores/project";
+import { useCurrentProjectInfo } from "@/stores";
 
 const SwitchProject = () => {
   const navigate = useNavigate();
-  const { project } = useConsoleProjectInfo();
+  const { project } = useCurrentProjectInfo();
   return (
     <>
       <SwitchBtn

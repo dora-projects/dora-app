@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet, useParams } from "react-router-dom";
 import Footer from "@/components/Footer";
-import { useConsoleProjectInfo } from "@/stores/project";
+import { useCurrentProjectInfo } from "@/stores";
 import { FullLoading } from "@/components/Loading";
 import GetProjectInfoFailed from "@/components/GetProjectInfoFailed";
 import ConsoleSideMenuLayout from "@/components/ConsoleSideMenuLayout";
@@ -10,7 +10,7 @@ const SideMenuLayoutIntercept = () => {
   const params = useParams();
   const appKey = params.appKey;
 
-  const { project, loading, errorMessage, fetchProject, clearProject } = useConsoleProjectInfo();
+  const { project, loading, errorMessage, fetchProject, clearProject } = useCurrentProjectInfo();
   React.useEffect(() => {
     fetchProject(appKey!);
   }, [appKey, fetchProject]);

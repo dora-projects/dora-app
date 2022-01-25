@@ -2,7 +2,7 @@ import React from "react";
 import { Spin } from "antd";
 import FilterBar from "@/components/FilterBar";
 import { useParams } from "react-router-dom";
-import { useFilterStore } from "@/stores/filterBar";
+import { useFilterStore } from "@/stores";
 import { useRequest } from "ahooks";
 import { queryReleaseList } from "@/services/analysis";
 import List from "./List";

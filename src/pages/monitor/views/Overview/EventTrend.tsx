@@ -4,7 +4,7 @@ import { StatisticCard } from "@ant-design/pro-card";
 import EChartsForReact from "@/components/EChartsForReact";
 import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
-import { useFilterStore } from "@/stores/filterBar";
+import { useFilterStore } from "@/stores";
 import { queryTrend } from "@/services/analysis";
 
 export const getAxisData = (list: any[], key: string) => {

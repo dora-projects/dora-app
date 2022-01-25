@@ -1,6 +1,6 @@
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useNotificationStore } from "@/stores/notifications";
+import { useNotificationStore } from "@/stores";
 
 const iconList = {
   info: "😀",

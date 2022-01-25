@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { RouteObject } from "react-router";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
-import { useLoginUserStore } from "@/stores/user";
-import { useProjectsStore } from "@/stores/projects";
+import { useLoginUserStore } from "@/stores";
+import { useMyProjectListStore } from "@/stores";
 import { FullLoading } from "@/components/Loading";
 
 import CreateFPForm from "@/pages/createFirstProject";
@@ -18,7 +18,7 @@ const ProtectedWrap = () => {
   const location = useLocation();
 
   const { loading: loadingUser, fetchUserInfo, userInfo } = useLoginUserStore();
-  const { loading: loadingProjects, fetchMyProjects, projects } = useProjectsStore();
+  const { loading: loadingProjects, fetchMyProjects, projects } = useMyProjectListStore();
 
   useEffect(() => {
     fetchUserInfo();

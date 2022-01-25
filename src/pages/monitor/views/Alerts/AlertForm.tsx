@@ -6,7 +6,7 @@ import { useRequest } from "ahooks";
 import { createAlertRule, deleteAlertRule, updateAlertRule } from "@/services/alert";
 import UserSelect from "@/components/UserSelect";
 import { useParams } from "react-router-dom";
-import { useConsoleProjectInfo } from "@/stores/project";
+import { useCurrentProjectInfo } from "@/stores";
 
 const checkThreshold = (_: any, value: ThresholdValue) => {
   if (!value) {
@@ -35,7 +35,7 @@ interface Props {
 }
 
 const AlertsForm = (props: Props) => {
-  const projectId = useConsoleProjectInfo((state) => state.project?.id);
+  const projectId = useCurrentProjectInfo((state) => state.project?.id);
 
   const [form] = Form.useForm();
 

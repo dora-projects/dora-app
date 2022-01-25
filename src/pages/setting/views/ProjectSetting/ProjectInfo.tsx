@@ -4,8 +4,7 @@ import { Button, Form, Input, Popconfirm, Radio, Space } from "antd";
 import { useRequest } from "ahooks";
 import ProCard from "@ant-design/pro-card";
 import { deleteProject, getProject, updateProject } from "@/services/project";
-import { useNotificationStore } from "@/stores/notifications";
-import { useProjectsStore } from "@/stores/projects";
+import { useNotificationStore, useMyProjectListStore } from "@/stores";
 
 const layout = {
   labelCol: { span: 4 },
@@ -17,7 +16,7 @@ const ProjectSetting = () => {
   const params = useParams();
   const navigate = useNavigate();
   const notificationsStore = useNotificationStore();
-  const projectsStore = useProjectsStore();
+  const projectsStore = useMyProjectListStore();
 
   const { data: info } = useRequest(() => getProject({ appKey: params?.appKey }), {
     refreshDeps: [params?.appKey],

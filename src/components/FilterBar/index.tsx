@@ -1,19 +1,19 @@
 import React from "react";
 import moment from "moment";
 import { DatePicker, Form, Select } from "antd";
-import { useFilterStore } from "@/stores/filterBar";
+import { useFilterStore } from "@/stores";
 import { timeList } from "./common";
 import { Bar } from "./styled";
 import TagInput from "@/components/FilterBar/TagInput";
 import { useRequest } from "ahooks";
-import { useConsoleProjectInfo } from "@/stores/project";
+import { useCurrentProjectInfo } from "@/stores";
 import { queryFiledOptions } from "@/services/analysis";
 
 const { RangePicker } = DatePicker;
 
 const FilterBar = () => {
   const [form] = Form.useForm();
-  const appKey = useConsoleProjectInfo((s) => s.project?.appKey);
+  const appKey = useCurrentProjectInfo((s) => s.project?.appKey);
 
   const { value, setFilters } = useFilterStore();
 

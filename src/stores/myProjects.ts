@@ -1,21 +1,14 @@
 import create from "zustand";
 import { getMyProjects } from "@/services/project";
 
-export type Project = {
-  id: number;
-  name: string;
-  type: string;
-  detail: string;
-};
-
-type ProjectStore = {
+type ProjectListStore = {
   projects: Project[] | null;
   loading: boolean;
   fetchMyProjects: () => Promise<void>;
   clearProjects: () => void;
 };
 
-export const useProjectsStore = create<ProjectStore>((set) => ({
+export const useMyProjectListStore = create<ProjectListStore>((set) => ({
   projects: null,
   loading: true,
   fetchMyProjects: async () => {

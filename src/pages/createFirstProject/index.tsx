@@ -4,11 +4,11 @@ import { ProFormRadio, ProFormTextArea, ProFormText, LoginForm } from "@ant-desi
 import { useNavigate } from "react-router-dom";
 import { useRequest } from "ahooks";
 import { createProject } from "@/services/project";
-import { useProjectsStore } from "@/stores/projects";
+import { useMyProjectListStore } from "@/stores";
 
 export const CreateFPForm = () => {
   const navigate = useNavigate();
-  const { fetchMyProjects, projects } = useProjectsStore();
+  const { fetchMyProjects, projects } = useMyProjectListStore();
 
   React.useEffect(() => {
     if (projects && projects.length > 0) {

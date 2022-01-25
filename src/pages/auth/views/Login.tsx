@@ -5,7 +5,7 @@ import { LoginForm, ProFormCheckbox } from "@ant-design/pro-form";
 import Logo from "@/assets/logo.png";
 import { loginWithEmailAndPassword } from "@/services/auth";
 import storage from "@/utils/storage";
-import { useNotificationStore } from "@/stores/notifications";
+import { useNotificationStore } from "@/stores";
 import { useRequest } from "ahooks";
 import { AccountPassword, EmailCode } from "../components/LoginForm";
 

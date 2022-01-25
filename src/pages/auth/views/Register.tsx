@@ -3,7 +3,7 @@ import { Button } from "antd";
 import ProForm, { ProFormText, LoginForm } from "@ant-design/pro-form";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { useNotificationStore } from "@/stores/notifications";
+import { useNotificationStore } from "@/stores";
 import Logo from "@/assets/logo.png";
 import { useRequest } from "ahooks";
 import { registerUser } from "@/services/auth";

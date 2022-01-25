@@ -13,7 +13,7 @@ import Alerts from "./views/Alerts";
 
 import { NoMatch } from "@/components/NoMatch";
 
-const Invite = () => {
+const Monitor = () => {
   return (
     <Routes>
       <Route element={<HeaderLayout />}>
@@ -31,4 +31,4 @@ const Invite = () => {
   );
 };
 
-export default Invite;
+export default Monitor;

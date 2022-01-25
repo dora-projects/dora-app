@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useFilterStore } from "@/stores/filterBar";
+import { useFilterStore } from "@/stores";
 import { useRequest } from "ahooks";
 import { queryWebVitalsHistogram, queryWebVitalsPercentiles, queryWebVitalsRange } from "@/services/analysis";
 import { CLS_EVALUATE, FID_EVALUATE, FP_FCP_EVALUATE, LCP_EVALUATE, colourData } from "@/utils/chart";

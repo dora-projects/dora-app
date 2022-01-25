@@ -5,11 +5,11 @@ import { useRequest } from "ahooks";
 import { getAlertList, deleteAlertRule, toggleAlertRule } from "@/services/alert";
 import AlertForm from "./AlertForm";
 import { humanTime } from "@/utils/helper";
-import { useConsoleProjectInfo } from "@/stores/project";
+import { useCurrentProjectInfo } from "@/stores";
 
 const Alerts = () => {
   const [editItem, setEditItem] = React.useState(null);
-  const projectId = useConsoleProjectInfo((state) => state.project?.id);
+  const projectId = useCurrentProjectInfo((state) => state.project?.id);
 
   const {
     data,

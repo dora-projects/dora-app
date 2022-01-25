@@ -5,7 +5,7 @@ import { Popconfirm, message, Tag } from "antd";
 import { useRequest } from "ahooks";
 import { addProjectUsers, removeProjectUsers, getProjectUsers, getProject } from "@/services/project";
 import UserSelect from "@/components/UserSelect";
-import { useLoginUserStore } from "@/stores/user";
+import { useLoginUserStore } from "@/stores";
 import { useParams } from "react-router-dom";
 
 const ProjectMember = () => {

@@ -2,7 +2,7 @@ import { Avatar, Menu, Dropdown } from "antd";
 import { useNavigate } from "react-router-dom";
 import { LogoutOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
 import styles from "./index.module.less";
-import { useLoginUserStore } from "@/stores/user";
+import { useLoginUserStore } from "@/stores";
 import storage from "@/utils/storage";
 
 export const AvatarDropdown = () => {

@@ -1,13 +1,13 @@
 import React from "react";
 import { Table, Button, Space } from "antd";
-import { useProjectsStore } from "@/stores/projects";
+import { useMyProjectListStore } from "@/stores";
 import { useNavigate } from "react-router-dom";
 import ProCard from "@ant-design/pro-card";
 import { formatDate } from "@/utils/date";
 
 const ProjectList = () => {
   const navigate = useNavigate();
-  const { loading, projects } = useProjectsStore();
+  const { loading, projects } = useMyProjectListStore();
 
   const columns = [
     {

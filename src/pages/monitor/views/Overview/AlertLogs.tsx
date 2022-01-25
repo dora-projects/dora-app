@@ -1,13 +1,13 @@
 import React from "react";
 import { useRequest } from "ahooks";
 import { getAlertLogs } from "@/services/alert";
-import { useConsoleProjectInfo } from "@/stores/project";
+import { useCurrentProjectInfo } from "@/stores";
 import { formatDate } from "@/utils/date";
-import { useFilterStore } from "@/stores/filterBar";
+import { useFilterStore } from "@/stores";
 
 const AlertLogs = () => {
   const { value: filterValue } = useFilterStore();
-  const projectId = useConsoleProjectInfo((s) => s.project?.id);
+  const projectId = useCurrentProjectInfo((s) => s.project?.id);
 
   const { data: alertLogs, run } = useRequest((args) => getAlertLogs(args), {
     manual: true,

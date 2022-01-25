@@ -1,7 +1,7 @@
 import ProForm, { ProFormText } from "@ant-design/pro-form";
 import ProCard from "@ant-design/pro-card";
 import React from "react";
-import { useLoginUserStore } from "@/stores/user";
+import { useLoginUserStore } from "@/stores";
 import { useRequest } from "ahooks";
 import { updateUserInfo } from "@/services/user";
 

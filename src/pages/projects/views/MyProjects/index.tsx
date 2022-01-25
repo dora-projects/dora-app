@@ -4,11 +4,11 @@ import ProCard from "@ant-design/pro-card";
 import { Button, Empty } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import ProjectCardList from "./List";
-import { useProjectsStore } from "@/stores/projects";
+import { useMyProjectListStore } from "@/stores";
 
 const ProjectListPanel = () => {
   const navigate = useNavigate();
-  const { loading, projects, fetchMyProjects } = useProjectsStore();
+  const { loading, projects, fetchMyProjects } = useMyProjectListStore();
 
   React.useEffect(() => {
     fetchMyProjects().then((r) => {});

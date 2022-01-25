@@ -3,7 +3,7 @@ import { useRequest } from "ahooks";
 import { queryCount } from "@/services/analysis";
 import { StatisticCard } from "@ant-design/pro-card";
 import { useParams } from "react-router-dom";
-import { useFilterStore } from "@/stores/filterBar";
+import { useFilterStore } from "@/stores";
 
 const ErrorCount = () => {
   const params = useParams();

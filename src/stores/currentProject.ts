@@ -2,14 +2,6 @@ import create from "zustand";
 import { getProject } from "@/services/project";
 import { sleep } from "@/utils/helper";
 
-export type Project = {
-  id: number;
-  appKey: string;
-  name: string;
-  type: string;
-  detail: string;
-};
-
 type ProjectStore = {
   project: Project | null;
   errorMessage: string;
@@ -18,7 +10,7 @@ type ProjectStore = {
   clearProject: () => void;
 };
 
-export const useConsoleProjectInfo = create<ProjectStore>((set) => ({
+export const useCurrentProjectInfo = create<ProjectStore>((set) => ({
   project: null,
   loading: true,
   errorMessage: "",
