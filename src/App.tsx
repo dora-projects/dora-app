@@ -1,6 +1,6 @@
 import * as React from "react";
 import { BrowserRouter, useLocation } from "react-router-dom";
-import { ErrorBoundary } from "@/common/ErrorBoundary";
+import { ErrorBoundary } from "@/utils/ErrorBoundary";
 import { AppRoutes } from "@/routes";
 import { Notifications } from "@/components/Notifications";
 import { FullLoading } from "@/components/Loading";

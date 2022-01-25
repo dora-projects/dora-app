@@ -1,4 +1,4 @@
-import { axios } from "@/common/axios";
+import { axios } from "@/utils/axios";
 
 export const getQueueCount = () => {
   return axios.get("/manager/system/bull/counts");

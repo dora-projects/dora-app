@@ -1,4 +1,4 @@
-import { axios } from "@/common/axios";
+import { axios } from "@/utils/axios";
 
 export const getAlertList = (projectId: number) => {
   return axios.get("/manager/alert", { params: { projectId } });

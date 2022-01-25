@@ -1,5 +1,4 @@
 import create from "zustand";
-import { devtools } from "zustand/middleware";
 import { getMyProjects } from "@/services/project";
 
 export type Project = {
@@ -16,21 +15,19 @@ type ProjectStore = {
   clearProjects: () => void;
 };
 
-export const useProjectsStore = create<ProjectStore>(
-  devtools((set) => ({
-    projects: null,
-    loading: true,
-    fetchMyProjects: async () => {
-      try {
-        set({ loading: true });
-        const response = await getMyProjects();
-        set({ projects: response?.data, loading: false });
-      } catch (e) {
-        set({ projects: null, loading: false });
-      }
-    },
-    clearProjects: () => {
-      set({ projects: null, loading: true });
-    },
-  }))
-);
+export const useProjectsStore = create<ProjectStore>((set) => ({
+  projects: null,
+  loading: true,
+  fetchMyProjects: async () => {
+    try {
+      set({ loading: true });
+      const response = await getMyProjects();
+      set({ projects: response?.data, loading: false });
+    } catch (e) {
+      set({ projects: null, loading: false });
+    }
+  },
+  clearProjects: () => {
+    set({ projects: null, loading: true });
+  },
+}));

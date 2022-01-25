@@ -1,4 +1,4 @@
-import { axios } from "@/common/axios";
+import { axios } from "@/utils/axios";
 
 interface IssuesItem {
   id: number;

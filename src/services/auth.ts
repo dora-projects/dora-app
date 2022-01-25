@@ -1,4 +1,4 @@
-import { axios } from "@/common/axios";
+import { axios } from "@/utils/axios";
 
 export const getLoginUserInfo = () => {
   return axios.get("/manager/auth/me");

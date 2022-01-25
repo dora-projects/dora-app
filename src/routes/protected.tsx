@@ -4,7 +4,10 @@ import { Navigate, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useLoginUserStore } from "@/stores/user";
 import { useProjectsStore } from "@/stores/projects";
 import { FullLoading } from "@/components/Loading";
+
 import CreateFPForm from "@/pages/createFirstProject";
+import Artifacts from "@/pages/artifacts";
+import Monitor from "@/pages/monitor";
 import Setting from "@/pages/setting";
 import Invite from "@/pages/invite";
 import Projects from "@/pages/projects";
@@ -42,10 +45,12 @@ export const protectedRoutes: RouteObject[] = [
     element: <ProtectedWrap />,
     children: [
       { index: true, element: <Navigate to={"/projects"} /> },
-      { path: "projects/*", element: <Projects /> },
-      { path: "setting/*", element: <Setting /> },
       { path: "create-first-project", element: <CreateFPForm /> },
       { path: "invite/:token", element: <Invite /> },
+      { path: "projects/*", element: <Projects /> },
+      { path: "artifacts/*", element: <Artifacts /> },
+      { path: "monitor/*", element: <Monitor /> },
+      { path: "setting/*", element: <Setting /> },
       { path: "*", element: <NoMatch /> },
     ],
   },

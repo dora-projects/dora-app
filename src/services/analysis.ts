@@ -1,4 +1,4 @@
-import { axios } from "@/common/axios";
+import { axios } from "@/utils/axios";
 
 export const queryLogs = (params: RangeParams & CommonParams) => {
   return axios.get("/manager/analysis/logs", { params });

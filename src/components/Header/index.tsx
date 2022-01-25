@@ -13,6 +13,16 @@ const menus = [
     icon: <AppstoreOutlined />,
   },
   {
+    path: "/artifacts",
+    name: " 制品",
+    icon: <AppstoreOutlined />,
+  },
+  {
+    path: "/monitor",
+    name: " 监控",
+    icon: <AppstoreOutlined />,
+  },
+  {
     path: "/setting",
     name: " 设置",
     icon: <SettingOutlined />,

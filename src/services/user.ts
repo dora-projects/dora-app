@@ -1,4 +1,4 @@
-import { axios } from "@/common/axios";
+import { axios } from "@/utils/axios";
 
 export const updateUserInfo = (data: { id: number; username: string; email: string; password: string }) => {
   return axios.post("/manager/user/update", data);

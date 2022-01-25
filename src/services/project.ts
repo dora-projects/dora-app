@@ -1,4 +1,4 @@
-import { axios } from "@/common/axios";
+import { axios } from "@/utils/axios";
 
 export const createProject = (data: { name: string; detail: string; type: string }) => {
   return axios.put("/manager/project", data);
