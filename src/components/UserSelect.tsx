@@ -18,7 +18,7 @@ const UserSelect = (props: Props) => {
     run: searchUser,
     loading,
   } = useRequest((d: string) => searchUsers(d), {
-    throttleInterval: 300,
+    throttleWait: 300,
   });
 
   const userList = userRes?.data;

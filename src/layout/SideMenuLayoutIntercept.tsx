@@ -8,7 +8,6 @@ import ConsoleSideMenuLayout from "@/components/ConsoleSideMenuLayout";
 
 const SideMenuLayoutIntercept = () => {
   const params = useParams();
-  console.log(params);
   const appKey = params.appKey;
 
   const { project, loading, errorMessage, fetchProject } = useCurrentProjectInfo();

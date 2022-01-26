@@ -2,7 +2,7 @@ import React from "react";
 import { Spin } from "antd";
 import FilterBar from "@/components/FilterBar";
 import { useParams } from "react-router-dom";
-import { useFilterStore } from "@/stores";
+import { useUrlQueryStore } from "@/stores";
 import { useRequest } from "ahooks";
 import { queryReleaseList } from "@/services/analysis";
 import List from "./List";
@@ -10,7 +10,7 @@ import List from "./List";
 const Releases = () => {
   const params = useParams();
   const appKey = params.appKey;
-  const { value: filterValue } = useFilterStore();
+  const { filterVal } = useUrlQueryStore();
   const {
     data: trendData,
     run,
@@ -20,17 +20,17 @@ const Releases = () => {
   });
 
   React.useEffect(() => {
-    if (filterValue) {
+    if (filterVal) {
       run({
         appKey,
-        environment: filterValue.environment,
-        release: filterValue.release,
-        from: filterValue.from,
-        to: filterValue.to,
+        environment: filterVal.environment,
+        release: filterVal.release,
+        from: filterVal.from,
+        to: filterVal.to,
         size: 30,
-      }).then((r) => {});
+      });
     }
-  }, [run, filterValue, appKey]);
+  }, [run, filterVal, appKey]);
 
   const list = trendData?.data || [];
 

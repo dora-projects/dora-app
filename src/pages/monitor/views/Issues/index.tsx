@@ -6,33 +6,48 @@ import { IssuesList } from "./styled";
 import FilterBar from "@/components/FilterBar";
 import { formNow } from "@/utils/date";
 import { useParams, useNavigate } from "react-router-dom";
-import { useFilterStore } from "@/stores";
-import useUrlState from "@/utils/useUrlState";
+import useUrlState from "@ahooksjs/use-url-state";
+import moment from "moment";
 
 const Issues = () => {
   const navigate = useNavigate();
   const params = useParams();
   const appKey = params.appKey;
-  const { value } = useFilterStore();
 
-  const [pagination, setPagination] = useUrlState({
-    page: 1,
-    limit: 10,
-  });
+  const [filterVal, setFilters] = useUrlState(
+    {
+      release: "",
+      environment: "",
+      tag: "today",
+      from: moment().startOf("day").valueOf(),
+      to: moment().valueOf(),
 
-  const { data, run, loading } = useRequest(
+      page: 1,
+      limit: 10,
+    },
+    {
+      navigateMode: "replace",
+      parseOptions: { parseNumbers: true },
+    }
+  );
+
+  console.log(filterVal);
+
+  const { data, loading } = useRequest(
     () =>
       getIssues({
         appKey: appKey!,
-        page: pagination.page,
-        limit: pagination.limit,
-        release: value?.release,
-        environment: value?.environment,
-        from: value?.from!,
-        to: value?.to!,
+        page: filterVal.page,
+        limit: filterVal.limit,
+        release: filterVal?.release,
+        environment: filterVal?.environment,
+        from: filterVal?.from,
+        to: filterVal?.to,
       }),
     {
-      refreshDeps: [pagination, appKey, value],
+      ready: Boolean(filterVal?.from && filterVal?.to),
+      refreshDeps: [filterVal, appKey],
+      throttleWait: 100,
     }
   );
 
@@ -46,7 +61,12 @@ const Issues = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <FilterBar />
+      <FilterBar
+        value={filterVal}
+        onChange={(v) => {
+          setFilters({ ...v, limit: 10, page: 1 });
+        }}
+      />
       <Card style={{}}>
         <Spin spinning={loading}>
           {empty ? (
@@ -80,12 +100,12 @@ const Issues = () => {
               <div className="pagination">
                 <Pagination
                   total={total}
-                  current={pagination.page}
-                  pageSize={pagination.limit}
+                  current={filterVal.page}
+                  pageSize={filterVal.limit}
                   showSizeChanger
                   pageSizeOptions={["5", "10", "20"]}
                   onChange={(page, pageSize) => {
-                    setPagination({ ...pagination, page, limit: pageSize || 10 });
+                    setFilters({ ...filterVal, page, limit: pageSize || 10 });
                   }}
                 />
               </div>

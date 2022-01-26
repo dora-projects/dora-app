@@ -3,10 +3,10 @@ import { useRequest } from "ahooks";
 import { getAlertLogs } from "@/services/alert";
 import { useCurrentProjectInfo } from "@/stores";
 import { formatDate } from "@/utils/date";
-import { useFilterStore } from "@/stores";
+import { useUrlQueryStore } from "@/stores";
 
 const AlertLogs = () => {
-  const { value: filterValue } = useFilterStore();
+  const { filterVal } = useUrlQueryStore();
   const projectId = useCurrentProjectInfo((s) => s.project?.id);
 
   const { data: alertLogs, run } = useRequest((args) => getAlertLogs(args), {
@@ -16,10 +16,10 @@ const AlertLogs = () => {
   React.useEffect(() => {
     run({
       projectId,
-      from: filterValue?.from,
-      to: filterValue?.to,
-    }).then();
-  }, [run, projectId, filterValue?.from, filterValue?.to]);
+      from: filterVal?.from,
+      to: filterVal?.to,
+    });
+  }, [run, projectId, filterVal?.from, filterVal?.to]);
 
   const list = alertLogs?.data;
 

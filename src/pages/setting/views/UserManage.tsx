@@ -4,7 +4,7 @@ import ProCard from "@ant-design/pro-card";
 import { useRequest } from "ahooks";
 import { getUsers } from "@/services/user";
 import { formatDate, formNow } from "@/utils/date";
-import useUrlState from "@/utils/useUrlState";
+import useUrlState from "@ahooksjs/use-url-state";
 
 const UserManage = () => {
   const { data } = useRequest(getUsers);

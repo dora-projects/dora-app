@@ -13,9 +13,9 @@ interface ListPages<T> {
 }
 
 interface TrendRangeParams {
-  from: number;
-  to: number;
-  interval: string;
+  from?: number;
+  to?: number;
+  interval?: string;
 }
 
 interface RangeParams {
@@ -38,4 +38,12 @@ interface Project {
   type: string;
   name: string;
   detail: string;
+}
+
+interface UrlFilter {
+  tag?: string;
+  release?: string;
+  environment?: string;
+  from?: number;
+  to?: number;
 }

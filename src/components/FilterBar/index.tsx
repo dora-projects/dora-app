@@ -1,28 +1,32 @@
 import React from "react";
 import moment from "moment";
+import { useControllableValue, useRequest } from "ahooks";
 import { DatePicker, Form, Select } from "antd";
-import { useFilterStore } from "@/stores";
 import { timeList } from "./common";
 import { Bar } from "./styled";
-import TagInput from "@/components/FilterBar/TagInput";
-import { useRequest } from "ahooks";
 import { useCurrentProjectInfo } from "@/stores";
 import { queryFiledOptions } from "@/services/analysis";
+import TagInput from "@/components/FilterBar/TagInput";
 
 const { RangePicker } = DatePicker;
 
-const FilterBar = () => {
+interface Props {
+  value?: UrlFilter;
+  onChange?: (v: UrlFilter) => void;
+}
+
+const FilterBar = (props: Props) => {
   const [form] = Form.useForm();
   const appKey = useCurrentProjectInfo((s) => s.project?.appKey);
 
-  const { value, setFilters } = useFilterStore();
+  const [filterVal, setFilters] = useControllableValue(props);
 
   // 表单恢复
   React.useEffect(() => {
-    const { from, to, environment, release, tag } = value || {};
+    const { from, to, environment, release, tag } = filterVal || {};
     const range = from && to ? [moment(from), moment(to)] : null;
     form.setFieldsValue({ environment, release, range, tag });
-  }, [form, value]);
+  }, [form, filterVal]);
 
   const { data: releaseData } = useRequest(() =>
     queryFiledOptions({

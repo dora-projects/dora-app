@@ -1,30 +1,15 @@
-import create from "zustand";
-import moment from "moment";
+import { parse, stringify } from "query-string";
+import React from "react";
 
-export type Filter = {
-  tag: string;
-  release?: string;
-  environment?: string;
-  from: number;
-  to: number;
+export const useUrlQueryStore = () => {
+  const query = window.location.search;
+
+  // @ts-ignore
+  const parsed = React.useMemo<UrlFilter>(() => {
+    return parse(query, { parseNumbers: true });
+  }, [query]);
+
+  return {
+    filterVal: parsed,
+  };
 };
-
-type FilterStore = {
-  value: Filter | null;
-  setFilters: (val: Filter) => void;
-  clearFilters: () => void;
-};
-
-export const useFilterStore = create<FilterStore>((set) => ({
-  value: {
-    tag: "today",
-    from: moment().startOf("day").valueOf(),
-    to: moment().valueOf(),
-  },
-  setFilters: async (val) => {
-    set({ value: val });
-  },
-  clearFilters: () => {
-    set({ value: null });
-  },
-}));

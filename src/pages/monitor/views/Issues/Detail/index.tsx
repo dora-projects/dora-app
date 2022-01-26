@@ -2,7 +2,7 @@ import React from "react";
 import { useRequest } from "ahooks";
 import { Alert, Spin, Row, Col } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
-import { useFilterStore } from "@/stores";
+import { useUrlQueryStore } from "@/stores";
 import { queryLogs } from "@/services/analysis";
 
 import Stacktrace from "./Stacktrace";
@@ -14,25 +14,25 @@ const Detail = () => {
   const navigate = useNavigate();
   const params = useParams();
   const { appKey, fingerprint } = params;
-  const { value: filterValue } = useFilterStore();
+  const { filterVal } = useUrlQueryStore();
   const [curIndex, setShowIndex] = React.useState(0);
 
   const { run, data, loading } = useRequest(queryLogs, { manual: true });
 
   React.useEffect(() => {
-    if (filterValue) {
+    if (filterVal) {
       run({
         appKey,
         fingerprint,
-        environment: filterValue.environment,
-        release: filterValue.release,
+        environment: filterVal.environment,
+        release: filterVal.release,
         type: "error",
-        // from: filterValue.from,
-        // to: filterValue.to,
+        // from: filterVal.from,
+        // to: filterVal.to,
         size: 999,
-      }).then((r) => {});
+      });
     }
-  }, [run, filterValue, appKey, fingerprint]);
+  }, [run, filterVal, appKey, fingerprint]);
 
   const hits = data?.data?.hits;
   const total = hits?.length;

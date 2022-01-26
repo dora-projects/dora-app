@@ -39,8 +39,8 @@ const AlertsForm = (props: Props) => {
 
   const [form] = Form.useForm();
 
-  const { run: create } = useRequest(createAlertRule, { manual: true });
-  const { run: update } = useRequest(updateAlertRule, { manual: true });
+  const { runAsync: create } = useRequest(createAlertRule, { manual: true });
+  const { runAsync: update } = useRequest(updateAlertRule, { manual: true });
 
   // 表单恢复
   React.useEffect(() => {

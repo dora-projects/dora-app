@@ -4,7 +4,7 @@ import { StatisticCard } from "@ant-design/pro-card";
 import EChartsForReact from "@/components/EChartsForReact";
 import dayjs from "dayjs";
 import { useParams } from "react-router-dom";
-import { useFilterStore } from "@/stores";
+import { useUrlQueryStore } from "@/stores";
 import { queryTrend } from "@/services/analysis";
 
 export const getAxisData = (list: any[], key: string) => {
@@ -20,23 +20,23 @@ export const getTsAxisData = (list: any[], key: string) => {
 const ErrorTrend = () => {
   const params = useParams();
   const appKey = params.appKey;
-  const { value: filterValue } = useFilterStore();
+  const { filterVal } = useUrlQueryStore();
   const { data: trendData, run } = useRequest(queryTrend, {
     manual: true,
   });
 
   React.useEffect(() => {
-    if (filterValue) {
+    if (filterVal) {
       run({
         appKey,
-        environment: filterValue.environment,
-        release: filterValue.release,
-        from: filterValue.from,
-        to: filterValue.to,
+        environment: filterVal.environment,
+        release: filterVal.release,
+        from: filterVal.from,
+        to: filterVal.to,
         interval: "10m",
-      }).then((r) => {});
+      });
     }
-  }, [run, filterValue, appKey]);
+  }, [run, filterVal, appKey]);
 
   const buckets = trendData?.data;
   const xAxisData = getAxisData(buckets, "key_as_string");

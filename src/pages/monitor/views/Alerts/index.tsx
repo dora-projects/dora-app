@@ -19,10 +19,10 @@ const Alerts = () => {
     ready: !!projectId,
   });
 
-  const { run: deleteRule } = useRequest(deleteAlertRule, {
+  const { runAsync: deleteRule } = useRequest(deleteAlertRule, {
     manual: true,
   });
-  const { run: toggle, loading: toggleLoading } = useRequest(toggleAlertRule, {
+  const { runAsync: toggle, loading: toggleLoading } = useRequest(toggleAlertRule, {
     manual: true,
   });
 

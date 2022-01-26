@@ -11,11 +11,12 @@
     "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@ahooksjs/use-url-state": "^3.1.9",
     "@ant-design/pro-card": "^1.15.4",
     "@ant-design/pro-layout": "^6.25.7",
     "@ant-design/pro-list": "^1.17.1",
     "@tailwindcss/typography": "^0.4.1",
-    "ahooks": "^2.10.11",
+    "ahooks": "^3.1.9",
     "antd": "^4.16.13",
     "axios": "^0.21.4",
     "dayjs": "^1.10.7",

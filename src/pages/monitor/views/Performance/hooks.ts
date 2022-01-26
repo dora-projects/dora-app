@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { useFilterStore } from "@/stores";
+import { useUrlQueryStore } from "@/stores";
 import { useRequest } from "ahooks";
 import { queryWebVitalsHistogram, queryWebVitalsPercentiles, queryWebVitalsRange } from "@/services/analysis";
 import { CLS_EVALUATE, FID_EVALUATE, FP_FCP_EVALUATE, LCP_EVALUATE, colourData } from "@/utils/chart";
@@ -23,19 +23,19 @@ const getRatio = (buckets = []) => {
 export const useRange = () => {
   const params = useParams();
   const { appKey } = params;
-  const { value: filterValue } = useFilterStore();
+  const { filterVal } = useUrlQueryStore();
 
   const { data: rangData, loading } = useRequest(
     () =>
       queryWebVitalsRange({
         appKey,
-        environment: filterValue?.environment,
-        release: filterValue?.release,
-        from: filterValue?.from,
-        to: filterValue?.to,
+        environment: filterVal?.environment,
+        release: filterVal?.release,
+        from: filterVal?.from,
+        to: filterVal?.to,
       }),
     {
-      refreshDeps: [appKey, filterValue],
+      refreshDeps: [appKey, filterVal],
     }
   );
 
@@ -55,19 +55,19 @@ export const useRange = () => {
 export const useP75 = () => {
   const params = useParams();
   const { appKey } = params;
-  const { value: filterValue } = useFilterStore();
+  const { filterVal } = useUrlQueryStore();
 
   const { data: percentilesData, loading } = useRequest(
     () =>
       queryWebVitalsPercentiles({
         appKey,
-        environment: filterValue?.environment,
-        release: filterValue?.release,
-        from: filterValue?.from,
-        to: filterValue?.to,
+        environment: filterVal?.environment,
+        release: filterVal?.release,
+        from: filterVal?.from,
+        to: filterVal?.to,
       }),
     {
-      refreshDeps: [appKey, filterValue],
+      refreshDeps: [appKey, filterVal],
     }
   );
 
@@ -87,19 +87,19 @@ export const useP75 = () => {
 export const useHistogram = () => {
   const params = useParams();
   const { appKey } = params;
-  const { value: filterValue } = useFilterStore();
+  const { filterVal } = useUrlQueryStore();
 
   const { data: histogramData, loading } = useRequest(
     () =>
       queryWebVitalsHistogram({
         appKey,
-        environment: filterValue?.environment,
-        release: filterValue?.release,
-        from: filterValue?.from,
-        to: filterValue?.to,
+        environment: filterVal?.environment,
+        release: filterVal?.release,
+        from: filterVal?.from,
+        to: filterVal?.to,
       }),
     {
-      refreshDeps: [appKey, filterValue],
+      refreshDeps: [appKey, filterVal],
     }
   );
 
