@@ -26,7 +26,6 @@ const Description = (props: Props) => {
 
         <Descriptions.Item label="browser" span={2}>
           <div>{browser.name}</div>
-          <div>{browser.major}</div>
           <div>{browser.version}</div>
         </Descriptions.Item>
 
@@ -39,12 +38,13 @@ const Description = (props: Props) => {
           <div>{props.ip}</div>
         </Descriptions.Item>
 
-        <Descriptions.Item label="sdk">
-          <div>{props.sdk?.name}</div>
-          <div>{props.sdk?.version}</div>
+        <Descriptions.Item label="sdk" span={3}>
+          <div>
+            {props.sdk?.name} {props.sdk?.version}
+          </div>
         </Descriptions.Item>
 
-        <Descriptions.Item label="url" span={2}>
+        <Descriptions.Item label="url" span={3}>
           <div>{props.url}</div>
         </Descriptions.Item>
       </Descriptions>
