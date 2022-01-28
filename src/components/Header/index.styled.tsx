@@ -9,7 +9,7 @@ export const HeaderStyle = styled.div`
   right: 0;
   background: #fff;
   z-index: 1000;
-  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 6px 1px rgba(0, 0, 0, 0.06);
 
   display: flex;
   padding: 0 0 0 16px;

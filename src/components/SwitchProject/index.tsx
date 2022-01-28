@@ -3,11 +3,13 @@ import { CaretDownOutlined } from "@ant-design/icons";
 import { Divider } from "antd";
 import { useNavigate } from "react-router-dom";
 import { SwitchBtn } from "./index.styled";
-import { useCurrentProjectInfo } from "@/stores";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 const SwitchProject = () => {
   const navigate = useNavigate();
-  const { project } = useCurrentProjectInfo();
+  const project = useSelector((state: RootState) => state.userConfig?.project);
+
   return (
     <>
       <SwitchBtn

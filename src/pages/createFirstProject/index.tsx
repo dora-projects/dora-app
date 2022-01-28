@@ -4,24 +4,20 @@ import { ProFormRadio, ProFormTextArea, ProFormText, LoginForm } from "@ant-desi
 import { useNavigate } from "react-router-dom";
 import { useRequest } from "ahooks";
 import { createProject } from "@/services/project";
-import { useMyProjectListStore } from "@/stores";
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch, RootState } from "@/store";
 
 export const CreateFPForm = () => {
   const navigate = useNavigate();
-  const { fetchMyProjects, projects } = useMyProjectListStore();
-
-  React.useEffect(() => {
-    if (projects && projects.length > 0) {
-      navigate("/");
-    }
-  }, [navigate, projects]);
+  const dispatch = useDispatch<Dispatch>();
 
   const { run: runCreateProject, loading } = useRequest(createProject, {
     manual: true,
     onSuccess: async (res) => {
-      if (res.status === 200) {
+      if (res.status === 200 && res.data) {
         message.success("创建成功！");
-        fetchMyProjects();
+        await dispatch.userConfig.updateUserSetting(res.data.id);
+        navigate("/");
       }
     },
   });

@@ -10,11 +10,7 @@ const GetProjectInfoFailed = ({ title }: { title: string }) => {
     navigate("/projects", { replace: false });
   };
 
-  const [countdown, setTargetDate] = useCountDown({ onEnd: goBackPage });
-
-  React.useEffect(() => {
-    setTargetDate(Date.now() + 5000);
-  }, [setTargetDate]);
+  const [countdown] = useCountDown({ targetDate: Date.now() + 5000, onEnd: goBackPage });
 
   return (
     <Result

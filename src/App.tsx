@@ -1,21 +1,26 @@
 import * as React from "react";
-import { BrowserRouter, useLocation } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store";
+
 import { ErrorBoundary } from "@/utils/ErrorBoundary";
-import { AppRoutes } from "@/routes";
 import { Notifications } from "@/components/Notifications";
 import { FullLoading } from "@/components/Loading";
 import ErrorFallback from "@/components/ErrorFallback";
+import { AppRoutes } from "@/routes";
 
 const App = () => {
   return (
-    <React.Suspense fallback={<FullLoading loading />}>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Notifications />
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </ErrorBoundary>
-    </React.Suspense>
+    <Provider store={store}>
+      <React.Suspense fallback={<FullLoading loading />}>
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
+          <Notifications />
+          <BrowserRouter>
+            <AppRoutes />
+          </BrowserRouter>
+        </ErrorBoundary>
+      </React.Suspense>
+    </Provider>
   );
 };
 

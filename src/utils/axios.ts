@@ -1,13 +1,13 @@
 import Axios, { AxiosRequestConfig } from "axios";
 import { debounce } from "lodash-es";
+import { store } from "@/store";
 
 import { API_URL } from "@/config";
 import storage from "@/utils/storage";
-import { useNotificationStore } from "@/stores";
 
 const debounceAddNotification = debounce(
   (message) => {
-    useNotificationStore.getState().addNotification({
+    store.dispatch.notifications.add({
       type: "error",
       title: message,
     });

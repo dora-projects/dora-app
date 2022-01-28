@@ -1,35 +1,38 @@
 import React, { useEffect } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useCurrentProjectInfo, useLoginUserStore, useMyProjectListStore } from "@/stores";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, Dispatch } from "@/store";
 import { FullLoading } from "@/components/Loading";
 
-const ProtectedWrap = () => {
-  const location = useLocation();
-
-  const { loading: loadingUser, fetchUserInfo, userInfo } = useLoginUserStore();
-  const { loading: loadingProjects, fetchMyProjects, projects } = useMyProjectListStore();
-  const { setProject } = useCurrentProjectInfo();
+const ProtectedWrap: React.FC = (props) => {
+  const dispatch = useDispatch<Dispatch>();
 
   useEffect(() => {
-    fetchUserInfo().then();
-    fetchMyProjects().then((r) => {
-      // todo 改成接口
-      // 默认第一个
-      if (r?.data && r.data.length > 0) {
-        const item = r.data[0];
-        setProject(item);
-      }
-    });
-  }, [fetchUserInfo, fetchMyProjects, setProject]);
+    dispatch.userInfo.fetchUserInfo();
+    dispatch.userConfig.fetchUserSetting();
+  }, [dispatch]);
+
+  const { userReq, userInfo } = useSelector((state: RootState) => ({
+    userReq: state.loading.effects.userInfo.fetchUserInfo,
+    userInfo: state.userInfo,
+  }));
+
+  const { userConfigReq, userConfig } = useSelector((state: RootState) => ({
+    userConfigReq: state.loading.effects.userConfig.fetchUserSetting,
+    userConfig: state.userConfig,
+  }));
 
   // 检查用户信息
-  if (loadingUser) return <FullLoading loading={true} title={"获取用户信息..."} />;
-  if (!userInfo) {
+  if (userReq.error) {
     return <Navigate to="/auth/login" />;
   }
+  if (userReq.loading || !userInfo) return <FullLoading loading={true} title={"获取用户信息..."} />;
 
-  // 检查 创建第一个项目
-  if (!loadingProjects && (!projects || projects?.length === 0) && location.pathname !== "/create-first-project") {
+  // 检查设置
+  if (userConfigReq.error) {
+    return <div>{(userConfigReq.error as Error).name}</div>;
+  }
+  if (!userConfigReq.loading && !userConfig?.project && window.location.pathname !== "/create-first-project") {
     return <Navigate to="/create-first-project" />;
   }
 

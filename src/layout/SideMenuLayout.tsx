@@ -7,10 +7,10 @@ import {
   AlertOutlined,
   FileSyncOutlined,
 } from "@ant-design/icons";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import SwitchProject from "@/components/SwitchProject";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import Footer from "@/components/Footer";
 
-const SideMenuLayout: React.FC = ({ children }) => {
+const SideMenu: React.FC = ({ children }) => {
   const navigator = useNavigate();
   const location = useLocation();
   const { pathname } = location;
@@ -20,27 +20,27 @@ const SideMenuLayout: React.FC = ({ children }) => {
 
   const SubMenu = [
     {
-      path: `/monitor/${appKey}/overview`,
+      path: `/project/${appKey}/monitor/overview`,
       name: " 概览",
       icon: <PieChartOutlined />,
     },
     {
-      path: `/monitor/${appKey}/issues`,
+      path: `/project/${appKey}/monitor/issues`,
       name: " 错误异常",
       icon: <ProfileOutlined />,
     },
     {
-      path: `/monitor/${appKey}/performance`,
+      path: `/project/${appKey}/monitor/performance`,
       name: " 性能数据",
       icon: <DashboardOutlined />,
     },
     {
-      path: `/monitor/${appKey}/releases`,
+      path: `/project/${appKey}/monitor/releases`,
       name: " 版本",
       icon: <FileSyncOutlined />,
     },
     {
-      path: `/monitor/${appKey}/alerts`,
+      path: `/project/${appKey}/monitor/alerts`,
       name: " 告警",
       icon: <AlertOutlined />,
     },
@@ -58,7 +58,7 @@ const SideMenuLayout: React.FC = ({ children }) => {
       fixedHeader
       headerRender={false}
       menuHeaderRender={false}
-      menuExtraRender={({ collapsed }) => !collapsed && <SwitchProject />}
+      // menuExtraRender={({ collapsed }) => !collapsed && <SwitchProject />}
       disableContentMargin
       onMenuHeaderClick={() => {
         window.location.href = "/";
@@ -74,6 +74,15 @@ const SideMenuLayout: React.FC = ({ children }) => {
     >
       {children}
     </ProLayout>
+  );
+};
+
+const SideMenuLayout = () => {
+  return (
+    <SideMenu>
+      <Outlet />
+      <Footer />
+    </SideMenu>
   );
 };
 

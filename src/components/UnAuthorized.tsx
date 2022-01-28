@@ -10,11 +10,7 @@ const UnAuthorized = () => {
     navigate("/auth/login", { replace: false });
   };
 
-  const [countdown, setTargetDate] = useCountDown({ onEnd: goLoginPage });
-
-  React.useEffect(() => {
-    setTargetDate(Date.now() + 5000);
-  }, [setTargetDate]);
+  const [countdown] = useCountDown({ targetDate: Date.now() + 5000, onEnd: goLoginPage });
 
   return (
     <Result

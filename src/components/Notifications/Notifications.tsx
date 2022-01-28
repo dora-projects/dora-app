@@ -1,6 +1,7 @@
 import React from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useNotificationStore } from "@/stores";
+import { useSelector, useDispatch } from "react-redux";
+import { Dispatch, RootState } from "@/store";
 
 const iconList = {
   info: "😀",
@@ -10,11 +11,13 @@ const iconList = {
 };
 
 export const Notifications = () => {
-  const { notifications, dismissNotification } = useNotificationStore();
+  const dispatch = useDispatch<Dispatch>();
+  const notifications = useSelector((state: RootState) => state.notifications);
 
   React.useEffect(() => {
     notifications.forEach((item) => {
-      dismissNotification(item.id);
+      dispatch.notifications.dismiss(item.id!);
+
       switch (item.type) {
         case "success":
           toast.success(item.title as string);
@@ -26,7 +29,7 @@ export const Notifications = () => {
           toast(item.title as string, { icon: iconList[item.type] });
       }
     });
-  }, [dismissNotification, notifications]);
+  }, [dispatch, notifications]);
 
   return <Toaster position="top-center" />;
 };

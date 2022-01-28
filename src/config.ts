@@ -1,4 +1,5 @@
 console.log(import.meta.env);
+console.log(process.env.NODE_ENV);
 
 export const IS_PREVIEW_SITE = window.location.host === "dora.nancode.cn";
 

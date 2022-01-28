@@ -1,13 +1,15 @@
 import { Avatar, Menu, Dropdown } from "antd";
 import { useNavigate } from "react-router-dom";
-import { LogoutOutlined, SettingOutlined, UserOutlined } from "@ant-design/icons";
-import styles from "./index.module.less";
-import { useLoginUserStore } from "@/stores";
+import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import storage from "@/utils/storage";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+
+import styles from "./index.module.less";
 
 export const AvatarDropdown = () => {
   const navigate = useNavigate();
-  const { userInfo } = useLoginUserStore();
+  const userInfo = useSelector((state: RootState) => state.userInfo);
 
   const loginOut = () => {
     storage.clearToken();

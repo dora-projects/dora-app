@@ -4,9 +4,11 @@ import { useControllableValue, useRequest } from "ahooks";
 import { DatePicker, Form, Select } from "antd";
 import { timeList } from "./common";
 import { Bar } from "./styled";
-import { useCurrentProjectInfo } from "@/stores";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 import { queryFiledOptions } from "@/services/analysis";
 import TagInput from "@/components/FilterBar/TagInput";
+import { useParams } from "react-router";
 
 const { RangePicker } = DatePicker;
 
@@ -17,7 +19,8 @@ interface Props {
 
 const FilterBar = (props: Props) => {
   const [form] = Form.useForm();
-  const appKey = useCurrentProjectInfo((s) => s.project?.appKey);
+  const params = useParams();
+  const appKey = params?.appKey;
 
   const [filterVal, setFilters] = useControllableValue(props);
 
@@ -88,39 +91,42 @@ const FilterBar = (props: Props) => {
       }}
     >
       <Bar>
-        <Form.Item name="environment" noStyle>
-          <Select
-            allowClear
-            options={environmentOptions}
-            placeholder="环境"
-            style={{ width: "100px", marginRight: "20px" }}
-          />
-        </Form.Item>
+        <div>
+          <Form.Item name="environment" noStyle>
+            <Select
+              allowClear
+              options={environmentOptions}
+              placeholder="环境"
+              style={{ width: "150px", marginRight: "20px" }}
+            />
+          </Form.Item>
 
-        <Form.Item name="release" noStyle>
-          <Select
-            allowClear
-            options={releaseOptions}
-            placeholder="版本"
-            style={{ width: "100px", marginRight: "20px" }}
-          />
-        </Form.Item>
+          <Form.Item name="release" noStyle>
+            <Select
+              allowClear
+              options={releaseOptions}
+              placeholder="版本"
+              style={{ width: "200px", marginRight: "20px" }}
+            />
+          </Form.Item>
+        </div>
+        <div>
+          <Form.Item name="range" noStyle>
+            <RangePicker
+              allowClear={false}
+              showTime={{
+                hideDisabledOptions: true,
+                defaultValue: [moment("00:00:00", "HH:mm:ss"), moment("23:59:59", "HH:mm:ss")],
+              }}
+              disabledDate={(currentDate) => moment().add(1, "day").startOf("day").isBefore(currentDate)}
+              format="YYYY/MM/DD HH:mm:ss"
+            />
+          </Form.Item>
 
-        <Form.Item name="range" noStyle>
-          <RangePicker
-            allowClear={false}
-            showTime={{
-              hideDisabledOptions: true,
-              defaultValue: [moment("00:00:00", "HH:mm:ss"), moment("23:59:59", "HH:mm:ss")],
-            }}
-            disabledDate={(currentDate) => moment().add(1, "day").startOf("day").isBefore(currentDate)}
-            format="YYYY/MM/DD HH:mm:ss"
-          />
-        </Form.Item>
-
-        <Form.Item name="tag" noStyle>
-          <TagInput />
-        </Form.Item>
+          <Form.Item name="tag" noStyle>
+            <TagInput />
+          </Form.Item>
+        </div>
       </Bar>
     </Form>
   );

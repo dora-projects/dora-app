@@ -3,12 +3,17 @@ import styled, { css } from "styled-components";
 
 export const Bar = styled.div`
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 20px;
+  justify-content: space-between;
   background: #fff;
-  margin-bottom: 20px;
-  border-radius: 2px;
+  margin-bottom: 10px;
+
+  > div {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+    border-radius: 2px;
+  }
 `;
 
 export const TagGroup = styled.div`

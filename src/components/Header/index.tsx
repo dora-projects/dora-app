@@ -13,37 +13,38 @@ import { HeaderStyle } from "./index.styled";
 import Logo from "@/assets/logo.png";
 import Home from "@/assets/home.svg";
 import GlobalHeaderRight from "@/components/RightContent";
-import { useCurrentProjectInfo } from "@/stores";
-
-const menus = [
-  {
-    path: "/projects",
-    name: " 我的项目",
-    icon: <AppstoreOutlined />,
-  },
-  {
-    path: "/artifacts",
-    name: " 制品",
-    icon: <FileProtectOutlined />,
-  },
-  {
-    path: "/monitor",
-    name: " 监控",
-    icon: <FundProjectionScreenOutlined />,
-  },
-  {
-    path: "/setting",
-    name: " 设置",
-    icon: <SettingOutlined />,
-  },
-];
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 const Header = () => {
   const navigator = useNavigate();
   const location = useLocation();
   const { pathname } = location;
 
-  const { project } = useCurrentProjectInfo();
+  const project = useSelector((state: RootState) => state.userConfig?.project);
+
+  const menus = [
+    {
+      path: "/projects",
+      name: " 我的项目",
+      icon: <AppstoreOutlined />,
+    },
+    {
+      path: `/project/${project?.appKey}/artifacts`,
+      name: " 制品",
+      icon: <FileProtectOutlined />,
+    },
+    {
+      path: `/project/${project?.appKey}/monitor`,
+      name: " 监控",
+      icon: <FundProjectionScreenOutlined />,
+    },
+    {
+      path: "/setting",
+      name: " 设置",
+      icon: <SettingOutlined />,
+    },
+  ];
 
   const [clickKeys, setClickKeys] = React.useState<string[]>([]);
   const routerKeys = menus.map((i) => i.path).filter((p) => pathname.startsWith(p));
