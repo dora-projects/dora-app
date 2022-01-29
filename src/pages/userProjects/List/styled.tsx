@@ -1,9 +1,7 @@
 import styled from "styled-components";
 
 export const ProjectItem = styled.div`
-  height: 130px;
   position: relative;
-  padding: 10px 15px;
   border-radius: 4px;
 
   border: 1px solid #e3e3e3;
@@ -46,6 +44,7 @@ export const ProjectItem = styled.div`
     flex-direction: column;
 
     .head {
+      padding: 10px 15px;
       cursor: pointer;
 
       .label {

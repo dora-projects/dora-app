@@ -1,4 +1,5 @@
 import { toFixedNum } from "@/utils/helper";
+import dayjs from "dayjs";
 
 export enum FP_FCP_EVALUATE {
   Good = 1000,
@@ -31,6 +32,18 @@ export enum EVALUATE_COLOR {
 }
 
 export const colorsPlate = ["#38AA43", "#fac858", "#ee6666", "#73c0de", "#3ba272", "#fc8452", "#9a60b4", "#ea7ccc"];
+
+export const colorsPlateCommon = [
+  "#3b82fe",
+  "#91cc75",
+  "#fac858",
+  "#ee6666",
+  "#73c0de",
+  "#3ba272",
+  "#fc8452",
+  "#9a60b4",
+  "#ea7ccc",
+];
 
 export const colourData = (
   list: { key: number; doc_count: number }[],
@@ -67,4 +80,18 @@ export const labelFormatter = (value: number) => {
     return `${toFixedNum(value, 3)}ms`;
   }
   return `${toFixedNum(value / 1000, 3)}ms`;
+};
+
+export const getTsAxisData = (list: any[], key: string) => {
+  if (!Array.isArray(list)) return [];
+  return list.map((i) => dayjs(i[key]).format("YYYY-MM-DD HH:mm:ss"));
+};
+
+export const getTsAxisDataFormat = (list: any[], key: string, format: string) => {
+  if (!Array.isArray(list)) return [];
+  return list.map((i) => dayjs(i[key]).format(format));
+};
+
+export const last24hours = () => {
+  return [dayjs().subtract(24, "h").valueOf(), dayjs().valueOf()];
 };
