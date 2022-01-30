@@ -18,20 +18,16 @@ export const IssuesDetail = () => {
 
   const { run, data, loading } = useRequest(queryLogs, { manual: true });
 
-  // React.useEffect(() => {
-  //   if (filterVal) {
-  //     run({
-  //       appKey,
-  //       fingerprint,
-  //       environment: filterVal.environment,
-  //       release: filterVal.release,
-  //       type: "error",
-  //       // from: filterVal.from,
-  //       // to: filterVal.to,
-  //       size: 999,
-  //     });
-  //   }
-  // }, [run, filterVal, appKey, fingerprint]);
+  React.useEffect(() => {
+    run({
+      appKey,
+      fingerprint,
+      type: "error",
+      // from: filterVal.from,
+      // to: filterVal.to,
+      size: 999,
+    });
+  }, [appKey, fingerprint, run]);
 
   const hits = data?.data?.hits;
   const total = hits?.length;
@@ -79,7 +75,7 @@ export const IssuesDetail = () => {
               sdk={logContent?.sdk}
             />
             {logContent?.error?.values?.map((item: any) => {
-              return <Stacktrace key={item.value} item={item} />;
+              return <Stacktrace key={item.value + item.type} item={item} />;
             })}
           </Col>
           <Col span={10}>
