@@ -29,7 +29,7 @@ const ProjectCardList = (props: Props) => {
                   <div
                     className="head"
                     onClick={async () => {
-                      dispatch.userConfig.updateUserSetting(item.id);
+                      dispatch.userConfig.updateUserConfig(item.id);
                       navigate(`/project/${item.appKey}/monitor/overview`);
                     }}
                   >

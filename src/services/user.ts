@@ -8,11 +8,11 @@ export const searchUsers = (searchStr: string) => {
   return axios.get("/manager/search/users", { params: { searchStr } });
 };
 
-export const getUserSetting = () => {
+export const getUserConfig = () => {
   return axios.get("/manager/user/config");
 };
 
-export const updateUserSetting = (projectId: number) => {
+export const updateUserConfig = (projectId: number) => {
   return axios.post("/manager/user/config", { projectId: projectId });
 };
 

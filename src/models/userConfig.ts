@@ -1,7 +1,8 @@
 import { createModel } from "@rematch/core";
 import type { RootModel } from ".";
 
-import { getUserSetting, updateUserSetting } from "@/services/user";
+import { getUserConfig, updateUserConfig } from "@/services/user";
+import { sleep } from "@/utils/helper";
 
 type Config = {
   project: Project | null;
@@ -17,16 +18,17 @@ const userConfig = createModel<RootModel>()({
     },
   },
   effects: (dispatch) => ({
-    async fetchUserSetting() {
-      const response = await getUserSetting();
+    async fetchUserConfig() {
+      // await sleep(6 * 1000);
+      const response = await getUserConfig();
       if (response?.data) {
         dispatch.userConfig.setConfig(response?.data);
       }
     },
-    async updateUserSetting(projectId: number) {
-      const response = await updateUserSetting(projectId);
+    async updateUserConfig(projectId: number) {
+      const response = await updateUserConfig(projectId);
       if (response.data) {
-        await dispatch.userConfig.fetchUserSetting();
+        await dispatch.userConfig.fetchUserConfig();
       }
     },
   }),

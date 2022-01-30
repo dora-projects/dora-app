@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { NoMatch } from "@/components/NoMatch";
 
-import ProtectedGuard from "@/layout/ProtectedGuard";
+import AuthRequire from "@/layout/AuthRequire";
+import ConfigRequire from "@/layout/ConfigRequire";
 import HeaderLayout from "@/layout/HeaderLayout";
 import SideMenuLayout from "@/layout/SideMenuLayout";
 import ProjectsLayout from "@/layout/ProjectsLayout";
@@ -75,19 +76,30 @@ const Project = () => {
   );
 };
 
+const Protected = () => {
+  return (
+    <Routes>
+      <Route element={<AuthRequire />}>
+        <Route index element={<Navigate to={`/projects`} />} />
+        <Route path="create-first-project" element={<CreateFPForm />} />
+        <Route path="invite/:token" element={<Invite />} />
+        <Route element={<ConfigRequire />}>
+          <Route path="projects/*" element={<ProjectList />} />
+          <Route path="project/*" element={<Project />} />
+          <Route path="setting/*" element={<Setting />} />
+        </Route>
+        <Route path="*" element={<NoMatch />} />
+      </Route>
+    </Routes>
+  );
+};
+
 export const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/login" element={<Auth.Login />} />
-      <Route path="/register" element={<Auth.Register />} />
-      <Route path="/" element={<ProtectedGuard />}>
-        <Route path="create-first-project" element={<CreateFPForm />} />
-        <Route path="invite/:token" element={<Invite />} />
-        <Route path="projects/*" element={<ProjectList />} />
-        <Route path="project/*" element={<Project />} />
-        <Route path="setting/*" element={<Setting />} />
-        <Route path="*" element={<NoMatch />} />
-      </Route>
+      <Route path="/auth/login" element={<Auth.Login />} />
+      <Route path="/auth/register" element={<Auth.Register />} />
+      <Route path="/*" element={<Protected />} />
     </Routes>
   );
 };

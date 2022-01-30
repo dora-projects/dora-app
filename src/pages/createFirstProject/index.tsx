@@ -16,7 +16,7 @@ export const CreateFPForm = () => {
     onSuccess: async (res) => {
       if (res.status === 200 && res.data) {
         message.success("创建成功！");
-        await dispatch.userConfig.updateUserSetting(res.data.id);
+        await dispatch.userConfig.updateUserConfig(res.data.id);
         navigate("/");
       }
     },
