@@ -38,12 +38,7 @@ export const UserProjects = () => {
       loading={loading}
     >
       {projects && projects.length > 0 ? (
-        <CardList
-          projects={projects}
-          onClickSetting={(p) => {
-            navigate(`/setting/projects/${p.appKey}`);
-          }}
-        />
+        <CardList projects={projects} />
       ) : (
         <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
       )}

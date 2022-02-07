@@ -2,14 +2,20 @@ import styled from "styled-components";
 
 export const ProjectItem = styled.div`
   position: relative;
-  border-radius: 4px;
-
+  height: 220px;
   border: 1px solid #e3e3e3;
+  border-radius: 4px;
   box-shadow: none;
 
   &.active {
     border: 1px solid rgba(0, 82, 217, 0.24);
     box-shadow: 0 3px 6px 4px rgba(0, 82, 217, 0.2);
+
+    .head {
+      .name {
+        color: #0052d9;
+      }
+    }
 
     &:before {
       content: "";
@@ -44,19 +50,19 @@ export const ProjectItem = styled.div`
     flex-direction: column;
 
     .head {
-      padding: 10px 15px;
+      padding: 10px 15px 0;
       cursor: pointer;
 
       .label {
-        font-size: 12px;
+        font-size: 14px;
         color: #666;
       }
 
       .name {
         font-size: 16px;
-        color: #0052d9;
 
         &:hover {
+          color: #0052d9;
           text-decoration: underline;
         }
       }
@@ -71,6 +77,7 @@ export const ProjectItem = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-between;
+      border-top: 1px solid #f3f3f3;
 
       .stat {
         display: flex;
@@ -89,23 +96,14 @@ export const ProjectItem = styled.div`
         }
       }
     }
-
-    .foot {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      font-size: 12px;
-    }
   }
 
-  .setting-icon {
+  .top-right-icon {
     cursor: pointer;
     padding: 5px;
 
     z-index: 100;
     position: absolute;
-    right: 5px;
     top: 5px;
     color: #eaeaea;
     transition: all 0.3s ease;

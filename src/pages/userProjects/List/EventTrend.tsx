@@ -41,8 +41,8 @@ const EventTrend = (props: Props) => {
         grid: {
           left: 20,
           right: 20,
-          top: 0,
-          bottom: 40,
+          top: 10,
+          bottom: 25,
         },
         legend: {
           padding: 10,
@@ -59,11 +59,12 @@ const EventTrend = (props: Props) => {
             alignWithLabel: true,
           },
           axisLabel: {
-            rotate: -30,
+            fontSize: 10,
           },
         },
         yAxis: {
-          show: false,
+          type: "value",
+          axisLabel: false,
         },
         series: [
           {

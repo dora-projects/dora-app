@@ -1,11 +1,13 @@
 import React from "react";
-import { Tooltip, Empty } from "antd";
+import { Row, Col, Space, Button, Empty } from "antd";
 import { PageContainer } from "@ant-design/pro-layout";
 import { ArtifactItem } from "./styled";
-import { formNow } from "@/utils/date";
+import { useRequest } from "ahooks";
+import { Artifact, getArtifact } from "@/services/artifacts";
+import { useParams } from "react-router-dom";
 
-const List = () => {
-  const listData: any[] = [];
+const List = (props: { listData: Artifact[] }) => {
+  const listData = props.listData;
 
   if (!listData || listData?.length <= 0) {
     return (
@@ -16,38 +18,58 @@ const List = () => {
   }
 
   return (
-    <>
+    <Row gutter={20}>
       {listData?.map((item: any) => {
         return (
-          <ArtifactItem key={item.key}>
-            <div className="total">
-              <Tooltip placement="topLeft" title={item.key}>
-                <span className="version">{item.key}</span>
-              </Tooltip>
-              <div className="time">
-                <span className="latest">{formNow(item.latest?.value_as_string)} — </span>
-                <span className="earliest">{formNow(item.earliest?.value_as_string)}</span>
+          <Col span={6} key={item.id}>
+            <ArtifactItem>
+              <div className="info">
+                <div className="">
+                  <span className="label">版本：</span>
+                  <span className="value">{item.release}</span>
+                </div>
+                <div className="">
+                  <span className="label">上传时间：</span>
+                  <span className="value">{item.createdAt}</span>
+                </div>
+                <div className="">
+                  <span className="label">文件：</span>
+                  <span className="value">{item.path}</span>
+                </div>
               </div>
-            </div>
-            <div className="count">
-              <div className="category">
-                事件总数：<span>{item.countEvent?.value}</span>
+              <div>
+                <Space>
+                  <Button>下载</Button>
+                  {/*<Button>SCP</Button>*/}
+                  <Button>预览</Button>
+                </Space>
               </div>
-              <div className="category">
-                错误总数：<span>{item.countError?.count?.value}</span>
-              </div>
-            </div>
-          </ArtifactItem>
+            </ArtifactItem>
+          </Col>
         );
       })}
-    </>
+    </Row>
   );
 };
 
 export const Artifacts = () => {
+  const params = useParams();
+  const appKey = params.appKey;
+
+  const { data, run, loading } = useRequest(getArtifact, { manual: true });
+
+  React.useEffect(() => {
+    run({
+      appKey: appKey!,
+      limit: 100,
+    });
+  }, [run, appKey]);
+
+  const list = data?.data?.items || [];
+
   return (
-    <PageContainer title="制品管理">
-      <List />
+    <PageContainer title="制品管理" loading={loading}>
+      <List listData={list} />
     </PageContainer>
   );
 };
