@@ -36,8 +36,8 @@ export const Register = () => {
         title="Dora"
         subTitle="前端监控系统"
         onFinish={async (values) => {
-          const { username, email, password } = values || {};
-          await doRegisterUser({ username, email, password });
+          const { email, password } = values || {};
+          await doRegisterUser({ email, password });
         }}
         submitter={{
           render: (props) => {
@@ -66,17 +66,6 @@ export const Register = () => {
           },
         }}
       >
-        <ProFormText
-          name="username"
-          fieldProps={{
-            size: "large",
-            // https://stackoverflow.com/questions/15738259/disabling-chrome-autofill
-            autoComplete: "new-password",
-            prefix: <UserOutlined className={"prefixIcon"} />,
-          }}
-          placeholder={"用户名"}
-          rules={[{ required: true, message: "请输入用户名!" }]}
-        />
         <ProFormText
           name="email"
           fieldProps={{

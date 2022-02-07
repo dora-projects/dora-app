@@ -8,6 +8,6 @@ export const loginWithEmailAndPassword = (data: { email: string; password: strin
   return axios.post("/manager/auth/login", data);
 };
 
-export const registerUser = (data: { username: string; email: string; password: string }) => {
+export const registerUser = (data: { email: string; password: string }) => {
   return axios.post("/manager/auth/register", data);
 };
