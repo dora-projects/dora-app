@@ -31,3 +31,6 @@ yarn-error.log*
 demo.json
 
 tmp
+
+.dora.json
+.dora_tag.json
