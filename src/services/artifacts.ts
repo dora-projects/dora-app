@@ -15,3 +15,7 @@ export const getArtifact = (params: {
 }> => {
   return axios.get("/manager/artifacts", { params });
 };
+
+export const getArtifactPreview = (params: { artifactId: number }): Promise<any> => {
+  return axios.get("/manager/artifact/preview", { params });
+};
