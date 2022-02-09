@@ -24,11 +24,11 @@ const Header = () => {
   const project = useSelector((state: RootState) => state.userConfig?.project);
 
   const menus = [
-    {
-      path: "/projects",
-      name: " 我的项目",
-      icon: <AppstoreOutlined />,
-    },
+    // {
+    //   path: "/projects",
+    //   name: " 我的项目",
+    //   icon: <AppstoreOutlined />,
+    // },
     {
       path: `/project/${project?.appKey}/artifacts`,
       name: " 制品",
